@@ -28,6 +28,10 @@
 
 *,*::before,*::after{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--orange);outline-offset:2px;
+}
+.site-header a:focus-visible,.site-header button:focus-visible{outline-offset:-3px;}
 body{
   margin:0;
   font-family:var(--font-body);
@@ -299,6 +303,19 @@ p{margin:0 0 1em;}
 .badge-float span{font-size:.8rem;color:var(--gray-300);text-transform:uppercase;letter-spacing:.04em;}
 @media(max-width:640px){.badge-float{left:0;bottom:-18px;padding:14px 18px;}}
 
+.map-panel{
+  background:linear-gradient(160deg,rgba(226,87,43,.12),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);
+  padding:32px;text-align:center;
+}
+.map-panel img{max-width:320px;margin:0 auto;filter:drop-shadow(0 12px 28px rgba(0,0,0,.35));}
+.map-legend{
+  display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+  font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-300);
+}
+.map-legend .dot{width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+
 /* Stat strip */
 .stat-strip{background:var(--ink);color:#fff;padding:52px 0;}
 .stat-strip .grid{text-align:center;}
@@ -341,11 +358,20 @@ p{margin:0 0 1em;}
 .notice-dark b{color:var(--orange);}
 
 /* Logos strip */
-.client-strip{display:flex;flex-wrap:wrap;gap:14px;}
+.client-strip{display:flex;flex-wrap:wrap;gap:16px;}
 .client-chip{
+  display:inline-flex;align-items:center;gap:10px;
   background:var(--white);border:1px solid var(--gray-200);border-radius:999px;
-  padding:12px 24px;font-family:var(--font-head);font-size:.92rem;letter-spacing:.03em;
-  color:var(--gray-800);
+  padding:10px 24px 10px 14px;font-family:var(--font-head);font-size:.92rem;letter-spacing:.03em;
+  color:var(--gray-800);transition:border-color .2s ease,box-shadow .2s ease;
+}
+.client-chip:hover{border-color:var(--orange);box-shadow:var(--shadow-sm);}
+.client-chip::before{
+  content:attr(data-mark);flex-shrink:0;
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:700;
 }
 
 /* Tabs (fleet categories) */
