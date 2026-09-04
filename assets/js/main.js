@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       var name = form.querySelector('#name');
       var email = form.querySelector('#email');
-      var message = form.querySelector('#message');
+      var submitBtn = form.querySelector('button[type="submit"]');
       var valid = form.checkValidity();
 
       if (!valid) {
@@ -71,9 +71,29 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      status.textContent = 'Thank you, ' + name.value.split(' ')[0] + '. Your enquiry has been received. Our team will respond to ' + email.value + ' shortly.';
+      if (submitBtn) submitBtn.disabled = true;
+      status.textContent = 'Sending your enquiry...';
       status.className = 'ok';
-      form.reset();
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          status.textContent = 'Thank you, ' + name.value.split(' ')[0] + '. Your enquiry has been received. Our team will respond to ' + email.value + ' shortly.';
+          status.className = 'ok';
+          form.reset();
+        } else {
+          status.textContent = 'Sorry, something went wrong sending your enquiry. Please email us directly at info@octanetransport.com.';
+          status.className = 'err';
+        }
+      }).catch(function () {
+        status.textContent = 'Sorry, something went wrong sending your enquiry. Please email us directly at info@octanetransport.com.';
+        status.className = 'err';
+      }).finally(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      });
     });
   }
 
