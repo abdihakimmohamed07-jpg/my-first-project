@@ -117,6 +117,13 @@ p{margin:0 0 1em;}
 .btn-block{width:100%;}
 .btn-row{display:flex;flex-wrap:wrap;gap:16px;}
 
+@media(max-width:640px){
+  .btn{
+    white-space:normal;
+    max-width:100%;
+  }
+}
+
 /* ===== Header ===== */
 .site-header{
   position:sticky;top:0;z-index:1000;
@@ -303,6 +310,7 @@ p{margin:0 0 1em;}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
 @media(max-width:900px){.split{grid-template-columns:1fr;gap:40px;}}
 .split img{border-radius:var(--radius);box-shadow:var(--shadow-md);}
+.split > *{min-width:0;}
 .split-media{position:relative;}
 .badge-float{
   position:absolute;bottom:-24px;left:-24px;
