@@ -38,6 +38,7 @@ All company facts (services, industries, contact details, client list) are sourc
 
 ## Next steps
 
-- Connect the contact form (`contact.html`) to a real email backend (e.g. Formspree, Netlify Forms, or a custom endpoint) — it currently validates and confirms client-side only.
+- The contact form (`contact.html`) is already wired to a live Formspree endpoint (`https://formspree.io/f/mdeodwgv`) and submits via `fetch()` — no further backend work needed there.
 - Supply additional company documentation (registration, HSE certificates, fleet register) to replace the "available on request" placeholders.
 - Consider adding real photography of the actual fleet, premises and team once available.
+- The custom domain (`www.octanetransport.com`) referenced in canonical tags, `sitemap.xml`, `robots.txt` and structured data currently has an expired SSL certificate and no `CNAME` file in this repo — the live, working copy of the site is the GitHub Pages URL. Fixing the domain is a separate, deliberately deferred task.

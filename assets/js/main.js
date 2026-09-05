@@ -28,7 +28,19 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.nav-main > li').forEach(function (other) {
           if (other !== li) other.classList.remove('open');
         });
+        btn.setAttribute('aria-expanded', String(isOpen));
       }
+    });
+
+    // Keep aria-expanded truthful when the dropdown is revealed via
+    // hover or keyboard focus on wide (non-mobile-menu) viewports.
+    function open() { btn.setAttribute('aria-expanded', 'true'); }
+    function close() { if (!li.classList.contains('open')) btn.setAttribute('aria-expanded', 'false'); }
+    li.addEventListener('mouseenter', open);
+    li.addEventListener('mouseleave', close);
+    li.addEventListener('focusin', open);
+    li.addEventListener('focusout', function (e) {
+      if (!li.contains(e.relatedTarget)) close();
     });
   });
 

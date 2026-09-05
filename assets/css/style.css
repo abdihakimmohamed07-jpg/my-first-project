@@ -8,6 +8,8 @@
   --red-dark:#7a201c;
   --orange:#e2572b;
   --orange-dark:#c94620;
+  --orange-darker:#a53a1a;
+  --orange-text:#b0431f;
   --ink:#1c1e22;
   --gray-800:#33373d;
   --gray-600:#565b62;
@@ -32,6 +34,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   outline:3px solid var(--orange);outline-offset:2px;
 }
 .site-header a:focus-visible,.site-header button:focus-visible{outline-offset:-3px;}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:2000;
+  background:var(--orange);color:#fff;padding:12px 20px;
+  font-family:var(--font-head);text-transform:uppercase;letter-spacing:.05em;font-size:.85rem;
+  border-radius:0 0 var(--radius) 0;
+}
+.skip-link:focus{left:0;}
 body{
   margin:0;
   font-family:var(--font-body);
@@ -69,7 +79,7 @@ p{margin:0 0 1em;}
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--font-head);
-  color:var(--orange);
+  color:var(--orange-text);
   text-transform:uppercase;
   letter-spacing:.14em;
   font-size:.82rem;
@@ -96,8 +106,8 @@ p{margin:0 0 1em;}
   transition:all .2s ease;
   white-space:nowrap;
 }
-.btn-primary{background:var(--orange);border-color:var(--orange);color:var(--white);}
-.btn-primary:hover{background:var(--orange-dark);border-color:var(--orange-dark);}
+.btn-primary{background:var(--orange-dark);border-color:var(--orange-dark);color:var(--white);}
+.btn-primary:hover{background:var(--orange-darker);border-color:var(--orange-darker);}
 .btn-outline{background:transparent;border-color:rgba(255,255,255,.55);color:var(--white);}
 .btn-outline:hover{background:rgba(255,255,255,.12);border-color:var(--white);}
 .btn-dark{background:var(--dark);border-color:var(--dark);color:var(--white);}
@@ -160,7 +170,7 @@ p{margin:0 0 1em;}
   transition:all .15s ease;
   padding:8px 0;
 }
-.nav-main>li:hover>.dropdown,.nav-main>li.open>.dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+.nav-main>li:hover>.dropdown,.nav-main>li.open>.dropdown,.nav-main>li:focus-within>.dropdown{opacity:1;visibility:visible;transform:translateY(0);}
 .dropdown a{
   display:block;padding:11px 20px;color:var(--ink);font-size:.94rem;
   border-left:3px solid transparent;
