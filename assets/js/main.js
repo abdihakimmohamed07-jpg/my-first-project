@@ -114,11 +114,103 @@ document.addEventListener('DOMContentLoaded', function () {
     tabButtons.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var target = btn.getAttribute('data-tab');
-        document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.tab-btn').forEach(function (b) {
+          b.classList.remove('active');
+          if (b.hasAttribute('aria-selected')) b.setAttribute('aria-selected', 'false');
+        });
         document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
         btn.classList.add('active');
+        if (btn.hasAttribute('aria-selected')) btn.setAttribute('aria-selected', 'true');
         document.getElementById(target).classList.add('active');
       });
     });
   }
+
+  // Vendor & Compliance Documentation Request forms (New Customer / Existing Customer)
+  function isGroupChecked(groupName) {
+    var boxes = document.querySelectorAll('[data-group="' + groupName + '"]');
+    return Array.prototype.slice.call(boxes).some(function (b) { return b.checked; });
+  }
+
+  function attachGroupListeners(form) {
+    form.querySelectorAll('fieldset[data-min-checked]').forEach(function (fieldset) {
+      var groupName = fieldset.getAttribute('data-group-name');
+      var errorEl = form.querySelector('[data-error-for="' + groupName + '"]');
+      fieldset.querySelectorAll('[data-group="' + groupName + '"]').forEach(function (box) {
+        box.addEventListener('change', function () {
+          if (errorEl) errorEl.classList.toggle('show', !isGroupChecked(groupName));
+        });
+      });
+    });
+  }
+
+  function validateCheckboxGroups(form) {
+    var allValid = true;
+    form.querySelectorAll('fieldset[data-min-checked]').forEach(function (fieldset) {
+      var groupName = fieldset.getAttribute('data-group-name');
+      var satisfied = isGroupChecked(groupName);
+      var errorEl = form.querySelector('[data-error-for="' + groupName + '"]');
+      if (errorEl) errorEl.classList.toggle('show', !satisfied);
+      if (!satisfied) allValid = false;
+    });
+    return allValid;
+  }
+
+  function wireVendorDocForm(formId, statusId, successHtml) {
+    var form = document.getElementById(formId);
+    var status = document.getElementById(statusId);
+    if (!form || !status) return;
+
+    attachGroupListeners(form);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var nativeValid = form.checkValidity();
+      var groupsValid = validateCheckboxGroups(form);
+
+      if (!nativeValid || !groupsValid) {
+        status.innerHTML = 'Please complete all required fields, select at least one option where requested, and confirm the declaration.';
+        status.className = 'err';
+        if (!nativeValid) form.reportValidity();
+        else {
+          var firstError = form.querySelector('.field-error.show');
+          if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      status.innerHTML = 'Sending your documentation request...';
+      status.className = 'ok';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          status.innerHTML = successHtml;
+          status.className = 'ok';
+          form.reset();
+          form.querySelectorAll('.field-error.show').forEach(function (el) { el.classList.remove('show'); });
+        } else {
+          status.innerHTML = 'Sorry, something went wrong sending your request. Please email us directly at info@octanetransport.com.';
+          status.className = 'err';
+        }
+      }).catch(function () {
+        status.innerHTML = 'Sorry, something went wrong sending your request. Please email us directly at info@octanetransport.com.';
+        status.className = 'err';
+      }).finally(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      });
+    });
+  }
+
+  var vendorDocSuccessMessage =
+    '<p style="margin:0 0 10px;">Thank you. Your documentation request has been received. Our team will review the request and contact you using the details provided.</p>' +
+    '<p style="margin:0;">If your request relates to a tender, supplier registration or other deadline, please include the relevant reference and required-by date so we can prioritise the request.</p>';
+
+  wireVendorDocForm('new-customer-form', 'new-customer-status', vendorDocSuccessMessage);
+  wireVendorDocForm('existing-customer-form', 'existing-customer-status', vendorDocSuccessMessage);
 });
