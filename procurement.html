@@ -91,7 +91,7 @@
       <h1>Mining &amp; Corporate Procurement</h1>
       <p class="lead">What procurement and supply-chain teams need to know about engaging Octane Transport as a vendor for transportation, logistics and general supply.</p>
       <div class="btn-row">
-        <a href="contact.html" class="btn btn-primary">Request a Vendor Pack</a>
+        <a href="#vendor-documentation" class="btn btn-primary">Request Vendor Documentation</a>
         <a href="assets/docs/Octane-Transport-Company-Profile.pdf" class="btn btn-outline" target="_blank" rel="noopener">Download Company Profile (PDF)</a>
       </div>
     </div>
@@ -166,6 +166,245 @@
     </div>
   </section>
 
+  <section class="section" id="vendor-documentation">
+    <div class="container">
+      <div class="section-head center">
+        <div class="eyebrow">Vendor &amp; Compliance Documentation</div>
+        <h2>Vendor &amp; Compliance Documentation Request</h2>
+      </div>
+      <div class="vendor-doc-intro text-center">
+        <p>Octane Transport maintains current corporate, statutory, regulatory, insurance and HSE documentation to support customer due diligence, supplier registration and procurement requirements. Documentation is provided to authorised clients, procurement teams and prospective business partners upon request.</p>
+      </div>
+      <div class="notice" style="max-width:820px;margin:0 auto 40px;">
+        <b>Please note:</b> For the protection of Octane Transport and our clients, certain documents contain confidential or sensitive information and are released only after the request has been reviewed.
+      </div>
+
+      <div class="tab-nav" style="justify-content:center;" role="tablist" aria-label="Documentation request pathway">
+        <button class="tab-btn active" data-tab="tab-new-customer" type="button" role="tab" aria-selected="true" aria-controls="tab-new-customer" id="tab-btn-new">New Customer / Prospective Client</button>
+        <button class="tab-btn" data-tab="tab-existing-customer" type="button" role="tab" aria-selected="false" aria-controls="tab-existing-customer" id="tab-btn-existing">Existing Customer / Client Request</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-new-customer" role="tabpanel" aria-labelledby="tab-btn-new" style="max-width:760px;margin:0 auto;">
+        <h3>New Customer / Prospective Client</h3>
+        <p style="color:var(--gray-600);">For organisations considering Octane Transport as a transport, logistics or supply vendor.</p>
+
+        <form id="new-customer-form" action="https://formspree.io/f/mdeodwgv" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New Vendor Documentation Request Received &mdash; New Customer / Prospective Client">
+          <input type="hidden" name="Request Pathway" value="NEW CUSTOMER / PROSPECTIVE CLIENT">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nc-company">Company / Organisation Name *</label>
+              <input type="text" id="nc-company" name="Company / Organisation Name" required>
+            </div>
+            <div class="form-group">
+              <label for="nc-name">Full Name *</label>
+              <input type="text" id="nc-name" name="Full Name" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nc-position">Job Title / Position *</label>
+              <input type="text" id="nc-position" name="Job Title / Position" required>
+            </div>
+            <div class="form-group">
+              <label for="nc-email">Business Email Address *</label>
+              <input type="email" id="nc-email" name="Business Email Address" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nc-telephone">Telephone Number</label>
+              <input type="tel" id="nc-telephone" name="Telephone Number">
+            </div>
+            <div class="form-group">
+              <label for="nc-country">Country *</label>
+              <select id="nc-country" name="Country" required>
+                <option value="">Select your country</option>
+                <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Angola</option><option>Argentina</option><option>Australia</option><option>Austria</option><option>Bangladesh</option><option>Belgium</option><option>Botswana</option><option>Brazil</option><option>Burundi</option><option>Cameroon</option><option>Canada</option><option>Chile</option><option>China</option><option>Colombia</option><option>Comoros</option><option>Congo (DRC)</option><option>Congo (Republic)</option><option>Denmark</option><option>Egypt</option><option>Eswatini</option><option>Ethiopia</option><option>Finland</option><option>France</option><option>Gabon</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>India</option><option>Indonesia</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Kenya</option><option>Lesotho</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Mauritius</option><option>Mexico</option><option>Morocco</option><option>Mozambique</option><option>Namibia</option><option>Netherlands</option><option>New Zealand</option><option>Nigeria</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Qatar</option><option>Rwanda</option><option>Saudi Arabia</option><option>Singapore</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>Tanzania</option><option>Thailand</option><option>Turkey</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Zambia</option><option>Zimbabwe</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nc-purpose">Purpose of Request *</label>
+            <select id="nc-purpose" name="Purpose of Request" required>
+              <option value="">Select an option</option>
+              <option>Supplier/Vendor Registration</option>
+              <option>Procurement Due Diligence</option>
+              <option>Tender/RFQ</option>
+              <option>Contracting</option>
+              <option>Partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nc-purpose-other">If &ldquo;Other&rdquo;, please specify</label>
+            <input type="text" id="nc-purpose-other" name="Purpose of Request &mdash; Other (please specify)">
+          </div>
+
+          <fieldset class="form-group" data-min-checked="1" data-group-name="nc-services">
+            <legend>Services / Scope of Interest *</legend>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="Services / Scope of Interest" value="Transport &amp; Logistics" data-group="nc-services"> Transport &amp; Logistics</label>
+              <label class="checkbox-item"><input type="checkbox" name="Services / Scope of Interest" value="Bulk/General Haulage" data-group="nc-services"> Bulk/General Haulage</label>
+              <label class="checkbox-item"><input type="checkbox" name="Services / Scope of Interest" value="Mining Logistics" data-group="nc-services"> Mining Logistics</label>
+              <label class="checkbox-item"><input type="checkbox" name="Services / Scope of Interest" value="Construction Logistics" data-group="nc-services"> Construction Logistics</label>
+              <label class="checkbox-item"><input type="checkbox" name="Services / Scope of Interest" value="Supply/Materials" data-group="nc-services"> Supply/Materials</label>
+              <label class="checkbox-item"><input type="checkbox" name="Services / Scope of Interest" value="Other" data-group="nc-services"> Other</label>
+            </div>
+            <p class="field-error" data-error-for="nc-services">Please select at least one service or scope of interest.</p>
+          </fieldset>
+          <div class="form-group">
+            <label for="nc-services-other">If &ldquo;Other&rdquo;, please specify</label>
+            <input type="text" id="nc-services-other" name="Services / Scope of Interest &mdash; Other (please specify)">
+          </div>
+
+          <fieldset class="form-group" data-min-checked="1" data-group-name="nc-documents">
+            <legend>Documents Required *</legend>
+            <p class="field-hint">Select all documents relevant to your request, or the complete pack.</p>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Corporate &amp; Legal" data-group="nc-documents"> Corporate &amp; Legal</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Tax &amp; Statutory" data-group="nc-documents"> Tax &amp; Statutory</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Transport Licences" data-group="nc-documents"> Transport Licences</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Insurance" data-group="nc-documents"> Insurance</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="HSE" data-group="nc-documents"> HSE</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Fleet" data-group="nc-documents"> Fleet</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Projects &amp; Experience" data-group="nc-documents"> Projects &amp; Experience</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Client References" data-group="nc-documents"> Client References</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Complete Vendor Prequalification Pack" data-group="nc-documents"> Complete Vendor Prequalification Pack</label>
+            </div>
+            <p class="field-error" data-error-for="nc-documents">Please select at least one document type.</p>
+          </fieldset>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nc-tender-ref">Tender / RFQ / Supplier Registration Reference</label>
+              <input type="text" id="nc-tender-ref" name="Tender / RFQ / Supplier Registration Reference">
+            </div>
+            <div class="form-group">
+              <label for="nc-required-by">Required By Date</label>
+              <input type="date" id="nc-required-by" name="Required By Date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nc-message">Additional Information / Requirements</label>
+            <textarea id="nc-message" name="Additional Information / Requirements" rows="4" placeholder="Any further detail that will help us respond to your request..."></textarea>
+          </div>
+
+          <div class="consent-group">
+            <input type="checkbox" id="nc-consent" name="Declaration" value="I confirm that the information provided is accurate and that this request is being made for a legitimate business or procurement purpose." required>
+            <label for="nc-consent">I confirm that the information provided is accurate and that this request is being made for a legitimate business or procurement purpose. *</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Submit Documentation Request</button>
+          <div id="new-customer-status" role="status"></div>
+        </form>
+      </div>
+
+      <div class="tab-panel" id="tab-existing-customer" role="tabpanel" aria-labelledby="tab-btn-existing" style="max-width:760px;margin:0 auto;">
+        <h3>Existing Customer / Client Request</h3>
+        <p style="color:var(--gray-600);">For existing customers, suppliers or contracted clients who need updated documentation.</p>
+
+        <form id="existing-customer-form" action="https://formspree.io/f/mdeodwgv" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New Vendor Documentation Request Received &mdash; Existing Customer / Client Request">
+          <input type="hidden" name="Request Pathway" value="EXISTING CUSTOMER / CLIENT REQUEST">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ec-company">Company / Organisation Name *</label>
+              <input type="text" id="ec-company" name="Company / Organisation Name" required>
+            </div>
+            <div class="form-group">
+              <label for="ec-name">Full Name *</label>
+              <input type="text" id="ec-name" name="Full Name" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ec-position">Job Title / Position *</label>
+              <input type="text" id="ec-position" name="Job Title / Position" required>
+            </div>
+            <div class="form-group">
+              <label for="ec-email">Business Email Address *</label>
+              <input type="email" id="ec-email" name="Business Email Address" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ec-telephone">Telephone Number</label>
+              <input type="tel" id="ec-telephone" name="Telephone Number">
+            </div>
+            <div class="form-group">
+              <label for="ec-reference">Existing Client / Supplier / Contract Reference *</label>
+              <input type="text" id="ec-reference" name="Existing Client / Supplier / Contract Reference" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ec-request-type">Request Type *</label>
+            <select id="ec-request-type" name="Request Type" required>
+              <option value="">Select an option</option>
+              <option>Updated Compliance Documents</option>
+              <option>Annual Vendor Review</option>
+              <option>Contract Renewal</option>
+              <option>Tender/RFQ</option>
+              <option>Audit/Due Diligence</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ec-request-type-other">If &ldquo;Other&rdquo;, please specify</label>
+            <input type="text" id="ec-request-type-other" name="Request Type &mdash; Other (please specify)">
+          </div>
+
+          <fieldset class="form-group" data-min-checked="1" data-group-name="ec-documents">
+            <legend>Documents Required *</legend>
+            <p class="field-hint">Select all documents relevant to your request, or the complete pack.</p>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Corporate &amp; Legal" data-group="ec-documents"> Corporate &amp; Legal</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Tax &amp; Statutory" data-group="ec-documents"> Tax &amp; Statutory</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Transport Licences" data-group="ec-documents"> Transport Licences</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Insurance" data-group="ec-documents"> Insurance</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="HSE" data-group="ec-documents"> HSE</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Fleet" data-group="ec-documents"> Fleet</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Projects &amp; Experience" data-group="ec-documents"> Projects &amp; Experience</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Client References" data-group="ec-documents"> Client References</label>
+              <label class="checkbox-item"><input type="checkbox" name="Documents Required" value="Complete Vendor Prequalification Pack" data-group="ec-documents"> Complete Vendor Prequalification Pack</label>
+            </div>
+            <p class="field-error" data-error-for="ec-documents">Please select at least one document type.</p>
+          </fieldset>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ec-documents-for">Documents Required For</label>
+              <input type="text" id="ec-documents-for" name="Documents Required For" placeholder="e.g. 2026 supplier review">
+            </div>
+            <div class="form-group">
+              <label for="ec-required-by">Required By Date</label>
+              <input type="date" id="ec-required-by" name="Required By Date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ec-message">Additional Information / Requirements</label>
+            <textarea id="ec-message" name="Additional Information / Requirements" rows="4" placeholder="Any further detail that will help us respond to your request..."></textarea>
+          </div>
+
+          <div class="consent-group">
+            <input type="checkbox" id="ec-consent" name="Declaration" value="I confirm that the information provided is accurate and that I am authorised to request documentation on behalf of the organisation identified above." required>
+            <label for="ec-consent">I confirm that the information provided is accurate and that I am authorised to request documentation on behalf of the organisation identified above. *</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Submit Documentation Request</button>
+          <div id="existing-customer-status" role="status"></div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <div class="section-head center">
@@ -192,9 +431,9 @@
   <section class="cta-banner" style="background-image:url('assets/img/port-containers.webp')">
     <div class="container">
       <h2>Ready to Register Octane as a Vendor?</h2>
-      <p class="max-w" style="color:#f1e4e0;">Request a vendor information pack, our company profile, or a direct quote for your procurement requirement.</p>
+      <p class="max-w" style="color:#f1e4e0;">Request vendor and compliance documentation, our company profile, or a direct quote for your procurement requirement.</p>
       <div class="btn-row" style="justify-content:center;">
-        <a href="contact.html" class="btn btn-primary">Request a Vendor Pack</a>
+        <a href="#vendor-documentation" class="btn btn-primary">Request Vendor Documentation</a>
         <a href="tel:+260973821013" class="btn btn-outline">Call +260 973 821 013</a>
       </div>
     </div>
@@ -210,7 +449,7 @@
         <p>Octane Transport Limited is a privately owned Zambian company providing transportation, logistics, general supply and cargo-handling solutions across Zambia and the SADC region.</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h3>Company</h3>
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="why-choose-us.html">Why Choose Octane</a></li>
@@ -219,7 +458,7 @@
         </ul>
       </div>
       <div>
-        <h4>Solutions</h4>
+        <h3>Solutions</h3>
         <ul>
           <li><a href="services.html">Our Services</a></li>
           <li><a href="fleet.html">Fleet &amp; Equipment</a></li>
@@ -228,7 +467,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li>37 Kafironda Drive, Itawa,<br>Ndola, Zambia</li>
           <li><a href="tel:+260973821013">+260 973 821 013</a></li>
