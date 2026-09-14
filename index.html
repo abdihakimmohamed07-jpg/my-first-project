@@ -96,7 +96,8 @@
 
 <main id="main-content">
 
-  <section class="hero" style="background-image:url('assets/img/hero-truck-sunset.webp')">
+  <div class="hero-perspective">
+  <section class="hero hero-tilt" style="background-image:url('assets/img/hero-truck-sunset.webp')">
     <div class="container">
       <div class="hero-content">
         <div class="eyebrow">Ndola, Zambia &middot; Zambia &amp; SADC Region</div>
@@ -116,6 +117,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <section class="section">
     <div class="container split">
@@ -208,7 +210,19 @@
         <a href="contact.html" class="btn btn-primary" style="margin-top:12px;">Discuss Your Route &rarr;</a>
       </div>
       <div class="map-panel">
-        <img src="assets/img/transport-network-map.webp" alt="Octane Transport network coverage across Zambia and the SADC region" width="441" height="475" loading="lazy">
+        <div class="iso-coverage" role="img" aria-label="Illustrated map showing Octane Transport's Ndola headquarters at the centre of cargo routes reaching across Zambia and the SADC region">
+          <div class="iso-coverage-plane">
+            <div class="iso-route iso-route-a"></div>
+            <div class="iso-route iso-route-b"></div>
+            <div class="iso-route iso-route-c"></div>
+            <div class="iso-route iso-route-d"></div>
+            <div class="iso-node iso-node-a"></div>
+            <div class="iso-node iso-node-b"></div>
+            <div class="iso-node iso-node-c"></div>
+            <div class="iso-node iso-node-d"></div>
+            <div class="iso-node hq iso-node-hq"><span class="iso-node-label">Ndola HQ</span></div>
+          </div>
+        </div>
         <div class="map-legend"><span class="dot"></span>Zambia &amp; SADC coverage area</div>
       </div>
     </div>

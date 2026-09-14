@@ -238,6 +238,11 @@ p{margin:0 0 1em;}
 .hero-stats .stat b{display:block;font-family:var(--font-head);font-size:1.9rem;color:var(--orange);}
 .hero-stats .stat span{font-size:.85rem;color:var(--gray-300);text-transform:uppercase;letter-spacing:.05em;}
 
+/* Hero tilt — desktop pointer only (JS gates on hover:hover + pointer:fine); a no-op wrapper otherwise */
+.hero-perspective{perspective:1400px;background:var(--dark);}
+.hero-tilt{transition:transform .2s ease-out;will-change:transform;}
+@media(prefers-reduced-motion:reduce){.hero-tilt{transition:none;}}
+
 .page-hero{
   position:relative;color:var(--white);
   padding:150px 0 70px;
@@ -282,6 +287,45 @@ p{margin:0 0 1em;}
   -webkit-text-stroke:1.5px var(--orange);color:transparent;
   display:block;margin-bottom:6px;
 }
+
+/* Dimensional (flip) service cards — opt-in via .card-flip, scoped so plain .card usage elsewhere is untouched */
+.card.card-flip{padding:0;overflow:visible;perspective:1200px;}
+.card.card-flip:hover{transform:none;box-shadow:none;border-color:var(--gray-200);}
+.card-flip-inner{
+  position:relative;min-height:100%;
+  transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.card-flip.flipped .card-flip-inner{transform:rotateY(180deg);}
+@media(prefers-reduced-motion:reduce){.card-flip-inner{transition:none;}}
+.card-flip-face{
+  padding:32px 28px;
+  backface-visibility:hidden;
+}
+.card-flip-front{position:relative;}
+.card-flip-back{
+  position:absolute;inset:0;
+  transform:rotateY(180deg);
+  display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(160deg,var(--orange),var(--orange-darker));
+  border-radius:var(--radius);
+  color:#fff;
+}
+.card-flip-back .card-flip-kicker{
+  font-family:var(--font-head);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.85;margin-bottom:10px;
+}
+.card-flip-back p{color:#fff;font-weight:500;margin-bottom:20px;}
+.card-flip-btn{
+  all:unset;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-head);font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--orange-dark);margin-top:18px;
+}
+.card-flip-btn:hover{color:var(--orange-darker);}
+.card-flip-btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:3px;}
+.card-flip-back .card-flip-btn{color:#fff;margin-top:0;align-self:flex-start;}
+.card-flip-back .card-flip-btn:hover{opacity:.85;color:#fff;}
 
 .img-card{border-radius:var(--radius);overflow:hidden;position:relative;box-shadow:var(--shadow-sm);}
 .img-card img{width:100%;height:220px;object-fit:cover;transition:transform .35s ease;}
@@ -329,12 +373,58 @@ p{margin:0 0 1em;}
   border-radius:var(--radius);
   padding:32px;text-align:center;
 }
-.map-panel img{max-width:320px;margin:0 auto;filter:drop-shadow(0 12px 28px rgba(0,0,0,.35));}
 .map-legend{
   display:inline-flex;align-items:center;gap:8px;margin-top:20px;
   font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-300);
 }
 .map-legend .dot{width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+
+/* Isometric coverage diagram — replaces the flat map graphic with a dimensional one built entirely in CSS */
+.iso-coverage{perspective:900px;overflow-x:auto;padding:10px 0 6px;}
+.iso-coverage-plane{
+  position:relative;width:260px;height:200px;margin:0 auto;
+  transform-style:preserve-3d;
+  transform:rotateX(55deg) rotateZ(-42deg);
+  background-color:rgba(20,24,28,.35);
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:26px 26px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:2px;
+}
+.iso-route{
+  position:absolute;height:2.5px;top:100px;left:130px;
+  background:var(--orange);
+  transform-origin:0 50%;
+  box-shadow:0 0 8px rgba(226,87,43,.55);
+  opacity:.85;
+}
+.iso-route-a{width:114px;transform:rotate(-142.1deg);}
+.iso-route-b{width:108px;transform:rotate(-33.7deg);}
+.iso-route-c{width:122px;transform:rotate(145deg);}
+.iso-route-d{width:119px;transform:rotate(33deg);}
+.iso-node{position:absolute;width:14px;height:14px;transform-style:preserve-3d;}
+.iso-node::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:var(--orange);
+  transform:translateZ(30px) rotateZ(42deg) rotateX(-55deg);
+  box-shadow:0 0 0 4px rgba(226,87,43,.25);
+}
+.iso-node.hq::before{background:#fff;width:14px;height:14px;box-shadow:0 0 0 5px rgba(255,255,255,.28);}
+.iso-node-a{left:33px;top:23px;}
+.iso-node-b{left:213px;top:33px;}
+.iso-node-c{left:23px;top:163px;}
+.iso-node-d{left:223px;top:158px;}
+.iso-node-hq{left:123px;top:93px;}
+.iso-node-label{
+  position:absolute;left:20px;top:-26px;
+  transform:rotateZ(42deg) rotateX(-55deg) translateZ(30px);
+  transform-origin:0 0;
+  font-family:var(--font-head);font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;
+  color:#fff;white-space:nowrap;
+  background:rgba(20,24,28,.7);padding:2px 7px;border-radius:2px;
+}
 
 /* Stat strip */
 .stat-strip{background:var(--ink);color:#fff;padding:52px 0;}

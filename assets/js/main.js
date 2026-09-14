@@ -213,4 +213,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
   wireVendorDocForm('new-customer-form', 'new-customer-status', vendorDocSuccessMessage);
   wireVendorDocForm('existing-customer-form', 'existing-customer-status', vendorDocSuccessMessage);
+
+  // Homepage hero tilt — desktop pointer devices only, so touch and reduced-motion users get the plain flat hero
+  var heroStage = document.querySelector('.hero-perspective');
+  var heroTilt = document.querySelector('.hero-tilt');
+  if (heroStage && heroTilt &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroStage.addEventListener('pointermove', function (e) {
+      var r = heroStage.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      heroTilt.style.transform = 'scale(1.04) rotateY(' + (px * 6) + 'deg) rotateX(' + (py * -6) + 'deg)';
+    });
+    heroStage.addEventListener('pointerleave', function () {
+      heroTilt.style.transform = 'scale(1) rotateY(0deg) rotateX(0deg)';
+    });
+  }
+
+  // Dimensional service cards — click/tap/keyboard toggle, independent of hover
+  document.querySelectorAll('.card-flip').forEach(function (card) {
+    card.querySelectorAll('.card-flip-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        card.classList.toggle('flipped');
+      });
+    });
+  });
 });
