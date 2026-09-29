@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!document.querySelector('.wa-float')) {
     var waFloat = document.createElement('a');
     waFloat.className = 'wa-float';
-    waFloat.href = 'https://wa.me/260973821013?text=Hello%20Octane%20Transport%2C%20I%27d%20like%20to%20request%20a%20quote.';
+    waFloat.href = 'https://wa.me/260965732525?text=Hello%20Octane%20Transport%2C%20I%27d%20like%20to%20request%20a%20quote.';
     waFloat.target = '_blank';
     waFloat.rel = 'noopener';
     waFloat.setAttribute('aria-label', 'Chat with Octane Transport on WhatsApp');
