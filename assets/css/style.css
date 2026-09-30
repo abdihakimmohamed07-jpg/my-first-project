@@ -314,6 +314,21 @@ p{margin:0 0 1em;}
 .split img{border-radius:var(--radius);box-shadow:var(--shadow-md);}
 .split > *{min-width:0;}
 .split-media{position:relative;}
+
+/* fleet photo gallery */
+.fleet-gallery{max-width:900px;margin:72px auto 0;}
+.fleet-gallery h3{margin:0 0 24px;}
+.fleet-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.fleet-item{margin:0;}
+.fleet-item img{width:100%;height:auto;border-radius:var(--radius);box-shadow:var(--shadow-sm);}
+.fleet-item figcaption{margin-top:10px;font-size:.9rem;color:var(--gray-600);}
+.fleet-item--wide{grid-column:1 / -1;}
+.fleet-item--center{grid-column:1 / -1;justify-self:center;width:calc(50% - 12px);}
+@media(max-width:640px){
+  .fleet-gallery{margin-top:48px;}
+  .fleet-grid{grid-template-columns:1fr;gap:28px;}
+  .fleet-item--center{width:100%;}
+}
 .badge-float{
   position:absolute;bottom:-24px;left:-24px;
   background:var(--dark);color:#fff;padding:20px 26px;border-radius:var(--radius);
