@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var path = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-main a, .dropdown a').forEach(function (a) {
     var href = a.getAttribute('href');
+    if (href === '/') href = 'index.html';
     if (href === path) {
       a.closest('li').classList.add('active');
       var parentLi = a.closest('.dropdown') && a.closest('.dropdown').closest('li');
