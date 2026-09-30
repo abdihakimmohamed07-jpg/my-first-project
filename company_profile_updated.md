@@ -13,7 +13,8 @@ Ndola, Zambia — Serving Zambia and the SADC Region
 
 **Address:** 19 Kafironda Drive, Itawa, Ndola, Zambia
 **Email:** info@octanetransport.com · abdihakim.mohamed@octanetransport.com
-**Mobile:** +260 973 821 013
+**Calls:** +260 973 821 013  
+**WhatsApp:** +260 965 732 525
 **Web:** www.octanetransport.com
 
 ---
@@ -145,7 +146,7 @@ Octane Transport is a privately owned and privately managed company. Day-to-day 
 | Contact | Role | Details |
 |---|---|---|
 | **Abdihakim Mohamed** | Principal Corporate Contact | abdihakim.mohamed@octanetransport.com |
-| **General Enquiries** | Client Service Desk | info@octanetransport.com · +260 973 821 013 |
+| **General Enquiries** | Client Service Desk | info@octanetransport.com · +260 973 821 013 · WhatsApp +260 965 732 525 |
 
 ![Suggested Asset: Leadership & Organizational Structure Chart](./images/placeholder-org-chart.png)
 *A full leadership biography set and organizational chart are not published externally at this time and are available on request during formal partnership, vendor or investor due diligence.*
@@ -239,7 +240,8 @@ Octane Transport's stated strategic direction is to keep building operating capa
 | **Registered Office** | 19 Kafironda Drive, Itawa, Ndola, Zambia |
 | **General Enquiries** | info@octanetransport.com |
 | **Principal Contact** | abdihakim.mohamed@octanetransport.com |
-| **Mobile** | +260 973 821 013 |
+| **Calls** | +260 973 821 013 |
+| **WhatsApp** | +260 965 732 525 |
 | **Website** | www.octanetransport.com |
 
 ---
