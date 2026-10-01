@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-01 (PR #23).
+Last updated: 2026-10-01 (Mining industry card).
 
 ## The site
 
@@ -95,6 +95,12 @@ Last updated: 2026-10-01 (PR #23).
   table moved from page 6 to page 7); the design source file is not in the
   repo, so the page break must also be fixed there before re-exporting. The
   `.md` references two placeholder images that don't exist (pre-existing).
+- Mining industry card: second on home (`/`) and `/industries`. Home grid is
+  now `grid-3` (2×3); on /industries the "Your Sector Not Listed?" CTA spans
+  the full row under the six cards. Photo `assets/img/industry-mining.webp` is
+  "One truck again" by Phil Scoville (Flickr 3622997168, CC BY 2.0, cropped;
+  Kennecott mine, Utah — never name it on the site). CC BY requires the
+  visible `.photo-credit` line on every page that shows it — keep it.
 - Structured data (PR #21): home and contact pages describe one
   `LocalBusiness` with `@id https://www.octanetransport.com/#business`,
   `legalName`, `alternateName` ["Octane Transport", "Octane Transport
@@ -137,3 +143,4 @@ Last updated: 2026-10-01 (PR #23).
 | #21 | Structured data: LocalBusiness, legal/alternate names, shared `@id` |
 | #22 | This project memory file, `.claude/ghpages_server.py`, README corrections |
 | #23 | Deploy workflow: stop publishing `.claude/`; deploy only from `main` |
+| #24 | Mining industry card (home + /industries), licensed photo + credit, Copperbelt section wording |
