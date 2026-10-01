@@ -39,11 +39,12 @@ then open http://127.0.0.1:8766
 
 ## Content source
 
-All company facts (services, industries, contact details, client list) are sourced directly from Octane Transport's official company profile document. Sections where the profile did not provide information (formal mission/vision statements, certifications, fleet specifications, project case studies) are clearly marked as available on request rather than invented.
+All company facts (services, industries, contact details, client list) are sourced directly from Octane Transport's official company profile document. Where details are not published — certifications and compliance documents, the detailed fleet schedule, and project case studies — the website and profile state that they are available on request rather than inventing them.
 
 ## Next steps
 
 - The contact and procurement forms post to Web3Forms (`https://api.web3forms.com/submit`) via `fetch()` — no further backend work needed there.
-- Supply additional company documentation (registration, HSE certificates, fleet register) to replace the "available on request" placeholders.
+- Keep the "available on request" wording for the fleet schedule, registration, HSE and compliance documents: it is deliberate disclosure for supplier registration, procurement due diligence and tenders, not a placeholder. Publish specific details only once management approves them for external release.
+- The company profile PDF has no editable design source in this repository (it was exported from a layout that was never committed and has since been edited directly). Obtain or recreate the source before the next major revision; it must carry the current content, including the Mining row and its photo credit.
 - Fleet photos are on the fleet page; consider adding photography of premises and team once available.
 - The site is served by GitHub Pages at `https://www.octanetransport.com` (custom domain set in `CNAME`).
