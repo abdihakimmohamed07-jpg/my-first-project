@@ -39,7 +39,7 @@ then open http://127.0.0.1:8766
 
 ## Content source
 
-All company facts (services, industries, contact details, client list) are sourced directly from Octane Transport's official company profile document. Sections where the profile did not provide information (formal mission/vision statements, certifications, fleet specifications, project case studies) are clearly marked as available on request rather than invented.
+All company facts (services, industries, contact details, client list) are sourced directly from Octane Transport's official company profile document. Where details are not published — certifications and compliance documents, the detailed fleet schedule, and project case studies — the website and profile state that they are available on request rather than inventing them.
 
 ## Next steps
 
