@@ -93,8 +93,8 @@ Last updated: 2026-10-01 (profile text cleanup).
   (linked from home, contact, procurement). Contact lines show Calls +
   WhatsApp. The PDF was patched directly (PR #17: row 05 of the Core Services
   table moved from page 6 to page 7); the design source file is not in the
-  repo, so the page break must also be fixed there before re-exporting. The
-  `.md` references two placeholder images that don't exist (pre-existing).
+  repo, so the page break must also be fixed there before re-exporting. All
+  image references in the `.md` resolve (`images/` + `assets/img/`).
 - Mining industry card: second on home (`/`) and `/industries`. Home grid is
   now `grid-3` (2×3); on /industries the "Your Sector Not Listed?" CTA spans
   the full row under the six cards. Photo `assets/img/industry-mining.webp` is
@@ -113,7 +113,10 @@ Last updated: 2026-10-01 (profile text cleanup).
   rest of p. 4 moved up) and the 2.2 fleet note is the "available on request"
   wording (p. 7). Edited directly with `.claude/tools/profile_cleanup_text.py`
   (recurses into nested forms: p. 7 is built from forms by the PR #17 patch).
-  Still in the public `.md` only: two "Suggested Asset" placeholder images.
+  The two "Suggested Asset" placeholder images were removed from the `.md`.
+- `README.md` and `company_profile_updated.md` are publicly reachable at
+  `/README.md` and `/company_profile_updated.md` (raw markdown, not linked
+  from any page) — write them as if customers might read them.
 - Structured data (PR #21): home and contact pages describe one
   `LocalBusiness` with `@id https://www.octanetransport.com/#business`,
   `legalName`, `alternateName` ["Octane Transport", "Octane Transport
@@ -130,8 +133,10 @@ Last updated: 2026-10-01 (profile text cleanup).
 4. LinkedIn / Facebook pages → then add `sameAs` to the LocalBusiness JSON-LD
    (two-line change).
 5. Consistent listings in Zambian directories / chamber; links from clients.
-6. Fix the Core Services page break in the profile's design source file
-   (and add the Mining row + photo credit and the PR #25 text there too).
+6. **Profile design source is missing** (maintenance task, also in README):
+   obtain or recreate it before the next major revision, carrying the
+   Core Services page-break fix, the Mining row + photo credit and the
+   PR #25 wording. Until then, edit the PDF only with `.claude/tools/`.
 
 ## Testing notes
 
@@ -158,4 +163,4 @@ Last updated: 2026-10-01 (profile text cleanup).
 | #22 | This project memory file, `.claude/ghpages_server.py`, README corrections |
 | #23 | Deploy workflow: stop publishing `.claude/`; deploy only from `main` |
 | #24 | Mining industry card (home + /industries) and company profile PDF/MD, licensed photo + credit, Copperbelt section wording |
-| #25 | Profile cleanup: Corporate Identity intro, fleet-schedule note (PDF + MD); /industries intro lists Mining |
+| #25 | Profile cleanup: Corporate Identity intro, fleet-schedule note (PDF + MD), placeholder images removed from MD; /industries intro lists Mining; README to-do corrected |

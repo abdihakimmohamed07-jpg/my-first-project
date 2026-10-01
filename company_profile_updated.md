@@ -106,7 +106,6 @@ Enquiry & Scoping  →  Planning & Documentation  →  Transport & Tracking  →
 | **General Supply & Equipment Sourcing** | Sourcing and delivery of building and construction materials, mining and industrial equipment, PPE attire and consumables — backed by in-house civil works and engineering fabrication capability. | Managed through the General Supply service line, independent of the transport fleet. |
 | **Tracking & Logistics Technology** | Real-time cargo tracking infrastructure providing location visibility and early delay notification across every shipment. | Supported by the logistics team, which manages documentation and insurance compliance ahead of each movement. |
 
-![Suggested Asset: Fleet Composition & Capacity Schedule](./images/placeholder-fleet-schedule.png)
 *A detailed fleet schedule, including vehicle types and load capacities, is available on request to support supplier registration, procurement due diligence and tender requirements. Vehicle registration information is shared following a review of the request.*
 
 ### 2.3 Operational Footprint & Technology Integration
@@ -149,7 +148,6 @@ Octane Transport is a privately owned and privately managed company. Day-to-day 
 | **Abdihakim Mohamed** | Principal Corporate Contact | abdihakim.mohamed@octanetransport.com |
 | **General Enquiries** | Client Service Desk | info@octanetransport.com · +260 973 821 013 · WhatsApp +260 965 732 525 |
 
-![Suggested Asset: Leadership & Organizational Structure Chart](./images/placeholder-org-chart.png)
 *A full leadership biography set and organizational chart are not published externally at this time and are available on request during formal partnership, vendor or investor due diligence.*
 
 ### 3.2 Regulatory Compliance, Legal Framework & Documentation
