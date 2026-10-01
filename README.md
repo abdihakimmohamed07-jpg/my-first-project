@@ -4,7 +4,7 @@ A static, multi-page corporate website for **Octane Transport Limited**, a priva
 
 ## Structure
 
-Plain HTML/CSS/JS — no build step, no framework. Open `index.html` directly or serve the folder with any static file server.
+Plain HTML/CSS/JS — no build step, no framework. Internal links use extensionless URLs (`/fleet`, `/contact`), which GitHub Pages serves from `fleet.html`, `contact.html`. To preview locally, use a static server that supports clean URLs, e.g. `npx serve` — opening the files directly or using `python -m http.server` will break the links.
 
 ```
 index.html            Home

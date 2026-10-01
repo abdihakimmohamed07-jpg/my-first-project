@@ -44,11 +44,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  var path = window.location.pathname.split('/').pop() || 'index.html';
+  // Compare pages by name so /hse, /hse.html and hse.html all match ('' is the home page).
+  var pageName = function (p) { return p.split('#')[0].split('/').pop().replace(/\.html$/, '').replace(/^index$/, ''); };
+  var loc = window.location.pathname;
+  var path = (loc !== '/' && /\/$/.test(loc)) ? null : pageName(loc); // e.g. /hse/ is a 404, not the home page
   document.querySelectorAll('.nav-main a, .dropdown a').forEach(function (a) {
     var href = a.getAttribute('href');
-    if (href === '/') href = 'index.html';
-    if (href === path) {
+    if (href.indexOf('/') === 0 && pageName(href) === path) {
       a.closest('li').classList.add('active');
       var parentLi = a.closest('.dropdown') && a.closest('.dropdown').closest('li');
       if (parentLi) parentLi.classList.add('active');
