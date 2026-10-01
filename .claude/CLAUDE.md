@@ -1,14 +1,17 @@
 # Octane Transport website — project memory
 
-Context for Claude Code sessions. Lives in `.claude/` on purpose: GitHub Pages
-publishes root `.md` files (e.g. `/README.md` is public) but skips dot-folders,
-so this file is not served on the website. Keep secrets out of it anyway.
+Context for Claude Code sessions. The site is published by
+`.github/workflows/deploy-pages.yml`, which uploads the whole repo except `.git`,
+`.github` and `.claude` (removed by a workflow step), so this file is not served
+on the website. Everything else in the repo IS public (e.g. `/README.md`,
+`/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-01 (after PR #21).
+Last updated: 2026-10-01 (PR #23).
 
 ## The site
 
-- Static HTML/CSS/JS, no build step. Hosted on **GitHub Pages** from `main`,
+- Static HTML/CSS/JS, no build step, no Jekyll. Deployed to **GitHub Pages** by
+  the Actions workflow on every push to `main`,
   custom domain `www.octanetransport.com` (`CNAME`). The bare domain
   `octanetransport.com` redirects to `www`. HTTPS works.
 - Deploys ~10–30 s after a merge to `main`; GitHub's CDN caches pages for up
@@ -27,6 +30,7 @@ Last updated: 2026-10-01 (after PR #21).
   asks for a check.
 - After each merge: confirm the merge commit equals the tested commit, the
   branch is gone, and verify the **live site** (curl with a `?v=` cache-buster).
+  Also confirm `https://www.octanetransport.com/.claude/CLAUDE.md` is a 404.
 - Verify before claiming: run browser checks (console errors, layout, mobile
   390px and desktop 1366px) and include screenshots in the PR for visual
   changes. Screenshots go in a temporary commit that is removed in the next
@@ -131,3 +135,5 @@ Last updated: 2026-10-01 (after PR #21).
 | #19 | Homepage is `/` (links, canonical, sitemap, address-bar rewrite) |
 | #20 | Clean URLs site-wide (`/hse`, `/fleet`, …); 404 page asset paths |
 | #21 | Structured data: LocalBusiness, legal/alternate names, shared `@id` |
+| #22 | This project memory file, `.claude/ghpages_server.py`, README corrections |
+| #23 | Deploy workflow: stop publishing `.claude/`; deploy only from `main` |
