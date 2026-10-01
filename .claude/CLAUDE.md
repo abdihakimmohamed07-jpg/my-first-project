@@ -101,6 +101,13 @@ Last updated: 2026-10-01 (Mining industry card).
   "One truck again" by Phil Scoville (Flickr 3622997168, CC BY 2.0, cropped;
   Kennecott mine, Utah — never name it on the site). CC BY requires the
   visible `.photo-credit` line on every page that shows it — keep it.
+- Company profile PDF (same PR): Mining is row 2 of "Selected Industries
+  Served" (pp. 9–10; Plastics + Logistics moved to p. 10; still 15 pages),
+  with the same photo and a linked CC BY credit. No design source exists (the
+  PDF was printed from HTML that was never committed), so it was edited
+  directly with `.claude/tools/profile_add_mining_row.py`: original rows are
+  reused as region-filtered vector copies, only the Mining row is new. When
+  the profile is re-exported from a design source, add Mining + credit there.
 - Structured data (PR #21): home and contact pages describe one
   `LocalBusiness` with `@id https://www.octanetransport.com/#business`,
   `legalName`, `alternateName` ["Octane Transport", "Octane Transport
@@ -117,7 +124,8 @@ Last updated: 2026-10-01 (Mining industry card).
 4. LinkedIn / Facebook pages → then add `sameAs` to the LocalBusiness JSON-LD
    (two-line change).
 5. Consistent listings in Zambian directories / chamber; links from clients.
-6. Fix the Core Services page break in the profile's design source file.
+6. Fix the Core Services page break in the profile's design source file
+   (and add the Mining row + photo credit there too).
 
 ## Testing notes
 
@@ -143,4 +151,4 @@ Last updated: 2026-10-01 (Mining industry card).
 | #21 | Structured data: LocalBusiness, legal/alternate names, shared `@id` |
 | #22 | This project memory file, `.claude/ghpages_server.py`, README corrections |
 | #23 | Deploy workflow: stop publishing `.claude/`; deploy only from `main` |
-| #24 | Mining industry card (home + /industries), licensed photo + credit, Copperbelt section wording |
+| #24 | Mining industry card (home + /industries) and company profile PDF/MD, licensed photo + credit, Copperbelt section wording |
