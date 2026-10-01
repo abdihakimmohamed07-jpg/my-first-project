@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-01 (Mining industry card).
+Last updated: 2026-10-01 (profile text cleanup).
 
 ## The site
 
@@ -108,6 +108,12 @@ Last updated: 2026-10-01 (Mining industry card).
   directly with `.claude/tools/profile_add_mining_row.py`: original rows are
   reused as region-filtered vector copies, only the Mining row is new. When
   the profile is re-exported from a design source, add Mining + credit there.
+- Profile text cleanup (PR #25): 1.2 Corporate Identity intro is now
+  "Purpose, Direction & Values. …" (p. 3; old carry-over removed from p. 4,
+  rest of p. 4 moved up) and the 2.2 fleet note is the "available on request"
+  wording (p. 7). Edited directly with `.claude/tools/profile_cleanup_text.py`
+  (recurses into nested forms: p. 7 is built from forms by the PR #17 patch).
+  Still in the public `.md` only: two "Suggested Asset" placeholder images.
 - Structured data (PR #21): home and contact pages describe one
   `LocalBusiness` with `@id https://www.octanetransport.com/#business`,
   `legalName`, `alternateName` ["Octane Transport", "Octane Transport
@@ -125,7 +131,7 @@ Last updated: 2026-10-01 (Mining industry card).
    (two-line change).
 5. Consistent listings in Zambian directories / chamber; links from clients.
 6. Fix the Core Services page break in the profile's design source file
-   (and add the Mining row + photo credit there too).
+   (and add the Mining row + photo credit and the PR #25 text there too).
 
 ## Testing notes
 
@@ -152,3 +158,4 @@ Last updated: 2026-10-01 (Mining industry card).
 | #22 | This project memory file, `.claude/ghpages_server.py`, README corrections |
 | #23 | Deploy workflow: stop publishing `.claude/`; deploy only from `main` |
 | #24 | Mining industry card (home + /industries) and company profile PDF/MD, licensed photo + credit, Copperbelt section wording |
+| #25 | Profile cleanup: Corporate Identity intro, fleet-schedule note (PDF + MD); /industries intro lists Mining |

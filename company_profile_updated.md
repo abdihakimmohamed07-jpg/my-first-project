@@ -42,7 +42,7 @@ Operating from Zambia's principal mining and industrial corridor, the company is
 
 ### 1.2 Corporate Identity
 
-**Mission, Vision & Values.** Octane Transport's day-to-day operations are governed by a clear operational philosophy rather than by generic slogans. Formal mission and vision statements are in the process of being finalized by management; in their place, the company's published purpose, direction and values — set out below — describe how Octane Transport operates for its clients today.
+**Purpose, Direction & Values.** Octane Transport’s published purpose, direction and values describe its commitment to dependable transportation, logistics and supply services, compliance-minded operations and long-term client relationships.
 
 | Pillar | Statement |
 |---|---|
@@ -107,7 +107,7 @@ Enquiry & Scoping  →  Planning & Documentation  →  Transport & Tracking  →
 | **Tracking & Logistics Technology** | Real-time cargo tracking infrastructure providing location visibility and early delay notification across every shipment. | Supported by the logistics team, which manages documentation and insurance compliance ahead of each movement. |
 
 ![Suggested Asset: Fleet Composition & Capacity Schedule](./images/placeholder-fleet-schedule.png)
-*Detailed unit-level fleet schedule (vehicle types, load capacities, registration data) to be inserted once released for external distribution — available on request during procurement engagement.*
+*A detailed fleet schedule, including vehicle types and load capacities, is available on request to support supplier registration, procurement due diligence and tender requirements. Vehicle registration information is shared following a review of the request.*
 
 ### 2.3 Operational Footprint & Technology Integration
 
