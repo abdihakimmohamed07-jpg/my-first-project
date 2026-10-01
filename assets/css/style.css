@@ -292,6 +292,8 @@ p{margin:0 0 1em;}
   color:#fff;
 }
 .img-card .cap h3{color:#fff;margin:0;font-size:1.05rem;}
+.photo-credit{margin:18px 0 0;font-size:.78rem;color:var(--gray-600);}
+.photo-credit a{color:inherit;text-decoration:underline;}
 
 /* Feature list w/ check */
 .check-list li{

@@ -128,6 +128,7 @@ Octane Transport's operational footprint is anchored in Ndola, Copperbelt Provin
 | Industry | Engagement |
 |---|---|
 | ![Agribusiness](./images/industry-agribusiness.webp) **Agribusiness** | Road transportation and cargo services for farm equipment, produce and agricultural supplies, connecting wholesalers and growers with their markets on time. |
+| ![Open-pit mine with mining equipment and a haul truck](./assets/img/industry-mining.webp) **Mining** | Transport and supply support for the mining sector, including the movement of machinery, equipment, spare parts and general supplies. Contact us to discuss your load, route and delivery requirements. Current fleet and compliance documentation is available on request.<br><sub>*Photo: [“One truck again”](https://www.flickr.com/photos/97803271@N00/3622997168) by Phil Scoville, licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). Cropped. Illustrative only.*</sub> |
 | ![Engineering](./images/industry-engineering.webp) **Engineering** | Cargo transportation, civil works, engineering fabrication and general supply for engineering-sector clients and construction sites. |
 | ![Food & Beverage](./images/industry-food-beverage.webp) **Food & Beverage** | Reliable, trackable cargo transportation that keeps production and distribution schedules on time. |
 | ![Plastics & Packaging](./images/industry-plastics-packaging.webp) **Plastics & Packaging** | Cargo transportation and general supply support for materials and finished-goods movement. |
