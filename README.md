@@ -21,16 +21,21 @@ contact.html              Contact
 assets/
   css/style.css          Shared design system & styles
   js/main.js              Nav, form handling, small UX behaviours
-  img/                     Photography sourced from the official company profile
-  docs/                    Downloadable company profile PDF
+  img/                     Photography (fleet photos in img/fleet/)
+
+company_profile_updated.pdf / .md   Downloadable company profile
 ```
 
 ## Local preview
 
 ```
-python3 -m http.server 8080
+npx serve
 ```
-Then open http://localhost:8080
+(it prints the local URL), or, to mimic GitHub Pages exactly (clean URLs, 404 handling):
+```
+python3 .claude/ghpages_server.py . 8766
+```
+then open http://127.0.0.1:8766
 
 ## Content source
 
@@ -38,7 +43,7 @@ All company facts (services, industries, contact details, client list) are sourc
 
 ## Next steps
 
-- The contact form (`contact.html`) is already wired to a live Formspree endpoint (`https://formspree.io/f/mdeodwgv`) and submits via `fetch()` — no further backend work needed there.
+- The contact and procurement forms post to Web3Forms (`https://api.web3forms.com/submit`) via `fetch()` — no further backend work needed there.
 - Supply additional company documentation (registration, HSE certificates, fleet register) to replace the "available on request" placeholders.
-- Consider adding real photography of the actual fleet, premises and team once available.
-- The custom domain (`www.octanetransport.com`) referenced in canonical tags, `sitemap.xml`, `robots.txt` and structured data currently has an expired SSL certificate and no `CNAME` file in this repo — the live, working copy of the site is the GitHub Pages URL. Fixing the domain is a separate, deliberately deferred task.
+- Fleet photos are on the fleet page; consider adding photography of premises and team once available.
+- The site is served by GitHub Pages at `https://www.octanetransport.com` (custom domain set in `CNAME`).
