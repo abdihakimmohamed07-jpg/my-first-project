@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - claude/octane-transport-website-uxl4l1
   workflow_dispatch:
 
 permissions:
@@ -30,6 +29,9 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
+      - name: Exclude repo-only files from the published site
+        run: rm -rf .claude
 
       - name: Upload site as Pages artifact
         uses: actions/upload-pages-artifact@v3
