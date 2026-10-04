@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Director, Octane Transport Zambia Limited
-**Last updated:** 4 October 2026
+**Last updated:** 4 October 2026 (added DMARC, cleanup, DNS pending items)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the planned website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -65,11 +65,16 @@
 - [ ] Check the Web3Forms dashboard monthly (submissions vs 250/month limit, spam folder).
 - [ ] When customers WhatsApp the personal line, redirect them once to +260 965 732 525.
 - [ ] Update the business number elsewhere over time: email signatures, Google Business listing (if any), vendor/supplier files (incl. FQM), business cards, truck door stickers (some still show old numbers).
+- [ ] Review and remove if still unused: the old `images/` folder and the `company_profile_updated.md` source, flagged unlinked in a 27 Sep scan (re-confirmed 4 Oct — neither is referenced from any published page).
 
 ### Nice to have
 - [ ] Professional fleet photo shoot (washed trucks, clean background, morning/evening light) to replace yard photos and the remaining stock images.
 - [ ] WhatsApp Business **Catalog** with one item per truck/trailer type (no prices).
 - [ ] Future: move calls to the business number when vendor forms come up for renewal.
+
+### Security & DNS
+- [ ] Tighten DMARC from `p=none` to `quarantine` once DMARC reports to abdihakim.mohamed@ look clean (SPF/DKIM/DMARC all verified passing 28 Sep; DKIM selector `google`; DNS in cPanel Zone Editor at cpanel.octanetransport.com).
+- [ ] Optional: move DNS off cPanel (currently `africana.co.zm` nameservers) if cancelling cPanel hosting — cPanel is still needed today because it hosts DNS, and the MX records for Google Workspace must be preserved through any move.
 
 ---
 
