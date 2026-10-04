@@ -3,21 +3,29 @@
 Holds the Anthropic API key so it's never in the browser. Deploy this from
 your own machine, not from this repo's CI — the key is a secret, not a file.
 
-## Deploy
+## Deploy (Cloudflare dashboard — no install needed)
 
 1. Create a separate Anthropic Console workspace for this chatbot, with a
    $20/month spend limit, and generate an API key there.
-2. `npm install -g wrangler` (if you don't have it), then `wrangler login`
-   with the Cloudflare account that will host this.
-3. From this `cloudflare-worker/` folder: `wrangler deploy`
-4. Set the key as a secret (you'll be prompted to paste it — it is never
-   written to a file or committed):
-   ```
-   wrangler secret put ANTHROPIC_API_KEY
-   ```
-5. Wrangler prints the Worker's URL (`https://octane-chat.<your-subdomain>.workers.dev`).
-   Put that URL into `assets/js/chat-widget.js`, in the `WORKER_URL` constant
-   near the top of the file, and open a PR with that one-line change.
+2. On dash.cloudflare.com: **Workers & Pages** > **Create** > **Workers** >
+   **Create Worker**. Name it (e.g. `octane-chat`) and deploy the default
+   template.
+3. Open the new Worker > **Edit code**. Delete the template code and paste
+   in the contents of `worker.js` from this folder. Click **Deploy**.
+4. Back on the Worker's page: **Settings** > **Variables and Secrets** >
+   **Add** > name it `ANTHROPIC_API_KEY`, paste the key, and tick
+   **Encrypt**. Save.
+5. The Worker's URL is shown at the top of its page
+   (`https://octane-chat.<your-subdomain>.workers.dev`). Put that URL into
+   `assets/js/chat-widget.js`, in the `WORKER_URL` constant near the top of
+   the file, and open a PR with that one-line change.
+
+### Alternative: wrangler CLI
+
+If you'd rather use the command line: `npm install -g wrangler`,
+`wrangler login`, then from this folder `wrangler deploy`, and
+`wrangler secret put ANTHROPIC_API_KEY` (paste the key when prompted — it's
+never written to a file or committed). Same step 5 above for the URL.
 
 ## Updating the knowledge base
 
