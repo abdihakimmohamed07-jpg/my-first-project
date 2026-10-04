@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
-**Owner:** Abdi Hakim Mohamed, Director, Octane Transport Zambia Limited
-**Last updated:** 4 October 2026 (added DMARC, cleanup, DNS pending items)
+**Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
+**Last updated:** 4 October 2026 (Owner title corrected to Managing Director)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the planned website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
