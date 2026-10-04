@@ -1,8 +1,8 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 4 October 2026 (Owner title corrected to Managing Director)
-**Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the planned website chatbot.
+**Last updated:** 4 October 2026 (website chatbot live; daily chat summary and quote-request form added)
+**Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
 ---
@@ -15,6 +15,7 @@
 | Repository | github.com/abdihakimmohamed07-jpg/my-first-project — **the repo is the source of truth**; merging to `main` deploys the site within 1–2 minutes |
 | Domain | octanetransport.com (DNS points to GitHub Pages) |
 | Change process | Claude Code works on a branch → opens a PR → Abdi reviews and merges. Cowork reviews PRs and prepares briefs, images and documents |
+| Chatbot | Chat widget on every page (`assets/js/chat-widget.js`) + Cloudflare Worker `octane-chat` (`cloudflare-worker/`, deployed by Abdi by pasting `worker.js` in the Cloudflare dashboard; **every `worker.js` change needs a re-paste and Deploy**). Claude model called from the Worker; key held only in Cloudflare |
 | Contact form handler | **Web3Forms** (free plan, 250 submissions/month), access key registered to info@octanetransport.com |
 | Calls | +260 973 821 013 (Abdi's existing line — kept for calls) |
 | WhatsApp Business | +260 965 732 525 (Octane Transport business line) |
@@ -44,23 +45,29 @@
 - [x] WhatsApp Business profile set up: name, @octanetransport username, category, hours (Mon–Fri 09:00–18:00, Sat 09:00–13:00), description, logo profile picture.
 - [x] Away message fixed to send only **outside business hours**; greeting message drafted covering both **transport** and **supply** enquiries.
 
-### Chatbot preparation
-- [x] Architecture agreed: chat widget on the site + **Cloudflare Worker** holding the Anthropic API key (GitHub Pages cannot run server code); small low-cost Claude model; per-visitor message cap.
-- [x] Anthropic Console account ready; recommended separate "Octane Website Chatbot" workspace with **US$20/month** limit and prepaid credit (auto-reload off).
-- [x] Cloudflare account created on info@octanetransport.com with **2FA enabled** (setup key regenerated after accidental exposure).
-- [x] Scheduled Cowork session (Sunday 4 Oct, 10:00 CAT) to draft the chatbot knowledge base and rules.
+### Chatbot (live)
+- [x] Architecture: chat widget on the site + **Cloudflare Worker** holding the Anthropic API key (GitHub Pages cannot run server code); small low-cost Claude model; separate Anthropic workspace with **US$20/month** limit and prepaid credit (auto-reload off); Cloudflare account on info@ with 2FA.
+- [x] Knowledge base and rules drafted by Cowork, gap questions answered and approved by Abdi (4 Oct).
+- [x] **Widget and Worker built and live** (PRs #28–#33): launcher + chat panel on all pages, message caps (500 characters, 20 per chat), reply cap, per-IP rate limit, allowed-origin check (a deterrent only; the spend cap is the real ceiling), upstream errors logged in the Worker's Logs tab. A fresh chat starts when a visitor arrives from outside the site; reloads and moving between pages keep the chat.
+- [x] **Bot rules in the Worker:** formal English; no prices ("quotes within one working day"); no truck types, tonnage or lead times ("fleet register on request"); insurance only "GIT cover is included as standard; policy details on request"; may name clients Impala and Reload only; never lists or hints at excluded cargo, and for any named cargo says the team will confirm after contact; "where is my truck" goes to WhatsApp; urgent or large enquiries go to info@ or abdihakim.mohamed@; plain text only (no markdown).
+- [x] **Quote-request form in the chat** (PR #34): when a visitor wants a quote, a small form (name, phone, cargo, route) appears and is sent from the browser to Web3Forms, subject "Chatbot quote request", arriving at info@. The bot never asks for these details in the chat (wording tightened in PR #35 and verified live).
+- [x] **Privacy line** in the chat panel: chats may be reviewed to improve service.
+- [x] **Daily chat summary** (PR #34): each question and answer is stored in Cloudflare KV (binding `CHAT_LOGS`, namespace `octane-chat-logs`; no IP addresses; deleted after 7 days). A cron trigger (`0 6 * * *` UTC, 08:00 Zambia) emails the previous day's chats to info@ through Resend (secret `RESEND_API_KEY`, free plan). No email on days without chats. Web3Forms cannot be used for this: its free plan refuses server-side calls.
+- [x] Cloudflare setup done by Abdi on 4 Oct: KV namespace and binding (a mistyped binding name was fixed), `RESEND_API_KEY` secret, cron trigger, Worker redeployed with the final wording. Live tests passed.
 
 ---
 
 ## 3. Pending / to do
 
 ### High priority
-- [ ] **Chatbot — foundation:** review the draft "Octane Chatbot — Knowledge Base & Rules" doc and answer the gap questions (routes/borders covered, lead times, cargo not carried, truck types/capacities, working hours, languages, escalation contact, common FAQs).
-- [ ] **Chatbot — build:** after the knowledge base is approved, give Claude Code the build brief (widget + Cloudflare Worker + rate limit + spend cap). Create the API key **only inside the chatbot workspace**, and paste it straight into Cloudflare as a secret — never into a chat.
+- [ ] **Check the first daily chat summary email on 5 Oct, about 08:00 Zambia time** (it should list the test chats from 4 Oct). If it is not in the inbox, check spam, then the Worker's Logs tab for "Summary email error". Mark one as "not spam" so later ones land in the inbox.
 - [ ] **Test the 2 Procurement forms** (New Customer / Existing Customer) with one live submission each and confirm arrival at info@.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
 
 ### Housekeeping
+- [ ] Chatbot: set a spend alert at US$10 in the Anthropic Console (workspace for the chatbot) as an early warning below the US$20 cap.
+- [ ] Chatbot: read the daily summaries for the first weeks and send Claude Code any wrong or awkward answers to fix in the Worker's rules.
+- [ ] Optional chatbot extra: a WhatsApp button inside the chat window.
 - [ ] After ~1 week of real Web3Forms enquiries arriving: **delete the Formspree form** and the **Gmail forwarding filter**.
 - [ ] Check the Web3Forms dashboard monthly (submissions vs 250/month limit, spam folder).
 - [ ] When customers WhatsApp the personal line, redirect them once to +260 965 732 525.
@@ -89,6 +96,9 @@
 | 30 Sep | WhatsApp → business line; calls stay on existing line | Existing line already on vendor files; changing everywhere is costly |
 | 30 Sep | Profile picture: logo with wording | Abdi's choice |
 | 30 Sep | Fleet gallery: exclude red Volvo; blur number plates | Worn livery hurts credibility; plate cloning risk |
+| 4 Oct | Chatbot never gives prices, lead times, truck types or tonnage; never hints at excluded cargo | Abdi's rules; the team confirms specifics after contact |
+| 4 Oct | Chat logs kept 7 days in Cloudflare KV, no IP addresses; daily summary to info@ | Review answers and spot leads without keeping data long |
+| 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 
 ---
 
