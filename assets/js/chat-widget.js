@@ -3,7 +3,7 @@
    never sees the key. Set WORKER_URL below once the Worker is deployed
    (see cloudflare-worker/README.md); until then the widget stays hidden. */
 (function () {
-  var WORKER_URL = ''; // e.g. 'https://octane-chat.<your-subdomain>.workers.dev'
+  var WORKER_URL = 'https://octane-chat.withered-morning-91b5.workers.dev/';
   var MAX_MESSAGES = 20; // per browser session, backstop for the server-side cap
   var STORAGE_KEY = 'octane_chat_session';
 
