@@ -61,6 +61,12 @@ export default {
     if (request.method !== 'POST') {
       return json({ error: 'method not allowed' }, 405, corsHeaders);
     }
+    // CORS only stops a browser from reading the response — it doesn't stop a
+    // direct request (curl, a script) from reaching the Anthropic call. Reject
+    // those server-side before they can spend the budget.
+    if (ALLOWED_ORIGINS.indexOf(origin) === -1) {
+      return json({ error: 'forbidden' }, 403, corsHeaders);
+    }
 
     var body;
     try {
