@@ -5,7 +5,7 @@ var ALLOWED_ORIGINS = [
   'https://www.octanetransport.com',
   'https://octanetransport.com'
 ];
-var MODEL = 'claude-haiku-4-5-20251001';
+var MODEL = 'claude-haiku-4-5';
 var MAX_REPLY_TOKENS = 300;
 var MAX_MESSAGE_LEN = 500;
 var MAX_MESSAGES_PER_SESSION = 20;
@@ -113,6 +113,8 @@ export default {
     });
 
     if (!anthropicRes.ok) {
+      // Visible under Worker -> Logs (real-time) in the Cloudflare dashboard, never in the response.
+      console.log('Anthropic API error', anthropicRes.status, await anthropicRes.text());
       return json({ reply: 'Sorry, something went wrong. Please use the contact form or WhatsApp.' }, 200, corsHeaders);
     }
 
