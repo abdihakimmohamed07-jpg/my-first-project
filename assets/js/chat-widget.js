@@ -100,6 +100,7 @@
       var f = document.createElement('form');
       f.className = 'chat-quote';
       f.innerHTML =
+        '<p class="chat-quote-title">Please fill in this short form. We will reply within 24 hours.</p>' +
         '<input type="text" name="name" placeholder="Your name" maxlength="100" autocomplete="name" required>' +
         '<input type="tel" name="phone" placeholder="Phone / WhatsApp" maxlength="30" autocomplete="tel" required>' +
         '<input type="text" name="cargo" placeholder="Cargo" maxlength="200" required>' +
