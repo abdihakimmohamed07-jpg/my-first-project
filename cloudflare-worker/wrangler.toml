@@ -4,3 +4,11 @@ compatibility_date = "2026-01-01"
 
 # Set the real secret after deploy, never here:
 #   wrangler secret put ANTHROPIC_API_KEY
+
+# Optional daily summary: create a KV namespace, then add
+#   [[kv_namespaces]]
+#   binding = "CHAT_LOGS"
+#   id = "<namespace id>"
+#   [triggers]
+#   crons = ["0 6 * * *"]
+# and set the secret RESEND_API_KEY.

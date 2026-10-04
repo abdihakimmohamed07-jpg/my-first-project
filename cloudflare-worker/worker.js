@@ -10,6 +10,10 @@ var MAX_REPLY_TOKENS = 300;
 var MAX_MESSAGE_LEN = 500;
 var MAX_MESSAGES_PER_SESSION = 20;
 var MAX_REQUESTS_PER_IP_PER_HOUR = 60;
+var LOG_TTL_SECONDS = 7 * 24 * 3600; // chat logs are deleted by KV after 7 days
+var SUMMARY_TO = 'info@octanetransport.com';
+var SUMMARY_FROM = 'Octane Chatbot <onboarding@resend.dev>';
+var QUOTE_MARKER = '[[QUOTE_FORM]]';
 
 var SYSTEM_PROMPT = [
   'You are the chat assistant on octanetransport.com, for Octane Transport Zambia Limited, a',
@@ -31,6 +35,9 @@ var SYSTEM_PROMPT = [
   '  abdihakim.mohamed@octanetransport.com, and ask them to include full details.',
   '- Do not invent any fact not listed here. If you do not know, say so and point to the contact',
   '  form or WhatsApp (https://wa.me/260965732525).',
+  '- Never ask the visitor for their name, phone number, cargo or route in the chat. When the visitor',
+  '  wants a quote or booking, say a short request form will appear below and end your reply with the',
+  '  exact token [[QUOTE_FORM]] on its own line (the website turns it into a form; never explain the token).',
   '- Keep replies short (a few sentences).',
   '- Plain text only — no markdown (no **bold**, no bullet lists with - or *, no headers). The',
   '  chat widget displays your reply as plain text, so markdown characters would show up literally.',
@@ -54,7 +61,7 @@ var SYSTEM_PROMPT = [
 ].join('\n');
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     var origin = request.headers.get('Origin') || '';
     var corsHeaders = {
       'Access-Control-Allow-Origin': ALLOWED_ORIGINS.indexOf(origin) !== -1 ? origin : ALLOWED_ORIGINS[0],
@@ -127,9 +134,71 @@ export default {
 
     var data = await anthropicRes.json();
     var reply = (data.content && data.content[0] && data.content[0].text) || 'Sorry, I could not find an answer to that — please use the contact form.';
-    return json({ reply: reply }, 200, corsHeaders);
+    var offerForm = reply.indexOf(QUOTE_MARKER) !== -1;
+    reply = reply.split(QUOTE_MARKER).join('').trim();
+    if (env.CHAT_LOGS) ctx.waitUntil(logExchange(env.CHAT_LOGS, sessionId, message, reply));
+    return json({ reply: reply, offerForm: offerForm }, 200, corsHeaders);
+  },
+
+  // Cron: emails yesterday's (UTC) chats to info@. Sends nothing on a day with no chats.
+  async scheduled(event, env, ctx) {
+    if (!env.CHAT_LOGS || !env.RESEND_API_KEY) return;
+    ctx.waitUntil(sendDailySummary(env));
   }
 };
+
+// No IP addresses are stored. Key starts with the UTC date so the cron can list one day.
+async function logExchange(kv, sessionId, question, answer) {
+  try {
+    var now = new Date();
+    var key = 'log:' + now.toISOString().slice(0, 10) + ':' + now.getTime() + ':' + Math.random().toString(36).slice(2, 8);
+    await kv.put(key, JSON.stringify({ t: now.toISOString(), s: sessionId, q: question, a: answer }), { expirationTtl: LOG_TTL_SECONDS });
+  } catch (e) {
+    console.log('KV log error', String(e));
+  }
+}
+
+async function sendDailySummary(env) {
+  var day = new Date(Date.now() - 24 * 3600 * 1000).toISOString().slice(0, 10);
+  var entries = [];
+  var cursor;
+  do {
+    var page = await env.CHAT_LOGS.list({ prefix: 'log:' + day + ':', cursor: cursor });
+    for (var i = 0; i < page.keys.length; i++) {
+      var raw = await env.CHAT_LOGS.get(page.keys[i].name);
+      if (raw) entries.push(JSON.parse(raw));
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  if (entries.length === 0) return;
+
+  entries.sort(function (a, b) { return a.t < b.t ? -1 : 1; });
+  var sessions = {};
+  entries.forEach(function (e) { (sessions[e.s] = sessions[e.s] || []).push(e); });
+  var ids = Object.keys(sessions);
+
+  var lines = ['Website chat summary for ' + day + ' (UTC): ' + ids.length + ' chat(s), ' + entries.length + ' question(s).', ''];
+  ids.forEach(function (id, n) {
+    lines.push('--- Chat ' + (n + 1) + ' ---');
+    sessions[id].forEach(function (e) {
+      lines.push('Visitor: ' + e.q);
+      lines.push('Assistant: ' + e.a);
+      lines.push('');
+    });
+  });
+
+  var res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + env.RESEND_API_KEY },
+    body: JSON.stringify({
+      from: SUMMARY_FROM,
+      to: [SUMMARY_TO],
+      subject: 'Octane website chat summary ' + day,
+      text: lines.join('\n').slice(0, 40000)
+    })
+  });
+  if (!res.ok) console.log('Summary email error', res.status, await res.text());
+}
 
 // skinflint: per-isolate, per-hour-bucket counter — resets on cold start and
 // isn't shared across isolates. A real cap needs Cloudflare's paid Rate

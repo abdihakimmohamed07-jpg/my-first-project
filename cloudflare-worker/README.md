@@ -27,6 +27,12 @@ If you'd rather use the command line: `npm install -g wrangler`,
 `wrangler secret put ANTHROPIC_API_KEY` (paste the key when prompted — it's
 never written to a file or committed). Same step 5 above for the URL.
 
+## Daily chat summary (optional)
+
+Each question and answer is stored in a KV namespace bound as `CHAT_LOGS` (no IP addresses, deleted automatically after 7 days). A cron trigger (`0 6 * * *`, 08:00 Zambia time) emails the previous day's chats to info@octanetransport.com via Resend; no email is sent on days without chats. Needs the encrypted variable `RESEND_API_KEY` (a Resend account created with the info@ address; free plan). Without the `CHAT_LOGS` binding the chat still works, it just isn't logged. Web3Forms cannot be used for this: its free plan blocks server-side calls.
+
+Quote requests from the chat form go from the visitor's browser straight to Web3Forms, same as the site's other forms.
+
 ## Updating the knowledge base
 
 The bot's facts and rules live in `SYSTEM_PROMPT` in `worker.js`. When the
