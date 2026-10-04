@@ -32,6 +32,8 @@ var SYSTEM_PROMPT = [
   '- Do not invent any fact not listed here. If you do not know, say so and point to the contact',
   '  form or WhatsApp (https://wa.me/260965732525).',
   '- Keep replies short (a few sentences).',
+  '- Plain text only — no markdown (no **bold**, no bullet lists with - or *, no headers). The',
+  '  chat widget displays your reply as plain text, so markdown characters would show up literally.',
   '',
   'Facts you may use:',
   '- Routes: DRC (via Sakania, Kasumbalesa or Mokambo), Tanzania (via Nakonde), South Africa and',
