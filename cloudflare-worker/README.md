@@ -34,11 +34,14 @@ knowledge base changes, edit it there and run `wrangler deploy` again.
 
 ## Known limits
 
-- The per-session message cap (`MAX_MESSAGES_PER_SESSION` in `worker.js`) is
-  an in-memory counter scoped to one Worker isolate — it resets on a cold
-  start and isn't shared across every visitor. It's a backstop against a
-  single runaway session, not abuse protection. If spend becomes a problem,
-  move the counter to Workers KV.
+- The per-session (`MAX_MESSAGES_PER_SESSION`) and per-IP
+  (`MAX_REQUESTS_PER_IP_PER_HOUR`) caps in `worker.js` are in-memory counters
+  scoped to one Worker isolate — they reset on a cold start and aren't shared
+  across every visitor. They're a backstop against one runaway session or one
+  IP, not real abuse protection. The $20/month spend cap on the Anthropic
+  workspace is the actual ceiling. If spend becomes a problem, move the
+  counters to Workers KV, or add Cloudflare's Rate Limiting binding (needs a
+  paid Workers plan).
 - The bot doesn't see earlier turns in the conversation — each message is
   answered independently. Fine for FAQ-style questions; add history to the
   `messages` array in `worker.js` if multi-turn context is needed later.

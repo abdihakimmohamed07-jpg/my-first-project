@@ -9,6 +9,7 @@ var MODEL = 'claude-haiku-4-5-20251001';
 var MAX_REPLY_TOKENS = 300;
 var MAX_MESSAGE_LEN = 500;
 var MAX_MESSAGES_PER_SESSION = 20;
+var MAX_REQUESTS_PER_IP_PER_HOUR = 60;
 
 var SYSTEM_PROMPT = [
   'You are the chat assistant on octanetransport.com, for Octane Transport Zambia Limited, a',
@@ -61,11 +62,16 @@ export default {
     if (request.method !== 'POST') {
       return json({ error: 'method not allowed' }, 405, corsHeaders);
     }
-    // CORS only stops a browser from reading the response — it doesn't stop a
-    // direct request (curl, a script) from reaching the Anthropic call. Reject
-    // those server-side before they can spend the budget.
+    // A spoofed Origin header passes this, so it's not real abuse protection —
+    // just filters honest browser traffic. bumpIpCount below is the actual
+    // backstop against someone hammering the Worker directly.
     if (ALLOWED_ORIGINS.indexOf(origin) === -1) {
       return json({ error: 'forbidden' }, 403, corsHeaders);
+    }
+
+    var ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (bumpIpCount(ip) > MAX_REQUESTS_PER_IP_PER_HOUR) {
+      return json({ error: 'rate limited' }, 429, corsHeaders);
     }
 
     var body;
@@ -115,6 +121,17 @@ export default {
     return json({ reply: reply }, 200, corsHeaders);
   }
 };
+
+// skinflint: per-isolate, per-hour-bucket counter — resets on cold start and
+// isn't shared across isolates. A real cap needs Cloudflare's paid Rate
+// Limiting binding; this just stops one IP from burning the budget alone.
+var ipCounts = new Map();
+function bumpIpCount(ip) {
+  var bucket = ip + ':' + Math.floor(Date.now() / 3600000);
+  var n = (ipCounts.get(bucket) || 0) + 1;
+  ipCounts.set(bucket, n);
+  return n;
+}
 
 var sessionCounts = new Map();
 function bumpSessionCount(sessionId) {
