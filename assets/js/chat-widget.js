@@ -6,6 +6,7 @@
   var WORKER_URL = 'https://octane-chat.withered-morning-91b5.workers.dev/';
   var MAX_MESSAGES = 20; // per browser session, backstop for the server-side cap
   var STORAGE_KEY = 'octane_chat_session';
+  var WEB3FORMS_KEY = '7f27c753-6019-4c9e-a7eb-9c432a0be1ca'; // public by design, same key as the contact form
 
   if (!WORKER_URL) return;
 
@@ -29,7 +30,7 @@
         '<button type="button" class="chat-close" aria-label="Close chat">&times;</button>' +
       '</div>' +
       '<div class="chat-log" aria-live="polite"></div>' +
-      '<p class="chat-note">Automated assistant. For a quote or booking, use the <a href="/contact#enquiry-form">contact form</a> or <a href="https://wa.me/260965732525" target="_blank" rel="noopener">WhatsApp</a>.</p>' +
+      '<p class="chat-note">Automated assistant. For a quote or booking, use the <a href="/contact#enquiry-form">contact form</a> or <a href="https://wa.me/260965732525" target="_blank" rel="noopener">WhatsApp</a>. Chats may be reviewed to improve our service.</p>' +
       '<form class="chat-form">' +
         '<input type="text" class="chat-input" maxlength="500" placeholder="Ask a question&hellip;" autocomplete="off" required>' +
         '<button type="submit" class="chat-send" aria-label="Send">&#8594;</button>' +
@@ -85,6 +86,7 @@
         renderMessage('assistant', reply);
         session.history.push({ role: 'assistant', text: reply });
         saveSession(session);
+        if (data && data.offerForm) renderQuoteForm();
       }).catch(function () {
         thinking.remove();
         renderMessage('assistant', 'Sorry, something went wrong. Please use the contact form or WhatsApp.');
@@ -93,6 +95,44 @@
         input.focus();
       });
     });
+
+    function renderQuoteForm() {
+      var f = document.createElement('form');
+      f.className = 'chat-quote';
+      f.innerHTML =
+        '<input type="text" name="name" placeholder="Your name" maxlength="100" autocomplete="name" required>' +
+        '<input type="tel" name="phone" placeholder="Phone / WhatsApp" maxlength="30" autocomplete="tel" required>' +
+        '<input type="text" name="cargo" placeholder="Cargo" maxlength="200" required>' +
+        '<input type="text" name="route" placeholder="Route (from &rarr; to)" maxlength="200" required>' +
+        '<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">' +
+        '<button type="submit">Request a quote</button>';
+      log.appendChild(f);
+      log.scrollTop = log.scrollHeight;
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = f.querySelector('button');
+        btn.disabled = true;
+        var v = function (n) { return f.elements[n].value.trim(); };
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Chatbot quote request',
+            from_name: 'Octane website chat',
+            botcheck: f.elements.botcheck.checked,
+            Name: v('name'), Phone: v('phone'), Cargo: v('cargo'), Route: v('route')
+          })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('bad response');
+          f.remove();
+          renderMessage('assistant', 'Thank you. Your request has been sent; we will reply within 24 hours.');
+        }).catch(function () {
+          btn.disabled = false;
+          renderMessage('assistant', 'Sorry, the request could not be sent. Please use the contact form or WhatsApp.');
+        });
+      });
+    }
 
     function renderMessage(role, text) {
       var row = document.createElement('div');

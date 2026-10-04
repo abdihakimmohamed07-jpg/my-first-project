@@ -552,4 +552,9 @@ fieldset.form-group legend{
 .chat-input:focus{outline:2px solid var(--orange);outline-offset:1px;}
 .chat-send{background:var(--orange);color:#fff;border:none;border-radius:50%;width:36px;height:36px;flex-shrink:0;cursor:pointer;font-size:1rem;}
 .chat-send:hover{background:var(--orange-dark);}
+.chat-quote{display:flex;flex-direction:column;gap:6px;background:var(--gray-100);border-radius:12px;padding:10px;align-self:stretch;}
+.chat-quote input[type=text],.chat-quote input[type=tel]{border:1px solid var(--gray-200);border-radius:8px;padding:8px 10px;font-size:.88rem;font-family:var(--font-body);}
+.chat-quote button{background:var(--orange);color:#fff;border:none;border-radius:8px;padding:9px;font-weight:700;cursor:pointer;font-family:var(--font-body);}
+.chat-quote button:hover{background:var(--orange-dark);}
+.chat-quote button:disabled{opacity:.6;cursor:default;}
 @media print{.chat-launcher,.chat-panel{display:none !important;}}
