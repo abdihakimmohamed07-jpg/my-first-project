@@ -105,6 +105,11 @@
 
     function loadSession() {
       try {
+        // A fresh arrival from another site (or typed address) starts a new chat;
+        // reloads, back/forward and page-to-page navigation on this site keep it.
+        var nav = performance.getEntriesByType('navigation')[0];
+        var fresh = nav && nav.type === 'navigate' && (!document.referrer || new URL(document.referrer).origin !== location.origin);
+        if (fresh) sessionStorage.removeItem(STORAGE_KEY);
         var raw = sessionStorage.getItem(STORAGE_KEY);
         if (raw) return JSON.parse(raw);
       } catch (e) {}
