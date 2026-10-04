@@ -1,0 +1,6 @@
+name = "octane-chat"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Set the real secret after deploy, never here:
+#   wrangler secret put ANTHROPIC_API_KEY
