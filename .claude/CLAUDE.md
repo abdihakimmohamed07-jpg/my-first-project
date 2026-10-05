@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-01 (profile text cleanup).
+Last updated: 2026-10-05 (chat buttons; PROJECT.md habit).
 
 ## The site
 
@@ -28,6 +28,9 @@ Last updated: 2026-10-01 (profile text cleanup).
 - Share a short plan first, then do the work on the designated branch, open a
   **PR for review — never merge it**. Abdi merges and deletes the branch, then
   asks for a check.
+- **Every PR also updates `PROJECT.md`** (Abdi's standing instruction, 2026-10-05,
+  no need to ask): completed work, pending items, decisions log, last-updated line.
+  Keep it free of secrets; the repo is public.
 - After each merge: confirm the merge commit equals the tested commit, the
   branch is gone, and verify the **live site** (curl with a `?v=` cache-buster).
   Also confirm `https://www.octanetransport.com/.claude/CLAUDE.md` is a 404.
@@ -164,3 +167,5 @@ Last updated: 2026-10-01 (profile text cleanup).
 | #23 | Deploy workflow: stop publishing `.claude/`; deploy only from `main` |
 | #24 | Mining industry card (home + /industries) and company profile PDF/MD, licensed photo + credit, Copperbelt section wording |
 | #25 | Profile cleanup: Corporate Identity intro, fleet-schedule note (PDF + MD), placeholder images removed from MD; /industries intro lists Mining; README to-do corrected |
+| #28–#37 | Chatbot: widget, Cloudflare Worker, daily chat summary email, quote form in chat, prompt tightening (see PROJECT.md) |
+| #38 | Chat opens with tap-to-ask buttons; full-screen chat on phones |
