@@ -26,7 +26,7 @@
     panel.setAttribute('aria-label', 'Octane Transport chat');
     panel.innerHTML =
       '<div class="chat-head">' +
-        '<span>Octane Transport</span>' +
+        '<img class="chat-logo" src="/assets/img/logo.png" alt="Octane Transport" width="900" height="246">' +
         '<button type="button" class="chat-close" aria-label="Close chat"><span class="chat-x">&times;</span><span class="chat-back">&lsaquo; Back</span></button>' +
       '</div>' +
       '<div class="chat-log" aria-live="polite"></div>' +
