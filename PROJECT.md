@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 4 October 2026 (website chatbot live; daily chat summary and quote-request form added)
+**Last updated:** 5 October 2026 (chat now opens with tap-to-ask buttons; full-screen on phones)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -51,6 +51,7 @@
 - [x] **Widget and Worker built and live** (PRs #28–#33): launcher + chat panel on all pages, message caps (500 characters, 20 per chat), reply cap, per-IP rate limit, allowed-origin check (a deterrent only; the spend cap is the real ceiling), upstream errors logged in the Worker's Logs tab. A fresh chat starts when a visitor arrives from outside the site; reloads and moving between pages keep the chat.
 - [x] **Bot rules in the Worker:** formal English; no prices ("quotes within one working day"); no truck types, tonnage or lead times ("fleet register on request"); insurance only "GIT cover is included as standard; policy details on request"; may name clients Impala and Reload only; never lists or hints at excluded cargo, and for any named cargo says the team will confirm after contact; "where is my truck" goes to WhatsApp; urgent or large enquiries go to info@ or abdihakim.mohamed@; plain text only (no markdown).
 - [x] **Quote-request form in the chat** (PR #34): when a visitor wants a quote, a small form (name, phone, cargo, route) appears and is sent from the browser to Web3Forms, subject "Chatbot quote request", arriving at info@. The bot never asks for these details in the chat (wording tightened in PR #35 and verified live).
+- [x] **Tap-to-ask buttons and full-screen chat on phones** (PR #38, 5 Oct): the chat opens with four buttons (Request a quote, Where do you operate, Opening hours, Track my truck). Request a quote shows the form straight away; the others send a preset question; the buttons disappear after the first message. On screens up to 600px wide the chat fills the screen with a Back button; laptops keep the small box. Site-only change, so the Worker was not touched and no Cloudflare redeploy was needed. Layout options considered: small box, buttons, full screen on phones, side panel on laptops (the side panel was not chosen).
 - [x] **Privacy line** in the chat panel: chats may be reviewed to improve service.
 - [x] **Daily chat summary** (PR #34): each question and answer is stored in Cloudflare KV (binding `CHAT_LOGS`, namespace `octane-chat-logs`; no IP addresses; deleted after 7 days). A cron trigger (`0 6 * * *` UTC, 08:00 Zambia) emails the previous day's chats to info@ through Resend (secret `RESEND_API_KEY`, free plan). No email on days without chats. Web3Forms cannot be used for this: its free plan refuses server-side calls.
 - [x] Cloudflare setup done by Abdi on 4 Oct: KV namespace and binding (a mistyped binding name was fixed), `RESEND_API_KEY` secret, cron trigger, Worker redeployed with the final wording. Live tests passed.
@@ -98,6 +99,8 @@
 | 30 Sep | Fleet gallery: exclude red Volvo; blur number plates | Worn livery hurts credibility; plate cloning risk |
 | 4 Oct | Chatbot never gives prices, lead times, truck types or tonnage; never hints at excluded cargo | Abdi's rules; the team confirms specifics after contact |
 | 4 Oct | Chat logs kept 7 days in Cloudflare KV, no IP addresses; daily summary to info@ | Review answers and spot leads without keeping data long |
+| 5 Oct | Chat layout: tap-to-ask buttons plus full screen on phones; keep the box on laptops | Phones are likely the main traffic, and a blank box does not tell visitors what to ask |
+| 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 
 ---
@@ -107,4 +110,4 @@
 1. **Website code changes:** Claude Code, on the repo, always via branch + PR. Abdi merges.
 2. **Reviews, images, documents, planning:** Cowork. Cowork can read the public repo and review PRs but cannot push.
 3. After any merge: test on a phone (forms, WhatsApp button, profile download).
-4. Keep this file updated in the repo as `PROJECT.md` so every session (Claude Code or Cowork) starts from the same status.
+4. Keep this file updated in the repo as `PROJECT.md` so every session (Claude Code or Cowork) starts from the same status. **Standing rule (Abdi, 5 Oct): every pull request that changes the site, the Worker or the profile also updates this file (completed work, pending items, decisions log, last-updated line). Claude does this without asking; Abdi still reviews and merges.**
