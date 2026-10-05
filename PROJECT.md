@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 5 October 2026 (chat now opens with tap-to-ask buttons; full-screen on phones)
+**Last updated:** 5 October 2026 (daily summary email verified end to end; Worker now logs every outcome)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -61,7 +61,8 @@
 ## 3. Pending / to do
 
 ### High priority
-- [ ] **Check the first daily chat summary email on 5 Oct, about 08:00 Zambia time** (it should list the test chats from 4 Oct). If it is not in the inbox, check spam, then the Worker's Logs tab for "Summary email error". Mark one as "not spam" so later ones land in the inbox.
+- [x] **Daily chat summary email verified (5 Oct).** The first scheduled run (08:00 Zambia) did not send because the Worker had no cron trigger (lost after a dashboard redeploy). Abdi re-added `0 6 * * *`; a one-off test trigger sent the email at 08:25 Zambia and it landed in the inbox, not spam. The test trigger (`25 6 * * *`) must be deleted. After ANY Worker redeploy, open Worker > Settings > Triggers and confirm `0 6 * * *` is still listed.
+- [ ] Delete the temporary test cron `25 6 * * *` in Cloudflare (Abdi). Check the real 08:00 email arrives on 6 Oct.
 - [ ] **Test the 2 Procurement forms** (New Customer / Existing Customer) with one live submission each and confirm arrival at info@.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
 
@@ -99,6 +100,7 @@
 | 30 Sep | Fleet gallery: exclude red Volvo; blur number plates | Worn livery hurts credibility; plate cloning risk |
 | 4 Oct | Chatbot never gives prices, lead times, truck types or tonnage; never hints at excluded cargo | Abdi's rules; the team confirms specifics after contact |
 | 4 Oct | Chat logs kept 7 days in Cloudflare KV, no IP addresses; daily summary to info@ | Review answers and spot leads without keeping data long |
+| 5 Oct | After any Worker redeploy, re-check the cron trigger exists; Worker logs every cron outcome | The first summary email failed silently because the cron trigger was missing |
 | 5 Oct | Chat layout: tap-to-ask buttons plus full screen on phones; keep the box on laptops | Phones are likely the main traffic, and a blank box does not tell visitors what to ask |
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
