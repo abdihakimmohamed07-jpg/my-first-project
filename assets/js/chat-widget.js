@@ -27,7 +27,7 @@
     panel.innerHTML =
       '<div class="chat-head">' +
         '<span>Octane Transport</span>' +
-        '<button type="button" class="chat-close" aria-label="Close chat">&times;</button>' +
+        '<button type="button" class="chat-close" aria-label="Close chat"><span class="chat-x">&times;</span><span class="chat-back">&lsaquo; Back</span></button>' +
       '</div>' +
       '<div class="chat-log" aria-live="polite"></div>' +
       '<p class="chat-note">Automated assistant. For a quote or booking, use the <a href="/contact#enquiry-form">contact form</a> or <a href="https://wa.me/260965732525" target="_blank" rel="noopener">WhatsApp</a>. Chats may be reviewed to improve our service.</p>' +
@@ -45,21 +45,31 @@
       renderMessage(turn.role, turn.text);
     });
     if (session.history.length === 0) {
-      renderMessage('assistant', 'Hello! Ask me about our routes, services or fleet. For quotes, please use the contact form.');
+      renderMessage('assistant', 'Hello! Tap a question below or type your own.');
+      renderChips();
     }
 
     launcher.addEventListener('click', function () {
-      panel.classList.toggle('open');
-      if (panel.classList.contains('open')) input.focus();
+      setOpen(!panel.classList.contains('open'));
     });
     panel.querySelector('.chat-close').addEventListener('click', function () {
-      panel.classList.remove('open');
+      setOpen(false);
     });
+
+    function setOpen(open) {
+      panel.classList.toggle('open', open);
+      document.documentElement.classList.toggle('chat-open', open); // phones: stops the page scrolling behind the full-screen chat
+      if (open && !window.matchMedia('(max-width: 600px)').matches) input.focus();
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var text = input.value.trim();
+      send(input.value.trim());
+    });
+
+    function send(text) {
       if (!text) return;
+      removeChips();
 
       if (session.history.length >= MAX_MESSAGES * 2) {
         renderMessage('assistant', 'We\'ve reached the limit for this chat. Please continue via the contact form or WhatsApp.');
@@ -92,9 +102,42 @@
         renderMessage('assistant', 'Sorry, something went wrong. Please use the contact form or WhatsApp.');
       }).finally(function () {
         input.disabled = false;
-        input.focus();
+        if (!window.matchMedia('(max-width: 600px)').matches) input.focus();
       });
-    });
+    }
+
+    function renderChips() {
+      var wrap = document.createElement('div');
+      wrap.className = 'chat-chips';
+      [
+        ['Request a quote', null],
+        ['Where do you operate?', 'Where do you operate?'],
+        ['Opening hours', 'What are your opening hours?'],
+        ['Track my truck', 'Where is my truck?']
+      ].forEach(function (c) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = c[0];
+        b.addEventListener('click', function () {
+          if (c[1]) { send(c[1]); return; }
+          // Quote button: no need to ask the assistant, show the form straight away.
+          removeChips();
+          var reply = 'Certainly. Please use the form below.';
+          renderMessage('user', c[0]);
+          renderMessage('assistant', reply);
+          session.history.push({ role: 'user', text: c[0] }, { role: 'assistant', text: reply });
+          saveSession(session);
+          renderQuoteForm();
+        });
+        wrap.appendChild(b);
+      });
+      log.appendChild(wrap);
+    }
+
+    function removeChips() {
+      var c = log.querySelector('.chat-chips');
+      if (c) c.remove();
+    }
 
     function renderQuoteForm() {
       var f = document.createElement('form');
