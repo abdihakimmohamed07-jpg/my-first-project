@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 5 October 2026 (chat now opens with tap-to-ask buttons; full-screen on phones)
+**Last updated:** 5 October 2026 (daily summary email not received on first run; Worker now logs every outcome)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -61,7 +61,7 @@
 ## 3. Pending / to do
 
 ### High priority
-- [ ] **Check the first daily chat summary email on 5 Oct, about 08:00 Zambia time** (it should list the test chats from 4 Oct). If it is not in the inbox, check spam, then the Worker's Logs tab for "Summary email error". Mark one as "not spam" so later ones land in the inbox.
+- [ ] **Daily chat summary email did NOT arrive on 5 Oct (08:00 Zambia).** Under investigation. Check in Cloudflare: Worker > Settings > Triggers shows the cron `0 6 * * *`; Worker > Logs shows the cron run; Resend > Emails shows a send. The Worker code now logs every outcome (needs a re-paste and Deploy of `worker.js`). Once it arrives, mark one as "not spam".
 - [ ] **Test the 2 Procurement forms** (New Customer / Existing Customer) with one live submission each and confirm arrival at info@.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
 

@@ -147,8 +147,12 @@ export default {
 
   // Cron: emails yesterday's (UTC) chats to info@. Sends nothing on a day with no chats.
   async scheduled(event, env, ctx) {
-    if (!env.CHAT_LOGS || !env.RESEND_API_KEY) return;
-    ctx.waitUntil(sendDailySummary(env));
+    if (!env.CHAT_LOGS || !env.RESEND_API_KEY) {
+      console.log('Summary skipped: missing ' + (!env.CHAT_LOGS ? 'CHAT_LOGS binding' : 'RESEND_API_KEY secret'));
+      return;
+    }
+    console.log('Summary cron started');
+    ctx.waitUntil(sendDailySummary(env).catch(function (e) { console.log('Summary error', String(e)); }));
   }
 };
 
@@ -175,7 +179,10 @@ async function sendDailySummary(env) {
     }
     cursor = page.list_complete ? undefined : page.cursor;
   } while (cursor);
-  if (entries.length === 0) return;
+  if (entries.length === 0) {
+    console.log('Summary: no chats stored for ' + day + ', nothing to send');
+    return;
+  }
 
   entries.sort(function (a, b) { return a.t < b.t ? -1 : 1; });
   var sessions = {};
@@ -203,6 +210,7 @@ async function sendDailySummary(env) {
     })
   });
   if (!res.ok) console.log('Summary email error', res.status, await res.text());
+  else console.log('Summary email sent for ' + day + ': ' + entries.length + ' question(s)');
 }
 
 // skinflint: per-isolate, per-hour-bucket counter — resets on cold start and
