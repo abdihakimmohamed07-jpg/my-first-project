@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 5 October 2026 (logo in the chat header; test cron deleted)
+**Last updated:** 11 October 2026 (design skills for Claude Code added)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -57,6 +57,9 @@
 - [x] **Daily chat summary** (PR #34): each question and answer is stored in Cloudflare KV (binding `CHAT_LOGS`, namespace `octane-chat-logs`; no IP addresses; deleted after 7 days). A cron trigger (`0 6 * * *` UTC, 08:00 Zambia) emails the previous day's chats to info@ through Resend (secret `RESEND_API_KEY`, free plan). No email on days without chats. Web3Forms cannot be used for this: its free plan refuses server-side calls.
 - [x] Cloudflare setup done by Abdi on 4 Oct: KV namespace and binding (a mistyped binding name was fixed), `RESEND_API_KEY` secret, cron trigger, Worker redeployed with the final wording. Live tests passed.
 
+### Claude tools
+- [x] **Five design skills added** in `.claude/skills/` (11 Oct): `design-taste-frontend` and `redesign-existing-projects` (taste-skill, MIT), `mobile-native`, `break-ui` and `review-animations` (Emil Kowalski's skills, MIT). Claude Code sessions on this repo load them automatically. They are text-only guidance (no scripts) and `.claude/` is never published on the website.
+
 ---
 
 ## 3. Pending / to do
@@ -76,6 +79,9 @@
 - [ ] When customers WhatsApp the personal line, redirect them once to +260 965 732 525.
 - [ ] Update the business number elsewhere over time: email signatures, Google Business listing (if any), vendor/supplier files (incl. FQM), business cards, truck door stickers (some still show old numbers).
 - [ ] Review and remove if still unused: the old `images/` folder and the `company_profile_updated.md` source, flagged unlinked in a 27 Sep scan (re-confirmed 4 Oct — neither is referenced from any published page).
+
+- [ ] Optional: upload the same five skills to claude.ai (Settings > Capabilities > Skills) so they also work in normal Claude chats; one zip per skill.
+- [ ] Revisit **impeccable** later only if wanted: it downloads and runs its own program, and writes `PRODUCT.md`/`DESIGN.md` to the repo root, which this site would publish.
 
 ### Nice to have
 - [ ] Professional fleet photo shoot (washed trucks, clean background, morning/evening light) to replace yard photos and the remaining stock images.
@@ -105,6 +111,7 @@
 | 5 Oct | Chat layout: tap-to-ask buttons plus full screen on phones; keep the box on laptops | Phones are likely the main traffic, and a blank box does not tell visitors what to ask |
 | 5 Oct | Logo in the chat header only, not on the launcher button | The logo has a white background, so it needs a white header; on the small round button it hides the chat icon |
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
+| 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 
 ---
