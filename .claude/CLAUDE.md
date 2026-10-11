@@ -7,7 +7,7 @@ and PROJECT.md are not served on the website (both are still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (site linked to the Google Business Profile).
+Last updated: 2026-10-11 (profile PDF legal name).
 
 ## The site
 
@@ -129,7 +129,9 @@ Last updated: 2026-10-11 (site linked to the Google Business Profile).
 - **Legal name is "Octane Transport Zambia Limited"** (PACRA; same on the
   Google Business Profile). The site used "Octane Transport Limited" until
   2026-10-11 — never reintroduce it. Domain stays octanetransport.com. The
-  profile PDF (pp. 3–4) still has the old name until it is edited. No `sameAs` yet — add LinkedIn/Facebook URLs
+  profile PDF and MD use it too (p. 3, p. 4), edited with
+  `.claude/tools/profile_legal_name.py` (removes old text runs, keeps all
+  graphics clipped per band, redraws in Liberation Sans). No `sameAs` yet — add LinkedIn/Facebook URLs
   only once those profiles exist.
 
 ## Open items (owner's side unless noted)
@@ -187,5 +189,6 @@ Last updated: 2026-10-11 (site linked to the Google Business Profile).
 | — | Deploy workflow also removes `PROJECT.md` before publishing (internal notes: chatbot budget and rules, DNS host, decisions) |
 | #50 | Legal name → "Octane Transport Zambia Limited" site-wide; coordinates 28.661287 |
 | #51 | Site icons: `icon-192.png` (swirl crop of the square logo) for `rel=icon`, `apple-touch-icon.png` (full square logo, 180px); root-relative links on all 11 pages. Header keeps `logo.png` |
-| — | `hasMap` (Google profile cid link) on `/` + `/contact` JSON-LD; "Open in Google Maps" link under the contact map (`.map-link`) |
+| #52 | `hasMap` (Google profile cid link) on `/` + `/contact` JSON-LD; "Open in Google Maps" link under the contact map (`.map-link`) |
+| — | Profile PDF: legal name on p. 3 (Executive Statement, "in the heart of" dropped to keep 4 lines) and p. 4 (Legal / Trading Name); PDF Title/Author metadata; MD synced |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |

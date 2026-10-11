@@ -34,7 +34,7 @@ Ndola, Zambia — Serving Zambia and the SADC Region
 
 ### 1.1 Executive Statement
 
-Octane Transport Zambia Limited is a privately owned Zambian transportation, logistics and general supply company headquartered in Ndola, in the heart of the Copperbelt Province. The company moves cargo and equipment for corporate, industrial and mining-sector clients across Zambia and the wider SADC region, consolidating supply, logistics and haulage capability under a single accountable operator.
+Octane Transport Zambia Limited is a privately owned Zambian transportation, logistics and general supply company headquartered in Ndola, in the Copperbelt Province. The company moves cargo and equipment for corporate, industrial and mining-sector clients across Zambia and the wider SADC region, consolidating supply, logistics and haulage capability under a single accountable operator.
 
 > **Positioning Statement:** Octane Transport exists to give corporate, industrial and mining-sector clients one dependable partner for the movement and supply of goods — reducing vendor complexity while protecting delivery timelines, cargo integrity and compliance standing.
 
