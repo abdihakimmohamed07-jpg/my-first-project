@@ -71,7 +71,7 @@
 - [x] **Square logo** (1080×1080, supplied by Abdi 11 Oct) now gives the website's browser-tab icon (swirl only, `assets/img/icon-192.png`) and phone home-screen icon (full logo, `assets/img/apple-touch-icon.png`); before, the wide header logo was squashed into those spots. The header keeps the wide logo.
 - [x] Square logo uploaded as the Google profile photo (11 Oct).
 - [ ] Add 5–10 real photos (plates blurred); ask 2–3 clients for Google reviews.
-- [x] **Google Search Console set up** (11 Oct) under info@octanetransport.com as a **Domain** property (covers www, bare domain, http and https). Verified by a `google-site-verification=…` TXT record in Africana's cPanel Zone Editor — **never delete that record**, or Search Console access is lost. Sitemap `https://www.octanetransport.com/sitemap.xml` submitted; indexing requested for `/` and `/about` (both already indexed with the old name, now re-queued); `/contact` was not yet known to Google under its clean address and will come through the sitemap.
+- [x] **Google Search Console set up** (11 Oct) under info@octanetransport.com as a **Domain** property (covers www, bare domain, http and https). Verified by a `google-site-verification=…` TXT record in Africana's cPanel Zone Editor — **never delete that record**, or Search Console access is lost. Sitemap `https://www.octanetransport.com/sitemap.xml` submitted; indexing requested for `/`, `/about` (both already indexed with the old name, now re-queued) and `/contact` (new to Google under its clean address).
 - [ ] In a few days: check Search Console > Sitemaps shows Success (10 pages) and that Google results show "Octane Transport Zambia Limited" and the new icon.
 
 ### Privacy of project notes
