@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (website linked to the Google Business Profile)
+**Last updated:** 11 October 2026 (company profile PDF shows the legal name)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -66,7 +66,7 @@
 - [x] **Website now uses the legal name "Octane Transport Zambia Limited"** everywhere it used "Octane Transport Limited" (footers, page text, page titles and descriptions, structured data, README, company profile Markdown). The domain stays octanetransport.com; a domain doesn't need to match the legal name.
 - [x] Website coordinates set to the confirmed office location -12.982864, 28.661287 (structured data and the contact-page map).
 - [x] **Google pin corrected** (11 Oct): the profile now sits at -12.98287, 28.66117, about 13 m from the confirmed office point (was ~230 m off).
-- [ ] **Company profile PDF still says "Octane Transport Limited"** on p. 3 (intro) and p. 4 (Legal / Trading Name). Needs a careful edit with `.claude/tools` (the p. 3 line gets longer) or a re-export once the design source exists.
+- [x] **Company profile PDF updated to "Octane Transport Zambia Limited"** (11 Oct): p. 3 Executive Statement (reflowed on its original four lines; "in the heart of the Copperbelt Province" shortened to "in the Copperbelt Province" so it fits, same in the Markdown) and p. 4 Legal / Trading Name. Old text removed, not covered, so search and copy-paste find only the new name. PDF title set to "Octane Transport Zambia Limited - Company Profile". All other 13 pages are pixel-identical. Same download link on the website.
 - [x] **Website linked to the profile** (11 Oct): `hasMap` in the structured data on `/` and `/contact` uses the stable link https://www.google.com/maps?cid=7074308477456269480, and the contact page has an "Open in Google Maps for directions and reviews" link under the map. (The share link Abdi sent was a directions link that included his phone's location, so it was not used.)
 - [x] **Square logo** (1080×1080, supplied by Abdi 11 Oct) now gives the website's browser-tab icon (swirl only, `assets/img/icon-192.png`) and phone home-screen icon (full logo, `assets/img/apple-touch-icon.png`); before, the wide header logo was squashed into those spots. The header keeps the wide logo.
 - [x] Square logo uploaded as the Google profile photo (11 Oct).
