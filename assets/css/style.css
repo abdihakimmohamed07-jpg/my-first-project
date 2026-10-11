@@ -529,16 +529,31 @@ fieldset.form-group legend{
   position:fixed;left:26px;bottom:26px;z-index:999;
   width:52px;height:52px;border-radius:50%;background:var(--orange);color:#fff;
   display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);transition:transform .2s,box-shadow .2s;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  transition:transform 160ms cubic-bezier(0.23,1,0.32,1),background-color 160ms ease;
 }
+/* Hover shadow on a layer whose opacity fades, so the browser never repaints a moving box-shadow */
+.chat-launcher::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 10px 24px rgba(0,0,0,.22);opacity:0;transition:opacity 160ms ease;pointer-events:none;}
 .chat-launcher svg{width:24px;height:24px;fill:currentColor;}
-.chat-launcher:hover,.chat-launcher:focus-visible{background:var(--orange-dark);transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.22);}
+.chat-launcher:hover,.chat-launcher:focus-visible{background:var(--orange-dark);}
+/* Lift only for a real mouse: a tap on a phone would leave the button stuck raised */
+@media(hover:hover) and (pointer:fine){
+  .chat-launcher:hover{transform:translateY(-3px);}
+  .chat-launcher:hover::after{opacity:1;}
+}
+/* Press feedback */
+.chat-launcher:active,.chat-send:active,.chat-chips button:active,.chat-quote button:active:not(:disabled){transform:scale(0.97);}
+.chat-send,.chat-chips button,.chat-quote button{transition:transform 160ms ease-out;}
+/* Panel grows out of the launcher's corner; closing is quicker than opening */
 .chat-panel{
   position:fixed;left:26px;bottom:90px;z-index:999;width:320px;max-width:calc(100vw - 40px);
   max-height:70vh;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-lg);
   display:none;flex-direction:column;overflow:hidden;
+  opacity:0;transform:scale(0.96);transform-origin:bottom left;
+  transition:opacity 150ms ease-out,transform 150ms cubic-bezier(0.23,1,0.32,1),display 150ms allow-discrete;
 }
-.chat-panel.open{display:flex;}
+.chat-panel.open{display:flex;opacity:1;transform:none;transition-duration:200ms;}
+@starting-style{.chat-panel.open{opacity:0;transform:scale(0.96);}}
 .chat-head{background:#fff;color:var(--dark);border-bottom:3px solid #d71920;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;font-weight:700;font-family:var(--font-head);text-transform:uppercase;letter-spacing:.03em;font-size:.9rem;}
 .chat-logo{height:30px;width:auto;display:block;}
 .chat-close{background:none;border:none;color:var(--dark);font-size:1.3rem;line-height:1;cursor:pointer;padding:0 4px;}
@@ -567,7 +582,10 @@ fieldset.form-group legend{
 @media(max-width:600px){
   .chat-logo{height:32px;}
   html.chat-open,html.chat-open body{overflow:hidden;}
-  .chat-panel{inset:0;width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;border-radius:0;z-index:1001;padding-top:env(safe-area-inset-top,0px);}
+  .chat-panel{inset:0;width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;border-radius:0;z-index:1001;padding-top:env(safe-area-inset-top,0px);
+    opacity:1;transform:translateY(100%);transition:transform 200ms cubic-bezier(0.32,0.72,0,1),display 200ms allow-discrete;}
+  .chat-panel.open{transform:none;transition-duration:300ms;}
+  @starting-style{.chat-panel.open{transform:translateY(100%);}}
   .chat-head{padding:14px;font-size:1rem;flex-direction:row-reverse;justify-content:flex-end;gap:12px;}
   .chat-x{display:none;}
   .chat-back{display:inline;font-size:1rem;}
@@ -581,3 +599,8 @@ fieldset.form-group legend{
   .chat-quote input[type=text],.chat-quote input[type=tel]{font-size:16px;}
 }
 @media print{.chat-launcher,.chat-panel{display:none !important;}}
+/* Reduced motion: keep the fades, drop the movement */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .chat-launcher,.chat-panel,.chat-send,.chat-chips button,.chat-quote button{transform:none !important;}
+}

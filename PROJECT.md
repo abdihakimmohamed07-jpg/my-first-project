@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (design skills moved to the claude.ai account only)
+**Last updated:** 11 October 2026 (chat widget animation fixes)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -53,6 +53,7 @@
 - [x] **Quote-request form in the chat** (PR #34): when a visitor wants a quote, a small form (name, phone, cargo, route) appears and is sent from the browser to Web3Forms, subject "Chatbot quote request", arriving at info@. The bot never asks for these details in the chat (wording tightened in PR #35 and verified live).
 - [x] **Tap-to-ask buttons and full-screen chat on phones** (PR #38, 5 Oct): the chat opens with four buttons (Request a quote, Where do you operate, Opening hours, Track my truck). Request a quote shows the form straight away; the others send a preset question; the buttons disappear after the first message. On screens up to 600px wide the chat fills the screen with a Back button; laptops keep the small box. Site-only change, so the Worker was not touched and no Cloudflare redeploy was needed. Layout options considered: small box, buttons, full screen on phones, side panel on laptops (the side panel was not chosen).
 - [x] **Logo in the chat header** (5 Oct): the chat header is now white with the Octane logo (`assets/img/logo.png`, unchanged) and a red line; the launcher button stays orange with the chat icon. Site-only, no Worker redeploy.
+- [x] **Chat animation polish** (11 Oct, from a `/review-animations` review): on laptops the chat grows out of the launcher's corner (200ms) and closes faster (150ms); on phones it slides up like a drawer (300ms) and slides down (200ms). The launcher lifts on hover only with a mouse (no more button stuck raised after a tap on a phone), and buttons give a slight press response. Visitors who turn on "reduce motion" get fades without movement. CSS only, no Worker redeploy.
 - [x] **Privacy line** in the chat panel: chats may be reviewed to improve service.
 - [x] **Daily chat summary** (PR #34): each question and answer is stored in Cloudflare KV (binding `CHAT_LOGS`, namespace `octane-chat-logs`; no IP addresses; deleted after 7 days). A cron trigger (`0 6 * * *` UTC, 08:00 Zambia) emails the previous day's chats to info@ through Resend (secret `RESEND_API_KEY`, free plan). No email on days without chats. Web3Forms cannot be used for this: its free plan refuses server-side calls.
 - [x] Cloudflare setup done by Abdi on 4 Oct: KV namespace and binding (a mistyped binding name was fixed), `RESEND_API_KEY` secret, cron trigger, Worker redeployed with the final wording. Live tests passed.
@@ -81,6 +82,8 @@
 - [ ] Review and remove if still unused: the old `images/` folder and the `company_profile_updated.md` source, flagged unlinked in a 27 Sep scan (re-confirmed 4 Oct — neither is referenced from any published page).
 
 - [ ] Revisit **impeccable** later only if wanted: it downloads and runs its own program, and writes `PRODUCT.md`/`DESIGN.md` to the repo root, which this site would publish.
+
+- [ ] Optional: give the floating WhatsApp button the same hover fix as the chat launcher (it has the same stuck-raised-after-tap issue on phones).
 
 ### Nice to have
 - [ ] Professional fleet photo shoot (washed trucks, clean background, morning/evening light) to replace yard photos and the remaining stock images.
@@ -111,6 +114,7 @@
 | 5 Oct | Logo in the chat header only, not on the launcher button | The logo has a white background, so it needs a white header; on the small round button it hides the chat icon |
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
+| 11 Oct | Chat opens with a short animation; messages and tap-to-ask buttons stay instant | Opening is occasional, so a quick animation helps; messages appear many times per chat, where animation would only slow it down |
 | 11 Oct | Keep the design skills in the claude.ai account only; remove the repo copies | The account copies already reach Claude Code sessions; two copies would drift apart |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 
