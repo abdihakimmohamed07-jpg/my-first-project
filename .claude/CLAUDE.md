@@ -7,7 +7,7 @@ and PROJECT.md are not served on the website (both are still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (PROJECT.md no longer published).
+Last updated: 2026-10-11 (legal name Octane Transport Zambia Limited; Google Business Profile live).
 
 ## The site
 
@@ -125,13 +125,18 @@ Last updated: 2026-10-11 (PROJECT.md no longer published).
 - Structured data (PR #21): home and contact pages describe one
   `LocalBusiness` with `@id https://www.octanetransport.com/#business`,
   `legalName`, `alternateName` ["Octane Transport", "Octane Transport
-  Zambia"], Copperbelt Province. No `sameAs` yet — add LinkedIn/Facebook URLs
+  Zambia"], Copperbelt Province, geo -12.982864, 28.661287 (owner-confirmed).
+- **Legal name is "Octane Transport Zambia Limited"** (PACRA; same on the
+  Google Business Profile). The site used "Octane Transport Limited" until
+  2026-10-11 — never reintroduce it. Domain stays octanetransport.com. The
+  profile PDF (pp. 3–4) still has the old name until it is edited. No `sameAs` yet — add LinkedIn/Facebook URLs
   only once those profiles exist.
 
 ## Open items (owner's side unless noted)
 
-1. Create and verify a **Google Business Profile** (biggest lever vs the
-   same-name Canadian company).
+1. ~~Google Business Profile~~ — created and verified 2026-10-11 (legal
+   name, address shown). Pending: pin correction review, Maps share link for
+   the JSON-LD, photos, reviews.
 2. **Google Search Console**: verify the domain, submit `sitemap.xml`, request
    indexing (also speeds up the clean-URL switch).
 3. Run the homepage through Google's Rich Results Test.
@@ -178,4 +183,5 @@ Last updated: 2026-10-11 (PROJECT.md no longer published).
 | — | /contact fits at 390px: long email wraps after the @ (`<wbr>`, `overflow-wrap:anywhere`, `min-width:0` in `.contact-card .item`). Check new long emails/URLs on phones |
 | — | Site-wide check at 320–1366px: map image `max-width:min(…,100%)` (fixed px max-widths beat `img{max-width:100%}`), home hero h1 smaller below 360px, contact director line in a `<p>`, PDF links root-relative. Re-run a width sweep after layout changes |
 | — | Deploy workflow also removes `PROJECT.md` before publishing (internal notes: chatbot budget and rules, DNS host, decisions) |
+| — | Legal name → "Octane Transport Zambia Limited" site-wide (pages, titles, JSON-LD, README, profile MD); coordinates → 28.661287 |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |

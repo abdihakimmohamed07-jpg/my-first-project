@@ -1,6 +1,6 @@
-# Octane Transport Limited — Corporate Website
+# Octane Transport Zambia Limited — Corporate Website
 
-A static, multi-page corporate website for **Octane Transport Limited**, a privately owned Zambian transportation, logistics and general supply company headquartered in Ndola, Zambia.
+A static, multi-page corporate website for **Octane Transport Zambia Limited**, a privately owned Zambian transportation, logistics and general supply company headquartered in Ndola, Zambia.
 
 ## Structure
 

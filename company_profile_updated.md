@@ -1,6 +1,6 @@
 <div align="center">
 
-![Octane Transport Limited](./images/octane-transport-logo.png)
+![Octane Transport Zambia Limited](./images/octane-transport-logo.png)
 
 # CORPORATE PROFILE
 
@@ -34,7 +34,7 @@ Ndola, Zambia — Serving Zambia and the SADC Region
 
 ### 1.1 Executive Statement
 
-Octane Transport Limited is a privately owned Zambian transportation, logistics and general supply company headquartered in Ndola, in the heart of the Copperbelt Province. The company moves cargo and equipment for corporate, industrial and mining-sector clients across Zambia and the wider SADC region, consolidating supply, logistics and haulage capability under a single accountable operator.
+Octane Transport Zambia Limited is a privately owned Zambian transportation, logistics and general supply company headquartered in Ndola, in the heart of the Copperbelt Province. The company moves cargo and equipment for corporate, industrial and mining-sector clients across Zambia and the wider SADC region, consolidating supply, logistics and haulage capability under a single accountable operator.
 
 > **Positioning Statement:** Octane Transport exists to give corporate, industrial and mining-sector clients one dependable partner for the movement and supply of goods — reducing vendor complexity while protecting delivery timelines, cargo integrity and compliance standing.
 
@@ -56,7 +56,7 @@ Operating from Zambia's principal mining and industrial corridor, the company is
 
 | Attribute | Detail |
 |---|---|
-| **Legal / Trading Name** | Octane Transport Limited |
+| **Legal / Trading Name** | Octane Transport Zambia Limited |
 | **Ownership Structure** | Privately owned Zambian company |
 | **Headquarters** | 19 Kafironda Drive, Itawa, Ndola, Zambia |
 | **Regional Base** | Copperbelt Province — Zambia's principal mining and industrial region |
@@ -247,7 +247,7 @@ Octane Transport's stated strategic direction is to keep building operating capa
 
 <div align="center">
 
-![Octane Transport Limited](./images/octane-transport-logo.png)
+![Octane Transport Zambia Limited](./images/octane-transport-logo.png)
 
 **www.octanetransport.com**
 *Reliable Transportation, Logistics & Supply Solutions — Zambia & the SADC Region*
