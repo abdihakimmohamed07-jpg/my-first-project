@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (whole-site phone layout check)
+**Last updated:** 11 October 2026 (US$10 spend alert set; Procurement forms tested)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -71,11 +71,11 @@
 ### High priority
 - [x] **Daily chat summary email verified (5 Oct).** The first scheduled run (08:00 Zambia) did not send because the Worker had no cron trigger (lost after a dashboard redeploy). Abdi re-added `0 6 * * *`; a one-off test trigger sent the email at 08:25 Zambia and it landed in the inbox, not spam. The test trigger (`25 6 * * *`) must be deleted. After ANY Worker redeploy, open Worker > Settings > Triggers and confirm `0 6 * * *` is still listed.
 - [x] Temporary test cron `25 6 * * *` deleted by Abdi (5 Oct). [ ] Check the real 08:00 email arrives on 6 Oct.
-- [ ] **Test the 2 Procurement forms** (New Customer / Existing Customer) with one live submission each and confirm arrival at info@.
+- [x] **Procurement forms tested** (11 Oct): Abdi sent one live submission from each (New Customer / Existing Customer); both emails arrived. All 3 Web3Forms forms are now confirmed end to end.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
 
 ### Housekeeping
-- [ ] Chatbot: set a spend alert at US$10 in the Anthropic Console (workspace for the chatbot) as an early warning below the US$20 cap.
+- [x] Chatbot: spend alert at US$10 set by Abdi (11 Oct) in the Anthropic Console, on the chatbot's workspace (Limits tab > notification). Email warning only; the US$20 spend limit stays the hard cap.
 - [ ] Chatbot: read the daily summaries for the first weeks and send Claude Code any wrong or awkward answers to fix in the Worker's rules.
 - [ ] Optional chatbot extra: a WhatsApp button inside the chat window.
 - [ ] After ~1 week of real Web3Forms enquiries arriving: **delete the Formspree form** and the **Gmail forwarding filter**.
@@ -118,6 +118,7 @@
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
 | 11 Oct | Chat opens with a short animation; messages and tap-to-ask buttons stay instant | Opening is occasional, so a quick animation helps; messages appear many times per chat, where animation would only slow it down |
+| 11 Oct | Chatbot spend: US$10 email alert, US$20 hard limit unchanged | A US$10 limit would switch the chatbot off mid-month; the alert warns early without stopping it |
 | 11 Oct | Keep the design skills in the claude.ai account only; remove the repo copies | The account copies already reach Claude Code sessions; two copies would drift apart |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 
