@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (design skills in `.claude/skills/`).
+Last updated: 2026-10-11 (design skills live in Abdi's claude.ai account, not the repo).
 
 ## The site
 
@@ -169,4 +169,5 @@ Last updated: 2026-10-11 (design skills in `.claude/skills/`).
 | #25 | Profile cleanup: Corporate Identity intro, fleet-schedule note (PDF + MD), placeholder images removed from MD; /industries intro lists Mining; README to-do corrected |
 | #28–#37 | Chatbot: widget, Cloudflare Worker, daily chat summary email, quote form in chat, prompt tightening (see PROJECT.md) |
 | #38 | Chat opens with tap-to-ask buttons; full-screen chat on phones |
-| — | Design skills in `.claude/skills/`: design-taste-frontend, redesign-existing-projects, mobile-native, break-ui, review-animations (third-party, MIT, text only). Their advice is general; the URL, contact and photo-credit rules above still win |
+| #42 | Five design skills added to `.claude/skills/` (design-taste-frontend, redesign-existing-projects, mobile-native, break-ui, review-animations) |
+| — | Repo copies removed; the same skills live in Abdi's claude.ai account. Don't re-add skills to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
