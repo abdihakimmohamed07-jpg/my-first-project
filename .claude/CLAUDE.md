@@ -7,7 +7,7 @@ and PROJECT.md are not served on the website (both are still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (profile PDF legal name).
+Last updated: 2026-10-11 (Search Console; DNS still at Africana).
 
 ## The site
 
@@ -141,8 +141,12 @@ Last updated: 2026-10-11 (profile PDF legal name).
    `hasMap` + contact-page link: https://www.google.com/maps?cid=7074308477456269480
    (never paste a maps.app share link — they can be directions links that
    embed the sender's location). Pending: photos, reviews.
-2. **Google Search Console**: verify the domain, submit `sitemap.xml`, request
-   indexing (also speeds up the clean-URL switch).
+2. ~~Google Search Console~~ — Domain property verified 2026-10-11 via DNS TXT
+   (`google-site-verification=…`, keep it), sitemap submitted, indexing
+   requested. **DNS is still hosted by Africana Solutions** (cPanel Zone
+   Editor, cpanel.africana.co.zm:2083; nameservers ns1/ns2.africana.co.zm):
+   it carries MX (Google Workspace), SPF, DMARC, www → GitHub and the TXT.
+   Never tell the owner cPanel is obsolete — only the website moved.
 3. Run the homepage through Google's Rich Results Test.
 4. LinkedIn / Facebook pages → then add `sameAs` to the LocalBusiness JSON-LD
    (two-line change).
@@ -190,5 +194,6 @@ Last updated: 2026-10-11 (profile PDF legal name).
 | #50 | Legal name → "Octane Transport Zambia Limited" site-wide; coordinates 28.661287 |
 | #51 | Site icons: `icon-192.png` (swirl crop of the square logo) for `rel=icon`, `apple-touch-icon.png` (full square logo, 180px); root-relative links on all 11 pages. Header keeps `logo.png` |
 | #52 | `hasMap` (Google profile cid link) on `/` + `/contact` JSON-LD; "Open in Google Maps" link under the contact map (`.map-link`) |
-| — | Profile PDF: legal name on p. 3 (Executive Statement, "in the heart of" dropped to keep 4 lines) and p. 4 (Legal / Trading Name); PDF Title/Author metadata; MD synced |
+| #53 | Profile PDF: legal name on p. 3 (Executive Statement, "in the heart of" dropped to keep 4 lines) and p. 4 (Legal / Trading Name); PDF Title/Author metadata; MD synced |
+| — | Search Console Domain property (DNS TXT at Africana); sitemap submitted |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
