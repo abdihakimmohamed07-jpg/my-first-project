@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (US$10 spend alert set; Procurement forms tested)
+**Last updated:** 11 October 2026 (this file no longer published on the website)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -61,6 +61,9 @@
 - [x] **Daily chat summary** (PR #34): each question and answer is stored in Cloudflare KV (binding `CHAT_LOGS`, namespace `octane-chat-logs`; no IP addresses; deleted after 7 days). A cron trigger (`0 6 * * *` UTC, 08:00 Zambia) emails the previous day's chats to info@ through Resend (secret `RESEND_API_KEY`, free plan). No email on days without chats. Web3Forms cannot be used for this: its free plan refuses server-side calls.
 - [x] Cloudflare setup done by Abdi on 4 Oct: KV namespace and binding (a mistyped binding name was fixed), `RESEND_API_KEY` secret, cron trigger, Worker redeployed with the final wording. Live tests passed.
 
+### Privacy of project notes
+- [x] **This file is no longer published on the website** (11 Oct): the deploy step now removes `PROJECT.md` along with `.claude/`, so octanetransport.com/PROJECT.md is a 404. It is still readable on GitHub because the repository is public; making the repository private is a separate decision (check GitHub Pages plan requirements first).
+
 ### Claude tools
 - [x] **Five design skills installed in Abdi's claude.ai account** (11 Oct, all enabled): `design-taste-frontend` and `redesign-existing-projects` (taste-skill, MIT), `mobile-native`, `break-ui` and `review-animations` (Emil Kowalski's skills, MIT). They work in claude.ai chats and in Claude Code sessions. `review-animations` runs only when called with `/review-animations`. The copies briefly kept in the repo (PR #42) were removed so there is one source and no drift.
 
@@ -118,6 +121,7 @@
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
 | 11 Oct | Chat opens with a short animation; messages and tap-to-ask buttons stay instant | Opening is occasional, so a quick animation helps; messages appear many times per chat, where animation would only slow it down |
+| 11 Oct | Stop publishing PROJECT.md on the website | It holds internal detail (chatbot budget and rules, which clients the bot may name, DNS host, internal decisions) that customers and competitors don't need |
 | 11 Oct | Chatbot spend: US$10 email alert, US$20 hard limit unchanged | A US$10 limit would switch the chatbot off mid-month; the alert warns early without stopping it |
 | 11 Oct | Keep the design skills in the claude.ai account only; remove the repo copies | The account copies already reach Claude Code sessions; two copies would drift apart |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
