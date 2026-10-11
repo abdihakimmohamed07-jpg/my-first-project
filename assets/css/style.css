@@ -478,6 +478,8 @@ fieldset.form-group legend{
 .vendor-doc-intro p{color:var(--gray-600);}
 
 .map-box{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200);}
+.map-link{text-align:center;margin:16px 0 0;}
+.map-link a{color:var(--orange-text);font-weight:600;}
 .map-box iframe{width:100%;height:340px;border:0;display:block;}
 
 /* Footer */

@@ -7,7 +7,7 @@ and PROJECT.md are not served on the website (both are still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (square-logo site icons).
+Last updated: 2026-10-11 (site linked to the Google Business Profile).
 
 ## The site
 
@@ -135,8 +135,10 @@ Last updated: 2026-10-11 (square-logo site icons).
 ## Open items (owner's side unless noted)
 
 1. ~~Google Business Profile~~ — created and verified 2026-10-11 (legal
-   name, address shown). Pending: pin correction review, Maps share link for
-   the JSON-LD, photos, reviews.
+   name, address shown, logo, pin corrected). Linked from the site via
+   `hasMap` + contact-page link: https://www.google.com/maps?cid=7074308477456269480
+   (never paste a maps.app share link — they can be directions links that
+   embed the sender's location). Pending: photos, reviews.
 2. **Google Search Console**: verify the domain, submit `sitemap.xml`, request
    indexing (also speeds up the clean-URL switch).
 3. Run the homepage through Google's Rich Results Test.
@@ -184,5 +186,6 @@ Last updated: 2026-10-11 (square-logo site icons).
 | — | Site-wide check at 320–1366px: map image `max-width:min(…,100%)` (fixed px max-widths beat `img{max-width:100%}`), home hero h1 smaller below 360px, contact director line in a `<p>`, PDF links root-relative. Re-run a width sweep after layout changes |
 | — | Deploy workflow also removes `PROJECT.md` before publishing (internal notes: chatbot budget and rules, DNS host, decisions) |
 | #50 | Legal name → "Octane Transport Zambia Limited" site-wide; coordinates 28.661287 |
-| — | Site icons: `icon-192.png` (swirl crop of the square logo) for `rel=icon`, `apple-touch-icon.png` (full square logo, 180px); root-relative links on all 11 pages. Header keeps `logo.png` |
+| #51 | Site icons: `icon-192.png` (swirl crop of the square logo) for `rel=icon`, `apple-touch-icon.png` (full square logo, 180px); root-relative links on all 11 pages. Header keeps `logo.png` |
+| — | `hasMap` (Google profile cid link) on `/` + `/contact` JSON-LD; "Open in Google Maps" link under the contact map (`.map-link`) |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |

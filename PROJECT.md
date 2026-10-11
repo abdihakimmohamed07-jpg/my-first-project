@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (square logo used for the browser-tab and home-screen icons)
+**Last updated:** 11 October 2026 (website linked to the Google Business Profile)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -65,11 +65,12 @@
 - [x] **Google Business Profile created and verified** (11 Oct) under the exact legal name, Octane Transport Zambia Limited, with the address shown. Already 18 customer interactions on the first day.
 - [x] **Website now uses the legal name "Octane Transport Zambia Limited"** everywhere it used "Octane Transport Limited" (footers, page text, page titles and descriptions, structured data, README, company profile Markdown). The domain stays octanetransport.com; a domain doesn't need to match the legal name.
 - [x] Website coordinates set to the confirmed office location -12.982864, 28.661287 (structured data and the contact-page map).
-- [ ] **Google pin:** Abdi has moved the profile pin to -12.982864, 28.661287 (Google review pending). The old pin (plus code 2M85+6X) was about 230 m away; the correct spot is plus code 2M86+VG. Check the profile shows the new location.
+- [x] **Google pin corrected** (11 Oct): the profile now sits at -12.98287, 28.66117, about 13 m from the confirmed office point (was ~230 m off).
 - [ ] **Company profile PDF still says "Octane Transport Limited"** on p. 3 (intro) and p. 4 (Legal / Trading Name). Needs a careful edit with `.claude/tools` (the p. 3 line gets longer) or a re-export once the design source exists.
-- [ ] Send Claude Code the profile's Google Maps **Share** link (maps.app.goo.gl/…) so the website's structured data can point to the listing.
+- [x] **Website linked to the profile** (11 Oct): `hasMap` in the structured data on `/` and `/contact` uses the stable link https://www.google.com/maps?cid=7074308477456269480, and the contact page has an "Open in Google Maps for directions and reviews" link under the map. (The share link Abdi sent was a directions link that included his phone's location, so it was not used.)
 - [x] **Square logo** (1080×1080, supplied by Abdi 11 Oct) now gives the website's browser-tab icon (swirl only, `assets/img/icon-192.png`) and phone home-screen icon (full logo, `assets/img/apple-touch-icon.png`); before, the wide header logo was squashed into those spots. The header keeps the wide logo.
-- [ ] Add the square logo as the profile photo and 5–10 real photos (plates blurred); ask 2–3 clients for Google reviews.
+- [x] Square logo uploaded as the Google profile photo (11 Oct).
+- [ ] Add 5–10 real photos (plates blurred); ask 2–3 clients for Google reviews.
 - [ ] Google Search Console: verify the domain and submit sitemap.xml.
 
 ### Privacy of project notes
@@ -132,6 +133,7 @@
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
 | 11 Oct | Chat opens with a short animation; messages and tap-to-ask buttons stay instant | Opening is occasional, so a quick animation helps; messages appear many times per chat, where animation would only slow it down |
+| 11 Oct | Link the site to the Google profile with the place's `cid` URL, not the share link | Share links can be directions links that carry the sender's own location; the `cid` link is stable and points only at the business |
 | 11 Oct | Square logo for icons and the Google profile photo; wide logo stays in the site header | The square version reads well in small square/round spots; the wide one fits the top bar |
 | 11 Oct | Use the legal name "Octane Transport Zambia Limited" on the website, matching PACRA and the Google Business Profile; keep the domain | Google trusts a business more when the name matches everywhere; the domain name is unrelated to the legal name and changing it would be costly |
 | 11 Oct | Keep the GitHub repository public | Making it private needs GitHub Pro (about US$4/month) and the site goes offline if that payment fails; the notes hold no secrets |
