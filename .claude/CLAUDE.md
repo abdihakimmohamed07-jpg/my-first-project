@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (WhatsApp button hover fix).
+Last updated: 2026-10-11 (contact page fits phone screens).
 
 ## The site
 
@@ -172,5 +172,6 @@ Last updated: 2026-10-11 (WhatsApp button hover fix).
 | #42 | Five design skills added to `.claude/skills/` (design-taste-frontend, redesign-existing-projects, mobile-native, break-ui, review-animations) |
 | #43 | Repo copies of the design skills removed (they live in Abdi's claude.ai account) |
 | #44 | Chat widget motion: panel open/close animation (corner scale on laptops, drawer on phones), mouse-only launcher hover lift, press feedback, reduced-motion support |
-| — | `.wa-float` gets the same mouse-only hover lift, opacity-faded shadow, press feedback and reduced-motion rule |
+| #45 | `.wa-float` gets the same mouse-only hover lift, opacity-faded shadow, press feedback and reduced-motion rule |
+| — | /contact fits at 390px: long email wraps after the @ (`<wbr>`, `overflow-wrap:anywhere`, `min-width:0` in `.contact-card .item`). Check new long emails/URLs on phones |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |

@@ -437,6 +437,9 @@ p{margin:0 0 1em;}
 .contact-card .item .ic svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;}
 .contact-card .item h4{color:#fff;margin:0 0 4px;font-family:var(--font-body);font-weight:600;text-transform:none;letter-spacing:0;font-size:.95rem;}
 .contact-card .item a,.contact-card .item p{color:var(--gray-300);margin:0;font-size:.94rem;}
+/* Long email addresses may wrap on phones instead of widening the page */
+.contact-card .item>div:not(.ic){min-width:0;}
+.contact-card .item a{overflow-wrap:anywhere;}
 .contact-card .item a:hover{color:var(--orange);}
 
 .form-group{margin-bottom:20px;}
