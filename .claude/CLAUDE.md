@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (chat widget animation fixes).
+Last updated: 2026-10-11 (WhatsApp button hover fix).
 
 ## The site
 
@@ -171,5 +171,6 @@ Last updated: 2026-10-11 (chat widget animation fixes).
 | #38 | Chat opens with tap-to-ask buttons; full-screen chat on phones |
 | #42 | Five design skills added to `.claude/skills/` (design-taste-frontend, redesign-existing-projects, mobile-native, break-ui, review-animations) |
 | #43 | Repo copies of the design skills removed (they live in Abdi's claude.ai account) |
-| — | Chat widget motion: panel open/close animation (corner scale on laptops, drawer on phones), mouse-only launcher hover lift, press feedback, reduced-motion support |
+| #44 | Chat widget motion: panel open/close animation (corner scale on laptops, drawer on phones), mouse-only launcher hover lift, press feedback, reduced-motion support |
+| — | `.wa-float` gets the same mouse-only hover lift, opacity-faded shadow, press feedback and reduced-motion rule |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
