@@ -7,7 +7,7 @@ and PROJECT.md are not served on the website (both are still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (legal name Octane Transport Zambia Limited; Google Business Profile live).
+Last updated: 2026-10-11 (square-logo site icons).
 
 ## The site
 
@@ -183,5 +183,6 @@ Last updated: 2026-10-11 (legal name Octane Transport Zambia Limited; Google Bus
 | — | /contact fits at 390px: long email wraps after the @ (`<wbr>`, `overflow-wrap:anywhere`, `min-width:0` in `.contact-card .item`). Check new long emails/URLs on phones |
 | — | Site-wide check at 320–1366px: map image `max-width:min(…,100%)` (fixed px max-widths beat `img{max-width:100%}`), home hero h1 smaller below 360px, contact director line in a `<p>`, PDF links root-relative. Re-run a width sweep after layout changes |
 | — | Deploy workflow also removes `PROJECT.md` before publishing (internal notes: chatbot budget and rules, DNS host, decisions) |
-| — | Legal name → "Octane Transport Zambia Limited" site-wide (pages, titles, JSON-LD, README, profile MD); coordinates → 28.661287 |
+| #50 | Legal name → "Octane Transport Zambia Limited" site-wide; coordinates 28.661287 |
+| — | Site icons: `icon-192.png` (swirl crop of the square logo) for `rel=icon`, `apple-touch-icon.png` (full square logo, 180px); root-relative links on all 11 pages. Header keeps `logo.png` |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
