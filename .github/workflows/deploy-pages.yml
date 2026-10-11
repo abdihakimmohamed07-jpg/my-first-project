@@ -31,7 +31,7 @@ jobs:
           enablement: true
 
       - name: Exclude repo-only files from the published site
-        run: rm -rf .claude
+        run: rm -rf .claude PROJECT.md
 
       - name: Upload site as Pages artifact
         uses: actions/upload-pages-artifact@v3

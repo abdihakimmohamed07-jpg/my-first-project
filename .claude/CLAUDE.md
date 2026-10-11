@@ -2,11 +2,12 @@
 
 Context for Claude Code sessions. The site is published by
 `.github/workflows/deploy-pages.yml`, which uploads the whole repo except `.git`,
-`.github` and `.claude` (removed by a workflow step), so this file is not served
-on the website. Everything else in the repo IS public (e.g. `/README.md`,
+`.github`, `.claude` and `PROJECT.md` (removed by a workflow step), so this file
+and PROJECT.md are not served on the website (both are still readable on GitHub,
+since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (whole-site phone layout check).
+Last updated: 2026-10-11 (PROJECT.md no longer published).
 
 ## The site
 
@@ -33,7 +34,8 @@ Last updated: 2026-10-11 (whole-site phone layout check).
   Keep it free of secrets; the repo is public.
 - After each merge: confirm the merge commit equals the tested commit, the
   branch is gone, and verify the **live site** (curl with a `?v=` cache-buster).
-  Also confirm `https://www.octanetransport.com/.claude/CLAUDE.md` is a 404.
+  Also confirm `https://www.octanetransport.com/.claude/CLAUDE.md` and
+  `https://www.octanetransport.com/PROJECT.md` are 404s.
 - Verify before claiming: run browser checks (console errors, layout, mobile
   390px and desktop 1366px) and include screenshots in the PR for visual
   changes. Screenshots go in a temporary commit that is removed in the next
@@ -175,4 +177,5 @@ Last updated: 2026-10-11 (whole-site phone layout check).
 | #45 | `.wa-float` gets the same mouse-only hover lift, opacity-faded shadow, press feedback and reduced-motion rule |
 | — | /contact fits at 390px: long email wraps after the @ (`<wbr>`, `overflow-wrap:anywhere`, `min-width:0` in `.contact-card .item`). Check new long emails/URLs on phones |
 | — | Site-wide check at 320–1366px: map image `max-width:min(…,100%)` (fixed px max-widths beat `img{max-width:100%}`), home hero h1 smaller below 360px, contact director line in a `<p>`, PDF links root-relative. Re-run a width sweep after layout changes |
+| — | Deploy workflow also removes `PROJECT.md` before publishing (internal notes: chatbot budget and rules, DNS host, decisions) |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
