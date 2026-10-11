@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (WhatsApp button hover fix)
+**Last updated:** 11 October 2026 (contact page fits phone screens)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -54,6 +54,7 @@
 - [x] **Tap-to-ask buttons and full-screen chat on phones** (PR #38, 5 Oct): the chat opens with four buttons (Request a quote, Where do you operate, Opening hours, Track my truck). Request a quote shows the form straight away; the others send a preset question; the buttons disappear after the first message. On screens up to 600px wide the chat fills the screen with a Back button; laptops keep the small box. Site-only change, so the Worker was not touched and no Cloudflare redeploy was needed. Layout options considered: small box, buttons, full screen on phones, side panel on laptops (the side panel was not chosen).
 - [x] **Logo in the chat header** (5 Oct): the chat header is now white with the Octane logo (`assets/img/logo.png`, unchanged) and a red line; the launcher button stays orange with the chat icon. Site-only, no Worker redeploy.
 - [x] **Chat animation polish** (11 Oct, from a `/review-animations` review): on laptops the chat grows out of the launcher's corner (200ms) and closes faster (150ms); on phones it slides up like a drawer (300ms) and slides down (200ms). The launcher lifts on hover only with a mouse (no more button stuck raised after a tap on a phone), and buttons give a slight press response. Visitors who turn on "reduce motion" get fades without movement. CSS only, no Worker redeploy.
+- [x] **Contact page fits on phones** (11 Oct): the long email abdihakim.mohamed@octanetransport.com could not wrap, so on phones /contact loaded about 20% wider than the screen (zoomed out, sideways scrolling). It now wraps after the @. The other pages were already fine at 390px.
 - [x] **WhatsApp button hover fix** (11 Oct): the floating WhatsApp button got the same treatment as the chat launcher: lifts on hover only with a mouse (no longer stuck raised after a tap on a phone), small press response, no movement for "reduce motion".
 - [x] **Privacy line** in the chat panel: chats may be reviewed to improve service.
 - [x] **Daily chat summary** (PR #34): each question and answer is stored in Cloudflare KV (binding `CHAT_LOGS`, namespace `octane-chat-logs`; no IP addresses; deleted after 7 days). A cron trigger (`0 6 * * *` UTC, 08:00 Zambia) emails the previous day's chats to info@ through Resend (secret `RESEND_API_KEY`, free plan). No email on days without chats. Web3Forms cannot be used for this: its free plan refuses server-side calls.
@@ -84,6 +85,8 @@
 
 - [ ] Revisit **impeccable** later only if wanted: it downloads and runs its own program, and writes `PRODUCT.md`/`DESIGN.md` to the repo root, which this site would publish.
 
+
+- [ ] Optional: on very small phones (320px wide, e.g. iPhone SE 1st generation) the homepage and /projects are still slightly wider than the screen (377px and 384px). Rare devices; fix when convenient.
 
 ### Nice to have
 - [ ] Professional fleet photo shoot (washed trucks, clean background, morning/evening light) to replace yard photos and the remaining stock images.
