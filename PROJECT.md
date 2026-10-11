@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (design skills for Claude Code added)
+**Last updated:** 11 October 2026 (design skills moved to the claude.ai account only)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -58,7 +58,7 @@
 - [x] Cloudflare setup done by Abdi on 4 Oct: KV namespace and binding (a mistyped binding name was fixed), `RESEND_API_KEY` secret, cron trigger, Worker redeployed with the final wording. Live tests passed.
 
 ### Claude tools
-- [x] **Five design skills added** in `.claude/skills/` (11 Oct): `design-taste-frontend` and `redesign-existing-projects` (taste-skill, MIT), `mobile-native`, `break-ui` and `review-animations` (Emil Kowalski's skills, MIT). Claude Code sessions on this repo load them automatically. They are text-only guidance (no scripts) and `.claude/` is never published on the website.
+- [x] **Five design skills installed in Abdi's claude.ai account** (11 Oct, all enabled): `design-taste-frontend` and `redesign-existing-projects` (taste-skill, MIT), `mobile-native`, `break-ui` and `review-animations` (Emil Kowalski's skills, MIT). They work in claude.ai chats and in Claude Code sessions. `review-animations` runs only when called with `/review-animations`. The copies briefly kept in the repo (PR #42) were removed so there is one source and no drift.
 
 ---
 
@@ -80,7 +80,6 @@
 - [ ] Update the business number elsewhere over time: email signatures, Google Business listing (if any), vendor/supplier files (incl. FQM), business cards, truck door stickers (some still show old numbers).
 - [ ] Review and remove if still unused: the old `images/` folder and the `company_profile_updated.md` source, flagged unlinked in a 27 Sep scan (re-confirmed 4 Oct — neither is referenced from any published page).
 
-- [ ] Optional: upload the same five skills to claude.ai (Settings > Capabilities > Skills) so they also work in normal Claude chats; one zip per skill.
 - [ ] Revisit **impeccable** later only if wanted: it downloads and runs its own program, and writes `PRODUCT.md`/`DESIGN.md` to the repo root, which this site would publish.
 
 ### Nice to have
@@ -112,6 +111,7 @@
 | 5 Oct | Logo in the chat header only, not on the launcher button | The logo has a white background, so it needs a white header; on the small round button it hides the chat icon |
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
+| 11 Oct | Keep the design skills in the claude.ai account only; remove the repo copies | The account copies already reach Claude Code sessions; two copies would drift apart |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 
 ---
