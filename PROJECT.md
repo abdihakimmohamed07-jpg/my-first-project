@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (US$10 chatbot spend alert set)
+**Last updated:** 11 October 2026 (US$10 spend alert set; Procurement forms tested)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -71,7 +71,7 @@
 ### High priority
 - [x] **Daily chat summary email verified (5 Oct).** The first scheduled run (08:00 Zambia) did not send because the Worker had no cron trigger (lost after a dashboard redeploy). Abdi re-added `0 6 * * *`; a one-off test trigger sent the email at 08:25 Zambia and it landed in the inbox, not spam. The test trigger (`25 6 * * *`) must be deleted. After ANY Worker redeploy, open Worker > Settings > Triggers and confirm `0 6 * * *` is still listed.
 - [x] Temporary test cron `25 6 * * *` deleted by Abdi (5 Oct). [ ] Check the real 08:00 email arrives on 6 Oct.
-- [ ] **Test the 2 Procurement forms** (New Customer / Existing Customer) with one live submission each and confirm arrival at info@.
+- [x] **Procurement forms tested** (11 Oct): Abdi sent one live submission from each (New Customer / Existing Customer); both emails arrived. All 3 Web3Forms forms are now confirmed end to end.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
 
 ### Housekeeping
