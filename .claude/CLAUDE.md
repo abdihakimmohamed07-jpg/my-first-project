@@ -6,7 +6,7 @@ Context for Claude Code sessions. The site is published by
 on the website. Everything else in the repo IS public (e.g. `/README.md`,
 `/company_profile_updated.md`). Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (contact page fits phone screens).
+Last updated: 2026-10-11 (whole-site phone layout check).
 
 ## The site
 
@@ -174,4 +174,5 @@ Last updated: 2026-10-11 (contact page fits phone screens).
 | #44 | Chat widget motion: panel open/close animation (corner scale on laptops, drawer on phones), mouse-only launcher hover lift, press feedback, reduced-motion support |
 | #45 | `.wa-float` gets the same mouse-only hover lift, opacity-faded shadow, press feedback and reduced-motion rule |
 | — | /contact fits at 390px: long email wraps after the @ (`<wbr>`, `overflow-wrap:anywhere`, `min-width:0` in `.contact-card .item`). Check new long emails/URLs on phones |
+| — | Site-wide check at 320–1366px: map image `max-width:min(…,100%)` (fixed px max-widths beat `img{max-width:100%}`), home hero h1 smaller below 360px, contact director line in a `<p>`, PDF links root-relative. Re-run a width sweep after layout changes |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
