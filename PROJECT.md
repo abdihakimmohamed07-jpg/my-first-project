@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (company profile PDF shows the legal name)
+**Last updated:** 11 October 2026 (Google Search Console set up)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -71,7 +71,8 @@
 - [x] **Square logo** (1080×1080, supplied by Abdi 11 Oct) now gives the website's browser-tab icon (swirl only, `assets/img/icon-192.png`) and phone home-screen icon (full logo, `assets/img/apple-touch-icon.png`); before, the wide header logo was squashed into those spots. The header keeps the wide logo.
 - [x] Square logo uploaded as the Google profile photo (11 Oct).
 - [ ] Add 5–10 real photos (plates blurred); ask 2–3 clients for Google reviews.
-- [ ] Google Search Console: verify the domain and submit sitemap.xml.
+- [x] **Google Search Console set up** (11 Oct) under info@octanetransport.com as a **Domain** property (covers www, bare domain, http and https). Verified by a `google-site-verification=…` TXT record in Africana's cPanel Zone Editor — **never delete that record**, or Search Console access is lost. Sitemap `https://www.octanetransport.com/sitemap.xml` submitted; indexing requested for `/`, `/about` (both already indexed with the old name, now re-queued) and `/contact` (new to Google under its clean address).
+- [ ] In a few days: check Search Console > Sitemaps shows Success (10 pages) and that Google results show "Octane Transport Zambia Limited" and the new icon.
 
 ### Privacy of project notes
 - [x] **This file is no longer published on the website** (11 Oct): the deploy step now removes `PROJECT.md` along with `.claude/`, so octanetransport.com/PROJECT.md is a 404. It is still readable on GitHub because the repository is public; making the repository private is a separate decision (check GitHub Pages plan requirements first).
@@ -109,7 +110,8 @@
 - [ ] Future: move calls to the business number when vendor forms come up for renewal.
 
 ### Security & DNS
-- [ ] Tighten DMARC from `p=none` to `quarantine` once DMARC reports to abdihakim.mohamed@ look clean (SPF/DKIM/DMARC all verified passing 28 Sep; DKIM selector `google`; DNS in cPanel Zone Editor at cpanel.octanetransport.com).
+- [ ] **Keep the Africana Solutions account paid and its login safe.** It still hosts the DNS for octanetransport.com (nameservers ns1/ns2.africana.co.zm), which carries the Google Workspace email (MX), SPF/DMARC, the website address (www → GitHub Pages) and the Search Console TXT record. If it lapses, email and the website stop. Login was recovered 11 Oct; cPanel is reached at cpanel.africana.co.zm:2083. Note the renewal date.
+- [ ] Tighten DMARC from `p=none` to `quarantine` once DMARC reports to abdihakim.mohamed@ look clean (SPF/DKIM/DMARC all verified passing 28 Sep; DKIM selector `google`; DNS in Africana's cPanel Zone Editor).
 - [ ] Optional: move DNS off cPanel (currently `africana.co.zm` nameservers) if cancelling cPanel hosting — cPanel is still needed today because it hosts DNS, and the MX records for Google Workspace must be preserved through any move.
 
 ---
@@ -133,6 +135,7 @@
 | 5 Oct | **Every change updates PROJECT.md in the same pull request** (Abdi authorised this without asking each time) | One status file that every session starts from |
 | 11 Oct | Add 5 of the 28 uploaded design skills; leave out the rest for now | The others clash on style (brutalist, minimalist, soft), are older versions, or target other tools (Swift, React Native, Codex, image generators); impeccable held back for the reasons in section 3 |
 | 11 Oct | Chat opens with a short animation; messages and tap-to-ask buttons stay instant | Opening is occasional, so a quick animation helps; messages appear many times per chat, where animation would only slow it down |
+| 11 Oct | Search Console as a Domain property verified by DNS TXT, not a URL-prefix property with an HTML tag | Covers every version of the domain and needs no change to the website |
 | 11 Oct | Link the site to the Google profile with the place's `cid` URL, not the share link | Share links can be directions links that carry the sender's own location; the `cid` link is stable and points only at the business |
 | 11 Oct | Square logo for icons and the Google profile photo; wide logo stays in the site header | The square version reads well in small square/round spots; the wide one fits the top bar |
 | 11 Oct | Use the legal name "Octane Transport Zambia Limited" on the website, matching PACRA and the Google Business Profile; keep the domain | Google trusts a business more when the name matches everywhere; the domain name is unrelated to the legal name and changing it would be costly |
