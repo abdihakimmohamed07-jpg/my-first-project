@@ -518,10 +518,18 @@ fieldset.form-group legend{
   display:inline-flex;align-items:center;gap:8px;
   background:#25D366;color:#fff;font-weight:700;font-size:.9rem;line-height:1;
   padding:12px 16px;border-radius:999px;text-decoration:none;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);transition:transform .2s,box-shadow .2s;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);transition:transform 160ms cubic-bezier(0.23,1,0.32,1);
 }
+/* Hover shadow on a layer whose opacity fades (same approach as .chat-launcher) */
+.wa-float::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 10px 24px rgba(0,0,0,.22);opacity:0;transition:opacity 160ms ease;pointer-events:none;}
 .wa-float svg{width:22px;height:22px;fill:currentColor;flex-shrink:0;}
-.wa-float:hover,.wa-float:focus-visible{color:#fff;transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.22);}
+.wa-float:hover,.wa-float:focus-visible{color:#fff;}
+/* Lift only for a real mouse: a tap on a phone would leave the button stuck raised */
+@media(hover:hover) and (pointer:fine){
+  .wa-float:hover{transform:translateY(-3px);}
+  .wa-float:hover::after{opacity:1;}
+}
+.wa-float:active{transform:scale(0.97);}
 @media(max-width:600px){.wa-float span{display:none;}}
 @media print{.wa-float{display:none !important;}}
 
@@ -602,5 +610,5 @@ fieldset.form-group legend{
 /* Reduced motion: keep the fades, drop the movement */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
-  .chat-launcher,.chat-panel,.chat-send,.chat-chips button,.chat-quote button{transform:none !important;}
+  .wa-float,.chat-launcher,.chat-panel,.chat-send,.chat-chips button,.chat-quote button{transform:none !important;}
 }
