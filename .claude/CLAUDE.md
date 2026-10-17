@@ -4,10 +4,11 @@ Context for Claude Code sessions. The site is published by
 `.github/workflows/deploy-pages.yml`, which uploads the whole repo except `.git`,
 `.github`, `.claude` and `PROJECT.md` (removed by a workflow step), so this file
 and PROJECT.md are not served on the website (both are still readable on GitHub,
-since the repo is public). Everything else in the repo IS public (e.g. `/README.md`,
-`/company_profile_updated.md`). Keep secrets out of the repo.
+since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
+Keep secrets out of the repo.
 
-Last updated: 2026-10-11 (Search Console; DNS still at Africana).
+Last updated: 2026-10-17 (Formspree cleanup; removed unused images/ folder and
+company_profile_updated.md source).
 
 ## The site
 
@@ -94,12 +95,13 @@ Last updated: 2026-10-11 (Search Console; DNS still at Africana).
   Cargo Trucks & Trailers section image is `octane-actros-flatbed-side.webp`
   (owner chose to keep it duplicated in the gallery). `hero-truck-sunset.webp`
   is still used on home/about/why-choose-us and social share tags — keep it.
-- Company profile: `company_profile_updated.pdf` / `.md` at the repo root
-  (linked from home, contact, procurement). Contact lines show Calls +
-  WhatsApp. The PDF was patched directly (PR #17: row 05 of the Core Services
-  table moved from page 6 to page 7); the design source file is not in the
-  repo, so the page break must also be fixed there before re-exporting. All
-  image references in the `.md` resolve (`images/` + `assets/img/`).
+- Company profile: `company_profile_updated.pdf` at the repo root (linked
+  from home, contact, procurement). Contact lines show Calls + WhatsApp. The
+  PDF was patched directly (PR #17: row 05 of the Core Services table moved
+  from page 6 to page 7); the design source file is not in the repo, so the
+  page break must also be fixed there before re-exporting. The `.md` source
+  and the `images/` folder it alone referenced were removed 17 Oct — neither
+  was linked from any published page.
 - Mining industry card: second on home (`/`) and `/industries`. Home grid is
   now `grid-3` (2×3); on /industries the "Your Sector Not Listed?" CTA spans
   the full row under the six cards. Photo `assets/img/industry-mining.webp` is
@@ -118,10 +120,10 @@ Last updated: 2026-10-11 (Search Console; DNS still at Africana).
   rest of p. 4 moved up) and the 2.2 fleet note is the "available on request"
   wording (p. 7). Edited directly with `.claude/tools/profile_cleanup_text.py`
   (recurses into nested forms: p. 7 is built from forms by the PR #17 patch).
-  The two "Suggested Asset" placeholder images were removed from the `.md`.
-- `README.md` and `company_profile_updated.md` are publicly reachable at
-  `/README.md` and `/company_profile_updated.md` (raw markdown, not linked
-  from any page) — write them as if customers might read them.
+  The two "Suggested Asset" placeholder images were removed from the `.md`
+  (this file was itself removed 17 Oct — see above).
+- `README.md` is publicly reachable at `/README.md` (raw markdown, not
+  linked from any page) — write it as if customers might read it.
 - Structured data (PR #21): home and contact pages describe one
   `LocalBusiness` with `@id https://www.octanetransport.com/#business`,
   `legalName`, `alternateName` ["Octane Transport", "Octane Transport
@@ -197,3 +199,4 @@ Last updated: 2026-10-11 (Search Console; DNS still at Africana).
 | #53 | Profile PDF: legal name on p. 3 (Executive Statement, "in the heart of" dropped to keep 4 lines) and p. 4 (Legal / Trading Name); PDF Title/Author metadata; MD synced |
 | — | Search Console Domain property (DNS TXT at Africana); sitemap submitted |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
+| #54 | Repo cleanup: confirmed no Formspree form remains in code (all 3 forms on Web3Forms since #14); removed unused `images/` folder and `company_profile_updated.md` source, neither linked from any published page |

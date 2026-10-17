@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 11 October 2026 (Google Search Console set up)
+**Last updated:** 17 October 2026 (Formspree cleanup; unused images/ and profile .md source removed)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -94,11 +94,11 @@
 - [x] Chatbot: spend alert at US$10 set by Abdi (11 Oct) in the Anthropic Console, on the chatbot's workspace (Limits tab > notification). Email warning only; the US$20 spend limit stays the hard cap.
 - [ ] Chatbot: read the daily summaries for the first weeks and send Claude Code any wrong or awkward answers to fix in the Worker's rules.
 - [ ] Optional chatbot extra: a WhatsApp button inside the chat window.
-- [ ] After ~1 week of real Web3Forms enquiries arriving: **delete the Formspree form** and the **Gmail forwarding filter**.
+- [x] **Formspree removed from code (17 Oct):** checked all 3 forms — `contact.html`, `procurement.html` (×2) — none ever reverted to Formspree; all have posted to Web3Forms since PR #14. There was nothing left to delete on the code side. [ ] **Delete the Gmail forwarding filter** that still forwards old Formspree-style mail to info@ — that's in Abdi's Gmail settings, not the repo.
 - [ ] Check the Web3Forms dashboard monthly (submissions vs 250/month limit, spam folder).
 - [ ] When customers WhatsApp the personal line, redirect them once to +260 965 732 525.
 - [ ] Update the business number elsewhere over time: email signatures, Google Business listing (if any), vendor/supplier files (incl. FQM), business cards, truck door stickers (some still show old numbers).
-- [ ] Review and remove if still unused: the old `images/` folder and the `company_profile_updated.md` source, flagged unlinked in a 27 Sep scan (re-confirmed 4 Oct — neither is referenced from any published page).
+- [x] **Removed (17 Oct):** the old `images/` folder (14 files) and the `company_profile_updated.md` source. Re-confirmed unreferenced: no HTML page linked the `.md` (only the `.pdf`), and nothing but that `.md` used `images/`. Both flagged unlinked since a 27 Sep scan.
 
 - [ ] Revisit **impeccable** later only if wanted: it downloads and runs its own program, and writes `PRODUCT.md`/`DESIGN.md` to the repo root, which this site would publish.
 
@@ -144,6 +144,7 @@
 | 11 Oct | Chatbot spend: US$10 email alert, US$20 hard limit unchanged | A US$10 limit would switch the chatbot off mid-month; the alert warns early without stopping it |
 | 11 Oct | Keep the design skills in the claude.ai account only; remove the repo copies | The account copies already reach Claude Code sessions; two copies would drift apart |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
+| 17 Oct | Removed `images/` folder and `company_profile_updated.md` source from the repo | Neither was referenced by any published page (only the `.md` used `images/`, and nothing linked the `.md` itself); flagged unused since 27 Sep |
 
 ---
 
