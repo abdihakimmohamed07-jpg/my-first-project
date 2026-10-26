@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 17 October 2026 (Formspree cleanup; unused images/ and profile .md source removed)
+**Last updated:** 26 October 2026 (security audit follow-up: Worker source excluded from the published site; .gitignore added)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -99,6 +99,7 @@
 - [ ] When customers WhatsApp the personal line, redirect them once to +260 965 732 525.
 - [ ] Update the business number elsewhere over time: email signatures, Google Business listing (if any), vendor/supplier files (incl. FQM), business cards, truck door stickers (some still show old numbers).
 - [x] **Removed (17 Oct):** the old `images/` folder (14 files) and the `company_profile_updated.md` source. Re-confirmed unreferenced: no HTML page linked the `.md` (only the `.pdf`), and nothing but that `.md` used `images/`. Both flagged unlinked since a 27 Sep scan.
+- [x] **Read-only security/architecture audit (26 Oct):** no secrets found anywhere, including git history; the Web3Forms `access_key` in the HTML/chat widget is intentionally public (Web3Forms' own model), not a leak. Fixed: `deploy-pages.yml` was publishing `cloudflare-worker/` (the Worker source, including its system prompt and rate-limit constants) to the live site — only `.claude/` and `PROJECT.md` were excluded before; now `cloudflare-worker/` is excluded too. Added a `.gitignore` (`.graph-indexer/`, `.env`, `.claude/`, `node_modules/`, local caches) so local tooling artifacts can't be accidentally committed. Left as-is (intentional tradeoffs, already documented in the Worker's own code comments): the Origin-based CORS check (spoofable, not relied on alone) and the in-memory per-isolate rate limiter (resets on cold start; the $20/month Anthropic spend cap is the real ceiling).
 
 - [ ] Revisit **impeccable** later only if wanted: it downloads and runs its own program, and writes `PRODUCT.md`/`DESIGN.md` to the repo root, which this site would publish.
 
@@ -145,6 +146,7 @@
 | 11 Oct | Keep the design skills in the claude.ai account only; remove the repo copies | The account copies already reach Claude Code sessions; two copies would drift apart |
 | 4 Oct | Daily email via Resend (free), not Web3Forms | Web3Forms free plan blocks server-side sends; quote form still uses Web3Forms from the browser |
 | 17 Oct | Removed `images/` folder and `company_profile_updated.md` source from the repo | Neither was referenced by any published page (only the `.md` used `images/`, and nothing linked the `.md` itself); flagged unused since 27 Sep |
+| 26 Oct | Exclude `cloudflare-worker/` from the published site; keep CORS/rate-limiting as-is | Worker source (system prompt, rate-limit tuning) was being published with no benefit; the CORS/rate-limit tradeoffs are deliberate and already documented in code |
 
 ---
 

@@ -2,13 +2,13 @@
 
 Context for Claude Code sessions. The site is published by
 `.github/workflows/deploy-pages.yml`, which uploads the whole repo except `.git`,
-`.github`, `.claude` and `PROJECT.md` (removed by a workflow step), so this file
-and PROJECT.md are not served on the website (both are still readable on GitHub,
+`.github`, `.claude`, `PROJECT.md` and `cloudflare-worker` (removed by a workflow
+step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-10-17 (Formspree cleanup; removed unused images/ folder and
-company_profile_updated.md source).
+Last updated: 2026-10-26 (security audit follow-up: `cloudflare-worker/` excluded
+from the published site; `.gitignore` added).
 
 ## The site
 
@@ -200,3 +200,4 @@ company_profile_updated.md source).
 | — | Search Console Domain property (DNS TXT at Africana); sitemap submitted |
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
 | #54 | Repo cleanup: confirmed no Formspree form remains in code (all 3 forms on Web3Forms since #14); removed unused `images/` folder and `company_profile_updated.md` source, neither linked from any published page |
+| #56 | Read-only security audit follow-up: deploy workflow also excludes `cloudflare-worker/` (was being published); added `.gitignore` (`.graph-indexer/`, `.env`, `.claude/`, `node_modules/`). CORS/rate-limiting in the Worker left as-is — intentional, already documented in code |
