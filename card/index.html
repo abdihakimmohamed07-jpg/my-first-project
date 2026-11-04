@@ -13,147 +13,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#1C1C1E;
-    --card-red:#D7141A;
-    --card-red-dark:#a90f14;
-    --ink:#f5f5f5;
-    --muted:#a6a6a9;
-    --font-head:'Oswald',sans-serif;
-    --font-body:'Inter',sans-serif;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:var(--font-body);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    padding:32px 16px 48px;
-  }
-  main{
-    width:100%;
-    max-width:420px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-  }
-  .logo-tile{
-    background:#fff;
-    border-radius:20px;
-    padding:14px 22px;
-    display:inline-flex;
-    box-shadow:0 4px 18px rgba(0,0,0,.35);
-  }
-  .logo-tile img{
-    display:block;
-    height:48px;
-    width:auto;
-  }
-  h1{
-    font-family:var(--font-head);
-    text-transform:uppercase;
-    letter-spacing:.02em;
-    font-size:1.5rem;
-    margin:22px 0 4px;
-  }
-  .title{
-    color:var(--muted);
-    font-size:.95rem;
-    margin:0 0 28px;
-  }
-  .btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    width:100%;
-    min-height:52px;
-    border-radius:12px;
-    font-family:var(--font-body);
-    font-weight:600;
-    font-size:1rem;
-    text-decoration:none;
-    margin-bottom:12px;
-    border:1px solid transparent;
-    transition:transform .15s ease, opacity .15s ease;
-  }
-  .btn:active{transform:scale(.97);}
-  .btn-primary{
-    background:var(--card-red);
-    color:#fff;
-  }
-  .btn-secondary{
-    background:#2a2a2d;
-    color:var(--ink);
-    border-color:#3a3a3d;
-  }
-  .btn svg{flex:none;width:20px;height:20px;}
-  .address{
-    margin:18px 0 0;
-    color:var(--muted);
-    font-size:.9rem;
-    line-height:1.5;
-  }
-  .address a{
-    color:var(--ink);
-    text-decoration:underline;
-    text-underline-offset:3px;
-  }
-  .back-link{
-    margin-top:32px;
-    font-size:.85rem;
-  }
-  .back-link a{
-    color:var(--muted);
-    text-decoration:none;
-    border-bottom:1px solid #3a3a3d;
-    padding-bottom:2px;
-  }
-  .back-link a:hover{color:var(--ink);}
-  @media (prefers-reduced-motion:reduce){
-    .btn{transition:none;}
-  }
-</style>
+<link rel="stylesheet" href="/card/assets/card.css">
+<script>window.CARD_PERSON = "abdihakim";</script>
 </head>
 <body>
-<main>
-  <div class="logo-tile">
-    <img src="/assets/img/logo.png" alt="Octane Transport" width="160" height="48">
-  </div>
-
-  <h1>Abdihakim Mohamed</h1>
-  <p class="title">Managing Director, Octane Transport Zambia Limited</p>
-
-  <a class="btn btn-primary" href="/card/abdihakim-mohamed.vcf">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10M12 20l-5-5M12 20l5-5"/><path d="M5 20h14"/></svg>
-    Save Contact
-  </a>
-
-  <a class="btn btn-secondary" href="tel:+260973821013">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    Call +260 973 821 013
-  </a>
-
-  <a class="btn btn-secondary" href="https://wa.me/260965732525" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.77.46 3.5 1.34 5.02L2.05 22l5.2-1.37a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2zm0 1.67c2.21 0 4.29.86 5.85 2.42a8.21 8.21 0 0 1 2.42 5.82c0 4.55-3.71 8.25-8.27 8.25a8.27 8.27 0 0 1-4.21-1.15l-.3-.18-3.09.81.82-3-.2-.31a8.2 8.2 0 0 1-1.26-4.4c0-4.55 3.71-8.26 8.24-8.26zm-4.52 4.3c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.09 0 1.23.9 2.42 1.02 2.59.13.17 1.76 2.8 4.35 3.81 2.15.84 2.59.67 3.06.63.46-.04 1.49-.61 1.7-1.19.21-.59.21-1.09.15-1.19-.06-.11-.23-.17-.48-.29-.25-.13-1.49-.74-1.72-.82-.23-.08-.4-.13-.56.13-.17.25-.65.82-.79.98-.15.17-.29.19-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.37-.78-1.87-.2-.49-.41-.42-.56-.43h-.05z"/></svg>
-    WhatsApp
-  </a>
-
-  <a class="btn btn-secondary" href="mailto:abdihakim.mohamed@octanetransport.com">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-    Email
-  </a>
-
-  <p class="address">
-    <a href="https://www.google.com/maps?cid=7074308477456269480" target="_blank" rel="noopener">19 Kafironda Drive, Itawa<br>Ndola, Zambia</a>
-  </p>
-
-  <p class="back-link"><a href="https://www.octanetransport.com/">www.octanetransport.com &rarr;</a></p>
+<main id="card-root">
+  <noscript>
+    <p>Abdihakim Mohamed &mdash; Managing Director, Octane Transport Zambia Limited<br>
+    Call: <a href="tel:+260973821013">+260 973 821 013</a><br>
+    Email: <a href="mailto:abdihakim.mohamed@octanetransport.com">abdihakim.mohamed@octanetransport.com</a><br>
+    <a href="/card/abdihakim-mohamed.vcf">Download vCard</a></p>
+  </noscript>
 </main>
+<script src="/card/assets/card.js"></script>
 </body>
 </html>

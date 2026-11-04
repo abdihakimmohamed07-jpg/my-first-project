@@ -7,7 +7,8 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-11-04 (digital business card page at `/card/`).
+Last updated: 2026-11-04 (digital staff business card pages at `/card/` and
+`/card/zephaniah/`, built from a shared template).
 
 ## The site
 
@@ -58,17 +59,26 @@ Last updated: 2026-11-04 (digital business card page at `/card/`).
   `/x.html` and `x.html` match; trailing-slash URLs highlight nothing.
 - `404.html` uses root-relative assets (`/assets/...`) because Pages serves it
   at whatever URL was requested.
-- **Exception: `/card/` is a folder (`card/index.html`), not a flat file.** It's
-  the only page built this way. The printed business card's QR code points to
-  `octanetransport.com/card` and had to work with and without a trailing
-  slash before printing — verified live (on a real GitHub Pages site) that a
-  folder+index.html is the only layout where both resolve: `/card` 301s to
-  `/card/`, both end at 200. Don't "fix" this back to `card.html` — that
-  would 404 on `/card/` the same way `/fleet/` 404s. Root-relative assets
-  (`/assets/...`), same reason as `404.html`. No chat widget / `main.js` on
-  this page (kept lightweight, standalone). GitHub Pages serves `.vcf` as
-  `text/x-vcard`, not `text/vcard` (confirmed live) — still opens as a
-  contact on iOS/Android; `.htaccess` has no effect on Pages (not Apache).
+- **Exception: `/card/*` staff pages are folders (`<slug>/index.html`), not
+  flat files.** `card/index.html` (Abdihakim) and `card/zephaniah/index.html`
+  (Zephaniah Mpakani) are the only pages built this way. Printed business
+  cards' QR codes point to `octanetransport.com/card[/<slug>]` and had to
+  work with and without a trailing slash before printing — verified live (on
+  a real GitHub Pages site) that a folder+index.html is the only layout
+  where both resolve: `/card` 301s to `/card/`, both end at 200. Don't "fix"
+  these back to `card.html`-style flat files — that would 404 on the
+  trailing-slash form the same way `/fleet/` 404s. Root-relative assets
+  (`/assets/...`, `/card/assets/...`), same reason as `404.html`. No chat
+  widget / `main.js` on these pages (kept lightweight, standalone).
+  GitHub Pages serves `.vcf` as `text/x-vcard`, not `text/vcard` (confirmed
+  live) — still opens as a contact on iOS/Android; `.htaccess` has no effect
+  on Pages (not Apache).
+  - **Shared template, not copies**: `card/assets/card.css` and `card.js`
+    hold the styling and a `PEOPLE` data object keyed by slug. Each
+    person's `index.html` is a thin wrapper (`window.CARD_PERSON = "<slug>"`
+    + load the shared CSS/JS + a `<noscript>` fallback). Adding a third
+    staff card = one `PEOPLE` entry + one wrapper `index.html` + one `.vcf`
+    in a new `card/<slug>/` folder — don't duplicate the page markup.
 - Local preview needs a clean-URL server: `npx serve`, or
   `python3 .claude/ghpages_server.py . 8766` (mimics GitHub Pages: `/x` →
   `x.html`, `/x/` and unknown → 404 page). Plain `python -m http.server` and
@@ -211,4 +221,4 @@ Last updated: 2026-11-04 (digital business card page at `/card/`).
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
 | #54 | Repo cleanup: confirmed no Formspree form remains in code (all 3 forms on Web3Forms since #14); removed unused `images/` folder and `company_profile_updated.md` source, neither linked from any published page |
 | #56 | Read-only security audit follow-up: deploy workflow also excludes `cloudflare-worker/` (was being published); added `.gitignore` (`.graph-indexer/`, `.env`, `.claude/`, `node_modules/`). CORS/rate-limiting in the Worker left as-is — intentional, already documented in code |
-| #57 | Digital business card page `/card/` for the printed card's QR code; the one page on the site built as `card/index.html` (folder) instead of a flat file — see URL rules above |
+| #57 | Digital staff business card pages `/card/` and `/card/zephaniah/`, built from a shared `card/assets/card.{css,js}` template; the only pages on the site built as `<slug>/index.html` folders instead of flat files — see URL rules above |
