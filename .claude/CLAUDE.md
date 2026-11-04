@@ -7,8 +7,7 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-10-26 (security audit follow-up: `cloudflare-worker/` excluded
-from the published site; `.gitignore` added).
+Last updated: 2026-11-04 (digital business card page at `/card/`).
 
 ## The site
 
@@ -59,6 +58,17 @@ from the published site; `.gitignore` added).
   `/x.html` and `x.html` match; trailing-slash URLs highlight nothing.
 - `404.html` uses root-relative assets (`/assets/...`) because Pages serves it
   at whatever URL was requested.
+- **Exception: `/card/` is a folder (`card/index.html`), not a flat file.** It's
+  the only page built this way. The printed business card's QR code points to
+  `octanetransport.com/card` and had to work with and without a trailing
+  slash before printing — verified live (on a real GitHub Pages site) that a
+  folder+index.html is the only layout where both resolve: `/card` 301s to
+  `/card/`, both end at 200. Don't "fix" this back to `card.html` — that
+  would 404 on `/card/` the same way `/fleet/` 404s. Root-relative assets
+  (`/assets/...`), same reason as `404.html`. No chat widget / `main.js` on
+  this page (kept lightweight, standalone). GitHub Pages serves `.vcf` as
+  `text/x-vcard`, not `text/vcard` (confirmed live) — still opens as a
+  contact on iOS/Android; `.htaccess` has no effect on Pages (not Apache).
 - Local preview needs a clean-URL server: `npx serve`, or
   `python3 .claude/ghpages_server.py . 8766` (mimics GitHub Pages: `/x` →
   `x.html`, `/x/` and unknown → 404 page). Plain `python -m http.server` and
@@ -201,3 +211,4 @@ from the published site; `.gitignore` added).
 | — | Note: design skills live in Abdi's claude.ai account; don't re-add them to the repo. Their advice is general; the URL, contact and photo-credit rules above still win |
 | #54 | Repo cleanup: confirmed no Formspree form remains in code (all 3 forms on Web3Forms since #14); removed unused `images/` folder and `company_profile_updated.md` source, neither linked from any published page |
 | #56 | Read-only security audit follow-up: deploy workflow also excludes `cloudflare-worker/` (was being published); added `.gitignore` (`.graph-indexer/`, `.env`, `.claude/`, `node_modules/`). CORS/rate-limiting in the Worker left as-is — intentional, already documented in code |
+| #57 | Digital business card page `/card/` for the printed card's QR code; the one page on the site built as `card/index.html` (folder) instead of a flat file — see URL rules above |
