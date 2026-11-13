@@ -7,8 +7,8 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-11-04 (digital staff business card pages at `/card/` and
-`/card/zephaniah/`, built from a shared template).
+Last updated: 2026-11-13 (site upgrade: logo-red accent, phone header quote
+button, coverage and assurance sections, self-hosted fonts, SEO/a11y fixes).
 
 ## The site
 
@@ -222,3 +222,4 @@ Last updated: 2026-11-04 (digital staff business card pages at `/card/` and
 | #54 | Repo cleanup: confirmed no Formspree form remains in code (all 3 forms on Web3Forms since #14); removed unused `images/` folder and `company_profile_updated.md` source, neither linked from any published page |
 | #56 | Read-only security audit follow-up: deploy workflow also excludes `cloudflare-worker/` (was being published); added `.gitignore` (`.graph-indexer/`, `.env`, `.claude/`, `node_modules/`). CORS/rate-limiting in the Worker left as-is — intentional, already documented in code |
 | #57 | Digital staff business card pages `/card/` and `/card/zephaniah/`, built from a shared `card/assets/card.{css,js}` template; the only pages on the site built as `<slug>/index.html` folders instead of flat files — see URL rules above |
+| 13 Nov | Site upgrade: accent is the logo red (`--accent` `#d7141a`; use `--accent-light` for text on dark, plain `--accent` fails contrast there). Headings Archivo in sentence case, body Inter, both self-hosted in `assets/fonts/` (no Google Fonts). Under 640px the topbar is hidden and the header carries the "Request a quote" button. Header/footer logo is `logo-300.webp`; `logo.png` stays for schema, chat and cards. Footer column headings are `<h2>`. Share image is `share-1200x630.jpg` on every page. Published facts: over 20 trucks and trailers incl. Volvo and Mercedes-Benz, live tracking offered, GIT cover standard, routes/border posts, office hours. Open content gaps are listed in PROJECT.md under "Needs input from Abdi" |
