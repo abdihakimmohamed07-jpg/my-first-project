@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 4 November 2026 (digital business card pages at /card/ and /card/zephaniah/, built from a shared template)
+**Last updated:** 13 November 2026 (site upgrade: brand red, phone header with a quote button, coverage and assurance sections, self-hosted fonts, SEO and accessibility fixes)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -34,6 +34,15 @@
 - [x] **WhatsApp switched to business line +260 965 732 525**; calls remain on +260 973 821 013; Contact page shows "Calls" and "WhatsApp" as separate items (PR #15).
 - [x] **Fleet photo gallery** added to the Fleet page using real Octane Mercedes-Benz Actros photos (enhanced, number plates blurred, third-party truck cropped out; images in `assets/img/fleet/`).
 - [x] Content clean-up: draft wording removed from profile, Mining added to Industries intro, About page purpose wording updated, README corrected (PRs up to #25).
+- [x] **Site upgrade (13 Nov 2026 PR).** Audit first, then one PR. No new dependencies, no files deleted; forms, phone and WhatsApp numbers, chatbot code, card pages and the deploy workflow untouched.
+  - **Look:** accent colour changed from orange to the logo red (`#d7141a`, CSS variable `--accent`; `--accent-light` for text on dark backgrounds). Headings in Archivo, sentence case instead of all capitals; body text stays Inter. Both fonts are now files in `assets/fonts/` (no Google Fonts request). The chat launcher and WhatsApp button keep their code; the chat launcher picks up the red through the shared variable.
+  - **Phones:** the contact strip above the menu is hidden under 640px and a "Request a quote" button sits in the sticky header, so it is above the fold on every page (header 152px to 75px at 375px wide).
+  - **Home page:** hero rewritten with supplied facts (over 20 trucks and trailers including Volvo and Mercedes-Benz, live tracking available, GIT cover as standard); new "Routes we run from Ndola" section (DR Congo via Kasumbalesa, Sakania, Mokambo; Tanzania via Nakonde; Namibia and South Africa via Katima Mulilo; Mozambique via Chanida, Cassacatiza); new "What your procurement team can check" section (insurance, safety records, fleet register, company documents, all "on request").
+  - **Fleet page:** states the fleet size and makes; photos served at phone sizes through `srcset` (originals kept).
+  - **Contact page:** office hours shown (Mon to Fri 09:00 to 18:00, Sat 09:00 to 13:00, closed public holidays).
+  - **SEO:** titles at most 60 characters and descriptions at most 160 on all 10 pages; one 1200x630 JPG share image (`assets/img/share-1200x630.jpg`, the real flatbed truck); LocalBusiness schema gained opening hours, the six countries served, a contact point and the five services; sitemap has `lastmod` dates.
+  - **Accessibility:** footer column headings were invisible (dark text on dark) and are fixed; heading order corrected; links inside text underlined; form fields 48px tall with a visible focus ring.
+  - **Lighthouse mobile (local preview, 13 Nov):** every page 97 to 99 performance, 100 accessibility, 100 best practices, 100 SEO. Before: home 96/94, fleet 88/94.
 
 ### Company Profile
 - [x] Company Profile PDF (15 pages, brochure design) and Markdown version in the repo, downloadable from the Contact page.
@@ -109,6 +118,17 @@
 
 
 
+### Needs input from Abdi (site content gaps, 13 Nov)
+Nothing below is on the website. Supply any of these and they can be added.
+- [ ] Year the company was founded or started operating.
+- [ ] Licences and permits held (for example RTSA, cross-border permits) and any certifications.
+- [ ] Insurer name for the GIT cover, if you want it shown.
+- [ ] Trailer types and payload capacities (currently "fleet register on request").
+- [ ] Safety figures you are willing to publish (currently "records on request").
+- [ ] Client permission for logos or a short testimonial (names only are shown today).
+- [ ] A privacy notice for the forms and chat (no privacy page exists).
+- [ ] Better photos: the home hero image is small (612px wide) and five sector photos are stock.
+
 ### Nice to have
 - [ ] Professional fleet photo shoot (washed trucks, clean background, morning/evening light) to replace yard photos and the remaining stock images.
 - [ ] WhatsApp Business **Catalog** with one item per truck/trailer type (no prices).
@@ -152,6 +172,11 @@
 | 17 Oct | Removed `images/` folder and `company_profile_updated.md` source from the repo | Neither was referenced by any published page (only the `.md` used `images/`, and nothing linked the `.md` itself); flagged unused since 27 Sep |
 | 26 Oct | Exclude `cloudflare-worker/` from the published site; keep CORS/rate-limiting as-is | Worker source (system prompt, rate-limit tuning) was being published with no benefit; the CORS/rate-limit tradeoffs are deliberate and already documented in code |
 | 4 Nov | Staff cards (`/card`, `/card/zephaniah`) are built as `<slug>/index.html` folders, not flat files like every other page; card's own red `#D7141A`, not the site's `#9c2b26`; shared `card/assets/card.css`+`card.js` template with a per-person data object, so a new staff card is data, not a copied page | Only the folder layout makes both the slash and no-slash URLs resolve, which the already-printed QR codes need; the business cards' print red is the fixed reference point, not the site CSS; a shared template avoids drift across staff cards as more are added |
+
+| 13 Nov | Accent colour is the logo red, not orange | One consistent brand across the site, staff cards and chat |
+| 13 Nov | Keep all six client names on the site | Abdi's choice; the chatbot rule (Impala and Reload only) is unchanged |
+| 13 Nov | Publish fleet size and makes ("over 20 trucks and trailers, including Volvo and Mercedes-Benz") and that live tracking is offered | Supplied by Abdi; the chatbot's own no-truck-types rule is unchanged |
+| 13 Nov | Fonts are files in the repo, not loaded from Google | Google Fonts delayed first paint by about a second on phones |
 
 ---
 
