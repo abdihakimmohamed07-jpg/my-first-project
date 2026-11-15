@@ -8,7 +8,7 @@ since the repo is public). Everything else in the repo IS public (e.g. `/README.
 Keep secrets out of the repo.
 
 Last updated: 2026-11-15 (homepage client logo marquee; client names
-Worldco Shipping and Logistar).
+Worldco Shipping and Logistar on the site and in the profile PDF).
 
 ## The site
 
@@ -175,8 +175,8 @@ Worldco Shipping and Logistar).
 5. Consistent listings in Zambian directories / chamber; links from clients.
 6. **Profile design source is missing** (maintenance task, also in README):
    obtain or recreate it before the next major revision, carrying the
-   Core Services page-break fix, the Mining row + photo credit and the
-   PR #25 wording. Until then, edit the PDF only with `.claude/tools/`.
+   Core Services page-break fix, the Mining row + photo credit, the
+   PR #25 wording and the client names Worldco Shipping and Logistar. Until then, edit the PDF only with `.claude/tools/`.
 
 ## Testing notes
 
@@ -223,4 +223,4 @@ Worldco Shipping and Logistar).
 | #56 | Read-only security audit follow-up: deploy workflow also excludes `cloudflare-worker/` (was being published); added `.gitignore` (`.graph-indexer/`, `.env`, `.claude/`, `node_modules/`). CORS/rate-limiting in the Worker left as-is — intentional, already documented in code |
 | #57 | Digital staff business card pages `/card/` and `/card/zephaniah/`, built from a shared `card/assets/card.{css,js}` template; the only pages on the site built as `<slug>/index.html` folders instead of flat files — see URL rules above |
 | 13 Nov | Site upgrade: accent is the logo red (`--accent` `#d7141a`; use `--accent-light` for text on dark, plain `--accent` fails contrast there). Headings Archivo in sentence case, body Inter, both self-hosted in `assets/fonts/` (no Google Fonts). Under 640px the topbar is hidden and the header carries the "Request a quote" button. Header/footer logo is `logo-300.webp`; `logo.png` stays for schema, chat and cards. Footer column headings are `<h2>`. Share image is `share-1200x630.jpg` on every page. Published facts: over 20 trucks and trailers incl. Volvo and Mercedes-Benz, live tracking offered, GIT cover standard, routes/border posts, office hours. Open content gaps are listed in PROJECT.md under "Needs input from Abdi" |
-| 15 Nov | Home "Companies we have worked with" is a logo marquee (`.logo-marquee`, two identical `.logo-group` lists, the second `aria-hidden`; CSS animation right to left, pauses on hover and via the `.logo-marquee-toggle` button in `main.js`, static wrapped row under `prefers-reduced-motion`). Logos in `assets/img/clients/`; a new client = one `<li>` in both groups. Client names are "Worldco Shipping" and "Logistar" (never "World Co. Logistics" / "Logistra Africa"); the profile PDF still has the old spellings |
+| 15 Nov | Home "Companies we have worked with" is a logo marquee (`.logo-marquee`, two identical `.logo-group` lists, the second `aria-hidden`; CSS animation right to left, pauses on hover and via the `.logo-marquee-toggle` button in `main.js`, static wrapped row under `prefers-reduced-motion`). Logos in `assets/img/clients/`; a new client = one `<li>` in both groups. Client names are "Worldco Shipping" and "Logistar" (never "World Co. Logistics" / "Logistra Africa"); the profile PDF (p. 14 Client Portfolio table) was corrected the same day with `.claude/tools/profile_client_names.py` |
