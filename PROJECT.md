@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 15 November 2026 (homepage client logos in a scrolling strip; two client names corrected to match their logos)
+**Last updated:** 15 November 2026 (company profile PDF: client names Worldco Shipping and Logistar)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -120,7 +120,7 @@
 
 - [x] **Client logo strip on the homepage (15 Nov).** The "Companies we have worked with" section now shows six client logos on white tiles (Reload Logistics, Impala, HASS, Fracht Group / Polytra Zambia, Worldco Shipping, Logistar) instead of text names. They scroll right to left in a seamless loop, pause on mouse hover and with a "Pause logos" button, and show as a still row for visitors who have reduced motion switched on. Files in `assets/img/clients/`. The Logistar file is a cropped phone screenshot and the Fracht file is small and is a pink-ribbon campaign version; replace both when cleaner files arrive.
 - [x] **Client names corrected (15 Nov)** on `/projects` (cards and page descriptions) and `/why-choose-us`: "World Co. Logistics" is now "Worldco Shipping" and "Logistra Africa" is now "Logistar", to match the logos Abdi supplied.
-- [ ] Company profile PDF (Selected clients list) still says "World Co. Logistics" and "Logistra Africa". Change on Abdi's go-ahead.
+- [x] **Company profile PDF client names corrected (15 Nov)**: page 14, 4.2 Client Portfolio table, now reads "Worldco Shipping" and "Logistar". Edited directly with `.claude/tools/profile_client_names.py` (old text removed, not covered; the rest of the PDF is unchanged, still 15 pages). Carry these names into the design source when it is recreated.
 - [ ] Cleaner logo files for Logistar and Fracht / Polytra Zambia (Abdi to supply).
 
 ### Needs input from Abdi (site content gaps, 13 Nov)
@@ -184,6 +184,7 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 13 Nov | Fonts are files in the repo, not loaded from Google | Google Fonts delayed first paint by about a second on phones |
 | 15 Nov | Show client logos on the homepage, moving right to left | Abdi supplied the six logos and asked for motion; the chatbot rule (Impala and Reload only) is unchanged |
 | 15 Nov | Client names follow the logos: Worldco Shipping and Logistar | Abdi's instruction; the old spellings were wrong |
+| 15 Nov | Same two names corrected in the company profile PDF | Abdi's instruction; the PDF must match the website |
 
 ---
 
