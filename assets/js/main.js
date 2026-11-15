@@ -67,6 +67,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  var logoToggle = document.querySelector('.logo-marquee-toggle');
+  var logoMarquee = document.querySelector('.logo-marquee');
+  if (logoToggle && logoMarquee) {
+    logoToggle.addEventListener('click', function () {
+      var paused = logoMarquee.classList.toggle('is-paused');
+      logoToggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      logoToggle.textContent = paused ? 'Play logos' : 'Pause logos';
+    });
+  }
+
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 

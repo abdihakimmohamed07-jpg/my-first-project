@@ -440,20 +440,41 @@ main p a:not(.btn),main li a:not(.btn),main td a:not(.btn),.notice a{text-decora
 .notice-dark b{color:var(--accent-light);}
 
 /* Logos strip */
-.client-strip{display:flex;flex-wrap:wrap;gap:16px;}
-.client-chip{
-  display:inline-flex;align-items:center;gap:10px;
-  background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);
-  padding:12px 22px 12px 14px;font-family:var(--font-head);font-weight:600;font-size:.98rem;
-  color:var(--ink);
+/* Client logo marquee (home): two identical groups scroll right to left for a seamless loop */
+.logo-marquee{
+  --logo-gap:20px;
+  display:flex;gap:var(--logo-gap);overflow:hidden;margin-top:28px;padding:4px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
 }
-.client-chip::before{
-  content:attr(data-mark);flex-shrink:0;
-  width:28px;height:28px;border-radius:6px;
-  background:var(--ink);color:#fff;
+.logo-group{
+  flex-shrink:0;display:flex;align-items:center;justify-content:space-around;gap:var(--logo-gap);
+  min-width:100%;margin:0;padding:0;list-style:none;
+  animation:logo-scroll 32s linear infinite;
+}
+.logo-group li{
+  flex-shrink:0;width:190px;height:104px;padding:18px 22px;
   display:flex;align-items:center;justify-content:center;
-  font-size:.7rem;font-weight:700;
+  background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);
 }
+.logo-group img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
+.logo-marquee:hover .logo-group,.logo-marquee.is-paused .logo-group{animation-play-state:paused;}
+@keyframes logo-scroll{to{transform:translateX(calc(-100% - var(--logo-gap)));}}
+.logo-marquee-toggle{
+  margin-top:14px;min-height:44px;padding:8px 14px;background:none;border:0;cursor:pointer;
+  font-family:var(--font-body);font-size:.85rem;color:var(--gray-600);text-decoration:underline;
+}
+@media(max-width:600px){
+  .logo-marquee{--logo-gap:14px;}
+  .logo-group li{width:150px;height:86px;padding:14px 16px;}
+  .logo-group{animation-duration:24s;}
+}
+@media(prefers-reduced-motion:reduce){
+  .logo-marquee{flex-wrap:wrap;justify-content:center;-webkit-mask-image:none;mask-image:none;padding:4px 24px;}
+  .logo-group{animation:none;min-width:0;flex-wrap:wrap;justify-content:center;}
+  .logo-group[aria-hidden="true"],.logo-marquee-toggle{display:none;}
+}
+@media print{.logo-group{animation:none;}.logo-group[aria-hidden="true"],.logo-marquee-toggle{display:none;}}
 
 /* Tabs (fleet categories) */
 .tab-nav{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;}
