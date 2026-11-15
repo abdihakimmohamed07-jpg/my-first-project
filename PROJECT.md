@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 13 November 2026 (site upgrade: brand red, phone header with a quote button, coverage and assurance sections, self-hosted fonts, SEO and accessibility fixes)
+**Last updated:** 15 November 2026 (homepage client logos in a scrolling strip; two client names corrected to match their logos)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -118,6 +118,11 @@
 
 
 
+- [x] **Client logo strip on the homepage (15 Nov).** The "Companies we have worked with" section now shows six client logos on white tiles (Reload Logistics, Impala, HASS, Fracht Group / Polytra Zambia, Worldco Shipping, Logistar) instead of text names. They scroll right to left in a seamless loop, pause on mouse hover and with a "Pause logos" button, and show as a still row for visitors who have reduced motion switched on. Files in `assets/img/clients/`. The Logistar file is a cropped phone screenshot and the Fracht file is small and is a pink-ribbon campaign version; replace both when cleaner files arrive.
+- [x] **Client names corrected (15 Nov)** on `/projects` (cards and page descriptions) and `/why-choose-us`: "World Co. Logistics" is now "Worldco Shipping" and "Logistra Africa" is now "Logistar", to match the logos Abdi supplied.
+- [ ] Company profile PDF (Selected clients list) still says "World Co. Logistics" and "Logistra Africa". Change on Abdi's go-ahead.
+- [ ] Cleaner logo files for Logistar and Fracht / Polytra Zambia (Abdi to supply).
+
 ### Needs input from Abdi (site content gaps, 13 Nov)
 Nothing below is on the website. Supply any of these and they can be added.
 - [ ] Year the company was founded or started operating.
@@ -125,7 +130,7 @@ Nothing below is on the website. Supply any of these and they can be added.
 - [ ] Insurer name for the GIT cover, if you want it shown.
 - [ ] Trailer types and payload capacities (currently "fleet register on request").
 - [ ] Safety figures you are willing to publish (currently "records on request").
-- [ ] Client permission for logos or a short testimonial (names only are shown today).
+- [ ] Client permission for the logos now shown on the homepage (Abdi chose to publish on 15 Nov; permission not recorded), and a short testimonial.
 - [ ] A privacy notice for the forms and chat (no privacy page exists).
 - [ ] Better photos: the home hero image is small (612px wide) and five sector photos are stock.
 
@@ -177,6 +182,8 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 13 Nov | Keep all six client names on the site | Abdi's choice; the chatbot rule (Impala and Reload only) is unchanged |
 | 13 Nov | Publish fleet size and makes ("over 20 trucks and trailers, including Volvo and Mercedes-Benz") and that live tracking is offered | Supplied by Abdi; the chatbot's own no-truck-types rule is unchanged |
 | 13 Nov | Fonts are files in the repo, not loaded from Google | Google Fonts delayed first paint by about a second on phones |
+| 15 Nov | Show client logos on the homepage, moving right to left | Abdi supplied the six logos and asked for motion; the chatbot rule (Impala and Reload only) is unchanged |
+| 15 Nov | Client names follow the logos: Worldco Shipping and Logistar | Abdi's instruction; the old spellings were wrong |
 
 ---
 
