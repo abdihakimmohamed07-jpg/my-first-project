@@ -60,6 +60,15 @@
     return a + ' to ' + b;
   }
 
+  // zone: null, {name: "Kitwe", at} -> "Near Kitwe, <time>", {name: null, at} -> "On the road, <time>".
+  function zoneText(z) {
+    if (!z || typeof z !== 'object') return '';
+    var t = fmtTime(z.at);
+    if (!t) return '';
+    var place = typeof z.name === 'string' && z.name.trim() ? 'Near ' + z.name.trim() : 'On the road';
+    return place + ', ' + t;
+  }
+
   function message(title, body, kind) {
     out.textContent = '';
     var box = el('div', 'track-msg' + (kind ? ' track-msg--' + kind : ''));
@@ -98,7 +107,7 @@
     var dl = el('dl', 'track-facts');
     if (s.status === 'delivered') row(dl, 'Delivered on', fmtDate(s.delivered_on) || 'Delivered');
     else row(dl, 'Estimated arrival', etaText(s.eta));
-    if (s.zone) row(dl, 'Last known area', String(s.zone));
+    if (s.status !== 'delivered') row(dl, 'Last known location', zoneText(s.zone));
     card.appendChild(dl);
 
     // ePOD: the Worker's link is a signed Supabase link valid for 5 minutes, so each click
