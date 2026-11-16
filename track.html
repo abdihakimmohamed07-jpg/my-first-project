@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-hAVFsvTJ3S7/lAbwlxHUa5jG0urizsMZYZ2yXLnLZGY='; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://*.workers.dev https://track-api.octanetransport.com; form-action 'self'; base-uri 'none'">
+<title>Track a shipment | Octane Transport Zambia Limited</title>
+<meta name="description" content="Track an Octane Transport shipment with the code from your tracking link.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.octanetransport.com/track">
+<script>if(/\.html$/.test(location.pathname))history.replaceState(null,'',location.pathname.replace(/(index)?\.html$/,'')+location.search+location.hash);</script>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#14181c">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/track.css">
+</head>
+<body>
+<header class="t-header">
+  <a href="/" class="t-brand"><img src="/assets/img/logo-300.webp" alt="Octane Transport Zambia Limited" width="300" height="82"></a>
+</header>
+<main class="t-main">
+  <h1>Track a shipment</h1>
+  <form id="track-form" class="t-form" novalidate>
+    <label for="track-code">Tracking code</label>
+    <div class="t-row">
+      <input id="track-code" name="code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="OTZ-ABCDE-23456" maxlength="20">
+      <button type="submit">Track</button>
+    </div>
+  </form>
+  <section id="track-result" class="t-result" tabindex="-1" aria-live="polite" hidden></section>
+  <noscript><p class="track-msg">This page needs JavaScript. Call +260 973 821 013 for an update on your shipment.</p></noscript>
+</main>
+<footer class="t-footer">
+  <p>Questions about your shipment? Call <a href="tel:+260973821013">+260 973 821 013</a> or email <a href="mailto:info@octanetransport.com">info@octanetransport.com</a>.</p>
+  <p><a href="/">octanetransport.com</a></p>
+</footer>
+<script src="/assets/js/track.js"></script>
+</body>
+</html>
