@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 16 November 2026 (public shipment tracking page `/track`, waiting for the tracking Worker address)
+**Last updated:** 16 November 2026 (tracking page connected to the live tracking Worker)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -105,7 +105,7 @@
 - [x] **Procurement forms tested** (11 Oct): Abdi sent one live submission from each (New Customer / Existing Customer); both emails arrived. All 3 Web3Forms forms are now confirmed end to end.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
 
-- [ ] **Tracking page goes live:** set `TRACK_API` in `assets/js/track.js` (one line) to the tracking Worker's `workers.dev` address once Abdi creates it, then test a real code. Until then the page shows "Tracking is unavailable right now".
+- [x] **Tracking page live (16 Nov):** `TRACK_API` in `assets/js/track.js` points to the tracking Worker `https://octane-tracking.withered-morning-91b5.workers.dev/`. After merge: open a real trip's link from the dashboard (Copy tracking link) and check status and milestones show.
 
 ### Housekeeping
 - [x] Chatbot: spend alert at US$10 set by Abdi (11 Oct) in the Anthropic Console, on the chatbot's workspace (Limits tab > notification). Email warning only; the US$20 spend limit stays the hard cap.
