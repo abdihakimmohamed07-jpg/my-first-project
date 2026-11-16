@@ -227,6 +227,34 @@ document.addEventListener('DOMContentLoaded', function () {
   wireVendorDocForm('new-customer-form', 'new-customer-status', vendorDocSuccessMessage);
   wireVendorDocForm('existing-customer-form', 'existing-customer-status', vendorDocSuccessMessage);
 
+  // Homepage "Track a shipment" box. Without JavaScript the form is a plain GET to
+  // /track?code=..., and /track checks the code itself. With JavaScript the code is
+  // tidied on submit only (not while typing) and checked against the same pattern
+  // /track uses, so a mistyped code gets a message here. Nothing calls the Worker.
+  var homeTrack = document.getElementById('home-track-form');
+  if (homeTrack) {
+    var homeCode = document.getElementById('home-track-code');
+    var homeMsg = document.getElementById('home-track-msg');
+    var TRACK_RE = /^OTZ-[A-HJ-NP-Z2-9]{5}-[A-HJ-NP-Z2-9]{5}$/;
+    homeTrack.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var raw = homeCode.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      var code = raw.length === 13 ? raw.slice(0, 3) + '-' + raw.slice(3, 8) + '-' + raw.slice(8) : raw;
+      if (!TRACK_RE.test(code)) {
+        homeCode.setAttribute('aria-invalid', 'true');
+        homeMsg.textContent = raw
+          ? 'That doesn\u2019t look like a tracking code. It looks like OTZ-ABCDE-23456.'
+          : 'Enter the tracking code from your tracking link, for example OTZ-ABCDE-23456.';
+        homeCode.focus();
+        return;
+      }
+      homeCode.removeAttribute('aria-invalid');
+      homeMsg.textContent = '';
+      homeCode.value = code;
+      location.assign('/track?code=' + encodeURIComponent(code));
+    });
+  }
+
   if (!document.querySelector('.wa-float')) {
     var waFloat = document.createElement('a');
     waFloat.className = 'wa-float';

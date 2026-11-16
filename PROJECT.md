@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 16 November 2026 (tracking page: at most one delay shown)
+**Last updated:** 16 November 2026 (homepage "Track a shipment" box)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -50,6 +50,7 @@
 - Shows only what the Worker sends (no plates, driver, phone or coordinates are ever sent). Not found / too many lookups / unavailable each have a plain message with the office number.
 - Delays: the timeline shows at most one "Delay reported" (the newest), and only when it is newer than the latest stage; older delays are hidden (16 Nov, Abdi). The Worker will apply the same rule from SQL step 25.
 - **Download ePOD** (sub-step B, 16 Nov): shown when the Worker answer has an `https` `epod_url` (a Supabase signed link valid 5 minutes). Each click asks the Worker again for a fresh link and opens it in the same tab with `window.location.assign` (phones block `window.open` after a lookup); the link downloads as `ePOD-<code>.pdf`. If the fresh answer has no link, the button hides and the page says "The delivery document is not available right now."
+- **Homepage "Track a shipment" box** (16 Nov): a slim grey band under the hero on `/` with one code field (`name="code"`) and a Track button. The form is a plain GET to `/track`, so it still works without JavaScript. With JavaScript, `main.js` tidies the code on submit only (uppercase, drops spaces and other characters, puts the dashes back) and checks it against the same pattern as `track.js`; a wrong code gets a short message under the box and stays on the homepage. The homepage never calls the Worker. `/track` itself is unchanged: plain, `noindex`, no sales copy, no chat.
 
 ### Company Profile
 - [x] Company Profile PDF (15 pages, brochure design) and Markdown version in the repo, downloadable from the Contact page.
@@ -196,6 +197,8 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 15 Nov | Same two names corrected in the company profile PDF | Abdi's instruction; the PDF must match the website |
 | 16 Nov | Customer tracking link is `https://www.octanetransport.com/track?code=…` (clean URL; `/track.html` also works) | Matches the site's URL rules; no `/track/` folder exists |
 | 16 Nov | Tracking Worker runs on its `workers.dev` address, not `track-api.octanetransport.com` | DNS is at Africana, not Cloudflare; a Cloudflare custom domain would need the DNS moved |
+| 16 Nov | Homepage gets a "Track a shipment" box; sales messaging stays off `/track` | Gives clients an easy way in from the homepage while the tracking page stays a plain, focused tool (Abdi) |
+| 16 Nov | Every website change updates this file (PROJECT.md) in the same PR | Abdi's standing rule, restated 16 Nov |
 
 ---
 

@@ -157,6 +157,23 @@
     </div>
   </section>
 
+  <section class="track-band" aria-labelledby="track-band-title">
+    <div class="container track-band-inner">
+      <div class="track-band-text">
+        <h2 id="track-band-title">Track a shipment</h2>
+        <p>Enter the code from your tracking link to see where your cargo is.</p>
+      </div>
+      <form class="track-band-form" id="home-track-form" action="/track" method="get" novalidate>
+        <label for="home-track-code" class="sr-only">Tracking code</label>
+        <div class="track-band-row">
+          <input id="home-track-code" name="code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="OTZ-ABCDE-23456" maxlength="24" aria-describedby="home-track-msg">
+          <button type="submit" class="btn btn-primary">Track</button>
+        </div>
+        <p id="home-track-msg" class="track-band-msg" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container split">
       <div>
