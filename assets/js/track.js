@@ -4,9 +4,8 @@
 (function () {
   'use strict';
 
-  // The tracking Worker's address. Change this one line when the Worker is created
-  // (its workers.dev address, from Cloudflare > Workers & Pages > octane-tracking).
-  var TRACK_API = 'https://octane-tracking.REPLACE-ME.workers.dev/';
+  // The tracking Worker's address (Cloudflare > Workers & Pages > octane-tracking).
+  var TRACK_API = 'https://octane-tracking.withered-morning-91b5.workers.dev/';
 
   var CODE_RE = /^OTZ-[A-HJ-NP-Z2-9]{5}-[A-HJ-NP-Z2-9]{5}$/;
   var TZ = 'Africa/Lusaka';
