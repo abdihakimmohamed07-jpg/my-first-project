@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 16 November 2026 (tracking page connected to the live tracking Worker)
+**Last updated:** 16 November 2026 (tracking page: Download ePOD fetches a fresh link on each click)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -48,7 +48,7 @@
 - [x] **`/track?code=OTZ-XXXXX-XXXXX`** (`track.html`, `assets/js/track.js`, `assets/css/track.css`): customers open the link from Octane and see status, from/to towns, milestones (Zambia time), ETA or delivery date. It asks the separate tracking Worker (built in the octane-driver-app repo, `tracking-worker/`), which reads the driver-app database; the website itself holds no data or keys.
 - Standalone like `/card`: no `main.js`, chat widget or WhatsApp button; `noindex`, not in nav or sitemap; sends no referrer (the code is in the address); a Content-Security-Policy lets it load only its own files and call `*.workers.dev`.
 - Shows only what the Worker sends (no plates, driver, phone or coordinates are ever sent). Not found / too many lookups / unavailable each have a plain message with the office number.
-- Ready for ePOD sharing: a **Download ePOD** button appears only if the Worker answer has an `https` `epod_url` (the Worker must add that key to its allowed list when ePOD sharing is built).
+- **Download ePOD** (sub-step B, 16 Nov): shown when the Worker answer has an `https` `epod_url` (a Supabase signed link valid 5 minutes). Each click asks the Worker again for a fresh link and opens it in the same tab with `window.location.assign` (phones block `window.open` after a lookup); the link downloads as `ePOD-<code>.pdf`. If the fresh answer has no link, the button hides and the page says "The delivery document is not available right now."
 
 ### Company Profile
 - [x] Company Profile PDF (15 pages, brochure design) and Markdown version in the repo, downloadable from the Contact page.

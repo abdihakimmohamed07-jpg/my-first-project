@@ -50,3 +50,5 @@ h1{font-family:var(--font-head);font-size:1.9rem;line-height:1.15;margin:0 0 18p
 .t-footer a{color:#ff6b6e;}
 @media (max-width:400px){.t-row{flex-direction:column;}.track-facts{grid-template-columns:1fr;gap:0 0;}.track-facts dd{margin-bottom:8px;}}
 .t-footer a[href^="tel:"]{white-space:nowrap;}
+.track-btn[disabled]{opacity:.6;cursor:wait;}
+.track-btn[hidden]{display:none;}
