@@ -101,13 +101,32 @@
     if (s.zone) row(dl, 'Last known area', String(s.zone));
     card.appendChild(dl);
 
-    // Ready for ePOD sharing (sub-step B): shown only when the Worker sends an https link.
-    if (typeof s.epod_url === 'string' && /^https:\/\//i.test(s.epod_url)) {
-      var a = el('a', 'track-btn', 'Download ePOD');
-      a.href = s.epod_url;
-      a.rel = 'noopener noreferrer';
-      a.target = '_blank';
-      card.appendChild(a);
+    // ePOD: the Worker's link is a signed Supabase link valid for 5 minutes, so each click
+    // asks the Worker again for a fresh one, then navigates in the same tab (the link sends
+    // Content-Disposition: attachment). window.open() after an async fetch is blocked on phones.
+    if (isHttps(s.epod_url)) {
+      var btn = el('button', 'track-btn', 'Download ePOD');
+      btn.type = 'button';
+      var note = el('p', 'track-note track-epod-note');
+      note.hidden = true;
+      btn.addEventListener('click', function () {
+        btn.disabled = true;
+        note.hidden = true;
+        fetchShipment(s.code).then(function (res) {
+          if (res.status !== 200 && res.status !== 404) throw new Error('lookup failed');
+          var fresh = res.status === 200 && res.body && res.body.found ? res.body.epod_url : null;
+          if (isHttps(fresh)) { window.location.assign(fresh); btn.disabled = false; return; }
+          btn.hidden = true;
+          note.textContent = 'The delivery document is not available right now.';
+          note.hidden = false;
+        }).catch(function () {
+          btn.disabled = false;
+          note.textContent = 'Could not reach tracking. Please try again.';
+          note.hidden = false;
+        });
+      });
+      card.appendChild(btn);
+      card.appendChild(note);
     }
 
     var ms = Array.isArray(s.milestones) ? s.milestones.slice() : [];
@@ -136,26 +155,32 @@
     out.focus();
   }
 
-  function lookup(code) {
-    message('Checking…', 'Looking up ' + code + '.', 'wait');
+  function isHttps(u) { return typeof u === 'string' && /^https:\/\//i.test(u); }
+
+  // Resolves {status, body}; rejects on network error or timeout.
+  function fetchShipment(code) {
     var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
     var timer = ctrl && setTimeout(function () { ctrl.abort(); }, 15000);
-    fetch(TRACK_API + '?code=' + encodeURIComponent(code), {
+    return fetch(TRACK_API + '?code=' + encodeURIComponent(code), {
       method: 'GET', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer',
       signal: ctrl ? ctrl.signal : undefined
     }).then(function (r) {
-      if (r.status === 200) {
-        return r.json().then(function (s) {
-          if (s && s.found) render(s); else notFound();
-        });
-      }
-      if (r.status === 404) return notFound();
-      if (r.status === 429) {
-        return message('Too many lookups',
-          'Please wait a minute and try again.', 'warn');
+      if (timer) clearTimeout(timer);
+      if (r.status !== 200) return { status: r.status, body: null };
+      return r.json().then(function (body) { return { status: 200, body: body }; });
+    }, function (e) { if (timer) clearTimeout(timer); throw e; });
+  }
+
+  function lookup(code) {
+    message('Checking\u2026', 'Looking up ' + code + '.', 'wait');
+    fetchShipment(code).then(function (res) {
+      if (res.status === 200) return res.body && res.body.found ? render(res.body) : notFound();
+      if (res.status === 404) return notFound();
+      if (res.status === 429) {
+        return message('Too many lookups', 'Please wait a minute and try again.', 'warn');
       }
       unavailable();
-    }).catch(unavailable).then(function () { if (timer) clearTimeout(timer); });
+    }).catch(unavailable);
   }
 
   function notFound() {
