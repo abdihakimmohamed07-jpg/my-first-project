@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 15 November 2026 (company profile PDF: client names Worldco Shipping and Logistar)
+**Last updated:** 16 November 2026 (public shipment tracking page `/track`, waiting for the tracking Worker address)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -43,6 +43,12 @@
   - **SEO:** titles at most 60 characters and descriptions at most 160 on all 10 pages; one 1200x630 JPG share image (`assets/img/share-1200x630.jpg`, the real flatbed truck); LocalBusiness schema gained opening hours, the six countries served, a contact point and the five services; sitemap has `lastmod` dates.
   - **Accessibility:** footer column headings were invisible (dark text on dark) and are fixed; heading order corrected; links inside text underlined; form fields 48px tall with a visible focus ring.
   - **Lighthouse mobile (local preview, 13 Nov):** every page 97 to 99 performance, 100 accessibility, 100 best practices, 100 SEO. Before: home 96/94, fleet 88/94.
+
+### Shipment tracking page (16 Nov)
+- [x] **`/track?code=OTZ-XXXXX-XXXXX`** (`track.html`, `assets/js/track.js`, `assets/css/track.css`): customers open the link from Octane and see status, from/to towns, milestones (Zambia time), ETA or delivery date. It asks the separate tracking Worker (built in the octane-driver-app repo, `tracking-worker/`), which reads the driver-app database; the website itself holds no data or keys.
+- Standalone like `/card`: no `main.js`, chat widget or WhatsApp button; `noindex`, not in nav or sitemap; sends no referrer (the code is in the address); a Content-Security-Policy lets it load only its own files and call `*.workers.dev`.
+- Shows only what the Worker sends (no plates, driver, phone or coordinates are ever sent). Not found / too many lookups / unavailable each have a plain message with the office number.
+- Ready for ePOD sharing: a **Download ePOD** button appears only if the Worker answer has an `https` `epod_url` (the Worker must add that key to its allowed list when ePOD sharing is built).
 
 ### Company Profile
 - [x] Company Profile PDF (15 pages, brochure design) and Markdown version in the repo, downloadable from the Contact page.
@@ -98,6 +104,8 @@
 - [x] Temporary test cron `25 6 * * *` deleted by Abdi (5 Oct). [ ] Check the real 08:00 email arrives on 6 Oct.
 - [x] **Procurement forms tested** (11 Oct): Abdi sent one live submission from each (New Customer / Existing Customer); both emails arrived. All 3 Web3Forms forms are now confirmed end to end.
 - [ ] **Confirm WhatsApp Business greeting message** is switched on with the transport + supply wording.
+
+- [ ] **Tracking page goes live:** set `TRACK_API` in `assets/js/track.js` (one line) to the tracking Worker's `workers.dev` address once Abdi creates it, then test a real code. Until then the page shows "Tracking is unavailable right now".
 
 ### Housekeeping
 - [x] Chatbot: spend alert at US$10 set by Abdi (11 Oct) in the Anthropic Console, on the chatbot's workspace (Limits tab > notification). Email warning only; the US$20 spend limit stays the hard cap.
@@ -185,6 +193,8 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 15 Nov | Show client logos on the homepage, moving right to left | Abdi supplied the six logos and asked for motion; the chatbot rule (Impala and Reload only) is unchanged |
 | 15 Nov | Client names follow the logos: Worldco Shipping and Logistar | Abdi's instruction; the old spellings were wrong |
 | 15 Nov | Same two names corrected in the company profile PDF | Abdi's instruction; the PDF must match the website |
+| 16 Nov | Customer tracking link is `https://www.octanetransport.com/track?code=…` (clean URL; `/track.html` also works) | Matches the site's URL rules; no `/track/` folder exists |
+| 16 Nov | Tracking Worker runs on its `workers.dev` address, not `track-api.octanetransport.com` | DNS is at Africana, not Cloudflare; a Cloudflare custom domain would need the DNS moved |
 
 ---
 
