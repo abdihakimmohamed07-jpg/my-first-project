@@ -131,6 +131,12 @@
 
     var ms = Array.isArray(s.milestones) ? s.milestones.slice() : [];
     ms.sort(function (x, y) { return String(y.at).localeCompare(String(x.at)); });
+    // Show at most one "Delay reported": the newest, and only if it is newer than the latest
+    // stage (the Worker will do the same from SQL step 25; this keeps older answers tidy).
+    var stages = ms.filter(function (m) { return m.type !== 'issue'; });
+    var issue = ms.filter(function (m) { return m.type === 'issue'; })[0];
+    if (issue && stages.length && String(issue.at) <= String(stages[0].at)) issue = null;
+    ms = issue ? [issue].concat(stages) : stages;
     if (ms.length) {
       card.appendChild(el('h2', 'track-sub', 'Progress'));
       var ol = el('ol', 'track-timeline');
