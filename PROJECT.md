@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 16 November 2026 (tracking page: first and last delay per stage)
+**Last updated:** 18 November 2026 (tracking page: ETA keeps moving at the border)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -99,6 +99,8 @@
 - [x] **Five design skills installed in Abdi's claude.ai account** (11 Oct, all enabled): `design-taste-frontend` and `redesign-existing-projects` (taste-skill, MIT), `mobile-native`, `break-ui` and `review-animations` (Emil Kowalski's skills, MIT). They work in claude.ai chats and in Claude Code sessions. `review-animations` runs only when called with `/review-animations`. The copies briefly kept in the repo (PR #42) were removed so there is one source and no drift.
 
 ---
+
+- [x] **Tracking page ETA at the border (18 Nov 2026):** new ETA wording from the driver-app database (its SQL step 34): "Delayed at the border. Earliest arrival <date>", "Delayed, please contact us", and a "First estimate" row once the date has moved past the first range. Old answers still show as before, so this can go live before step 34 runs.
 
 ## 3. Pending / to do
 
@@ -201,6 +203,7 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 16 Nov | Homepage gets a "Track a shipment" box; sales messaging stays off `/track` | Gives clients an easy way in from the homepage while the tracking page stays a plain, focused tool (Abdi) |
 | 16 Nov | Every website change updates this file (PROJECT.md) in the same PR | Abdi's standing rule, restated 16 Nov |
 
+- 18 Nov 2026: when a truck is stuck at the border past the usual wait, show an earliest arrival date that moves forward each day rather than a date range (nobody knows the latest date while it waits); keep the first estimate visible so the change reads as a revision (Abdi).
 ---
 
 ## 5. How to work on this project

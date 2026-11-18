@@ -7,7 +7,7 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-11-16 (homepage "Track a shipment" box).
+Last updated: 2026-11-18 (tracking page ETA at the border).
 
 ## The site
 
@@ -225,3 +225,4 @@ Last updated: 2026-11-16 (homepage "Track a shipment" box).
 | 15 Nov | Home "Companies we have worked with" is a logo marquee (`.logo-marquee`, two identical `.logo-group` lists, the second `aria-hidden`; CSS animation right to left, pauses on hover and via the `.logo-marquee-toggle` button in `main.js`, static wrapped row under `prefers-reduced-motion`). Logos in `assets/img/clients/`; a new client = one `<li>` in both groups. Client names are "Worldco Shipping" and "Logistar" (never "World Co. Logistics" / "Logistra Africa"); the profile PDF (p. 14 Client Portfolio table) was corrected the same day with `.claude/tools/profile_client_names.py` |
 | 16 Nov | `/track` shipment tracking page (`track.html`, `assets/js/track.js`, `assets/css/track.css`): standalone like `/card` (no `main.js`/chat), `noindex`, no referrer, CSP limits calls to `*.workers.dev`. `TRACK_API` in track.js is the Worker address (`octane-tracking.withered-morning-91b5.workers.dev`, set 16 Nov). Render Worker data with `textContent` only. `epod_url` shows a Download ePOD button only if it is `https`; each click refetches the Worker (signed link lasts 5 min) and uses `location.assign`, never `window.open`. Timeline shows every milestone the Worker returns, newest first; the Worker (SQL step 28) already limits delays to the first and last per stage, so the page must not trim them. `zone` is null or `{name|null, at}` → "Near X"/"On the road" + time; hidden when delivered |
 | 16 Nov | Homepage "Track a shipment" band under the hero (`.track-band`, `#home-track-form`, handler in `main.js`): plain GET form to `/track` with `name="code"` (the parameter `track.js` reads), so it works without JS. JS tidies the code on submit only (never per keystroke), checks the same `CODE_RE` as `track.js` and shows a message under the box if wrong. Never call the Worker from the homepage; keep sales copy off `/track`. If the code format changes, update both regexes. Added a shared `.sr-only` class in style.css |
+| 18 Nov | `/track` ETA: `etaText` handles `border_delay` ("Delayed at the border. Earliest arrival X", `from` only) and `contact` ("Delayed, please contact us"); a "First estimate" row from `eta.first_from`/`first_to` (driver-app SQL step 34, Worker re-pasted to pass them). Unknown/old states fall back as before |

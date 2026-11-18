@@ -54,10 +54,23 @@
   function etaText(eta) {
     if (!eta || eta.state === 'unavailable') return 'ETA not yet available';
     if (eta.state === 'delayed') return 'Delayed - updated ETA pending';
+    if (eta.state === 'contact') return 'Delayed, please contact us';
+    if (eta.state === 'border_delay') {
+      var e = fmtDate(eta.from);
+      return e ? 'Delayed at the border. Earliest arrival ' + e : 'Delayed - updated ETA pending';
+    }
     var a = fmtDate(eta.from), b = fmtDate(eta.to);
     if (!a && !b) return 'ETA not yet available';
     if (!a || !b || a === b) return a || b;
     return a + ' to ' + b;
+  }
+
+  // The first estimate, kept once the date has moved past it ("14 Nov to 16 Nov"), or ''.
+  function firstText(eta) {
+    if (!eta) return '';
+    var a = fmtDate(eta.first_from), b = fmtDate(eta.first_to);
+    if (!a || !b) return '';
+    return a === b ? a : a + ' to ' + b;
   }
 
   // zone: null, {name: "Kitwe", at} -> "Near Kitwe, <time>", {name: null, at} -> "On the road, <time>".
@@ -106,7 +119,10 @@
 
     var dl = el('dl', 'track-facts');
     if (s.status === 'delivered') row(dl, 'Delivered on', fmtDate(s.delivered_on) || 'Delivered');
-    else row(dl, 'Estimated arrival', etaText(s.eta));
+    else {
+      row(dl, 'Estimated arrival', etaText(s.eta));
+      row(dl, 'First estimate', firstText(s.eta));
+    }
     if (s.status !== 'delivered') row(dl, 'Last known location', zoneText(s.zone));
     card.appendChild(dl);
 
