@@ -202,8 +202,8 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 16 Nov | Tracking Worker runs on its `workers.dev` address, not `track-api.octanetransport.com` | DNS is at Africana, not Cloudflare; a Cloudflare custom domain would need the DNS moved |
 | 16 Nov | Homepage gets a "Track a shipment" box; sales messaging stays off `/track` | Gives clients an easy way in from the homepage while the tracking page stays a plain, focused tool (Abdi) |
 | 16 Nov | Every website change updates this file (PROJECT.md) in the same PR | Abdi's standing rule, restated 16 Nov |
+| 18 Nov | A truck stuck at the border past the usual wait shows an earliest arrival date that moves forward each day, not a date range; the first estimate stays visible | Nobody knows the latest date while it waits; a slipping range reads as broken promises (Abdi) |
 
-- 18 Nov 2026: when a truck is stuck at the border past the usual wait, show an earliest arrival date that moves forward each day rather than a date range (nobody knows the latest date while it waits); keep the first estimate visible so the change reads as a revision (Abdi).
 ---
 
 ## 5. How to work on this project
