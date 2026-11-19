@@ -82,6 +82,66 @@
     return place + ', ' + t;
   }
 
+  // Waiting time, worked out from the milestones the Worker already sends (times are whole hours).
+  // At loading: arrived for loading -> loaded. At the border: arrived -> cleared (several borders add
+  // up). A delay with one of the three named reasons runs from its first report until the next stage;
+  // "Delay reported" (any other problem) is never counted. A wait still open counts up to 3 hours ago,
+  // because milestones appear here only 3 hours after they happen, and says "so far".
+  var DELAY_WAITS = [
+    ['Delay: waiting for documents', 'Waiting for documents'],
+    ['Delay: waiting for seals', 'Waiting for seals'],
+    ['Delay: waiting for loading', 'Waiting for loading']
+  ];
+  var PUBLISH_LAG_MS = 3 * 36e5;
+  function waitRows(ms, delivered) {
+    var list = ms.filter(function (m) { return !isNaN(new Date(m.at)); })
+      .sort(function (x, y) { return new Date(x.at) - new Date(y.at); });
+    var upTo = Math.floor((Date.now() - PUBLISH_LAG_MS) / 36e5) * 36e5;
+    var sums = {};
+    function add(key, from, to, open) {
+      var h = Math.max(0, Math.round((to - from) / 36e5));
+      var o = sums[key] || (sums[key] = { h: 0, open: false });
+      o.h += h; o.open = o.open || open;
+    }
+    function nextStage(i, types) {
+      for (var j = i + 1; j < list.length; j++) {
+        if (list[j].type !== 'issue' && (!types || types.indexOf(list[j].type) >= 0)) return list[j];
+      }
+      return null;
+    }
+    var borderOpen = false;
+    list.forEach(function (m, i) {
+      var at = new Date(m.at).getTime(), end;
+      if (m.type === 'arrived_loading') {
+        end = nextStage(i);
+        if (end && end.type === 'loaded') add('At loading', at, new Date(end.at).getTime(), false);
+        else if (!end && !delivered) add('At loading', at, upTo, true);
+      } else if (m.type === 'border_arrived' && !borderOpen) {
+        borderOpen = true;
+        end = nextStage(i, ['border_cleared', 'arrived', 'offloaded']);
+        if (end && end.type === 'border_cleared') add('At the border', at, new Date(end.at).getTime(), false);
+        else if (!end && !delivered) add('At the border', at, upTo, true);
+      } else if (m.type === 'border_cleared') {
+        borderOpen = false;
+      } else if (m.type === 'issue') {
+        var key = null;
+        DELAY_WAITS.forEach(function (d) { if (m.label === d[0]) key = d[1]; });
+        if (!key) return;
+        // Only the first report of a reason in each stretch between stages counts.
+        for (var k = i - 1; k >= 0 && list[k].type === 'issue'; k--) if (list[k].label === m.label) return;
+        end = nextStage(i);
+        if (end) add(key, at, new Date(end.at).getTime(), false);
+        else if (!delivered) add(key, at, upTo, true);
+      }
+    });
+    var order = ['At loading', 'At the border', 'Waiting for documents', 'Waiting for seals', 'Waiting for loading'];
+    return order.filter(function (k) { return sums[k]; }).map(function (k) {
+      var h = sums[k].h;
+      var text = h < 24 ? h + ' h' : Math.floor(h / 24) + ' d ' + (h % 24) + ' h';
+      return [k, text + (sums[k].open ? ' so far' : '')];
+    });
+  }
+
   function message(title, body, kind) {
     out.textContent = '';
     var box = el('div', 'track-msg' + (kind ? ' track-msg--' + kind : ''));
@@ -155,6 +215,13 @@
     }
 
     var ms = Array.isArray(s.milestones) ? s.milestones.slice() : [];
+    var waits = waitRows(ms, s.status === 'delivered');
+    if (waits.length) {
+      card.appendChild(el('h2', 'track-sub', 'Waiting time'));
+      var wdl = el('dl', 'track-facts');
+      waits.forEach(function (w) { row(wdl, w[0], w[1]); });
+      card.appendChild(wdl);
+    }
     ms.sort(function (x, y) { return String(y.at).localeCompare(String(x.at)); });
     if (ms.length) {
       card.appendChild(el('h2', 'track-sub', 'Progress'));
