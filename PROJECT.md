@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 18 November 2026 (tracking page: ETA keeps moving at the border)
+**Last updated:** 19 November 2026 (tracking page: waiting time per delay)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -101,6 +101,7 @@
 ---
 
 - [x] **Tracking page ETA at the border (18 Nov 2026):** new ETA wording from the driver-app database (its SQL step 34): "Delayed at the border. Earliest arrival <date>", "Delayed, please contact us", and a "First estimate" row once the date has moved past the first range. Old answers still show as before, so this can go live before step 34 runs.
+- [x] **Tracking page waiting time (19 Nov 2026):** a "Waiting time" block on `/track` shows time at loading, at the border (several borders add up) and for each named delay reason (documents, seals, loading), worked out in `track.js` from the milestones the Worker already sends (no database or Worker change). "Delay reported" (any other problem, incl. breakdowns) is never counted. An open wait counts up to 3 hours ago (the publishing delay) and says "so far". Whole hours, so it can differ by a few hours from the office trip view.
 
 ## 3. Pending / to do
 
@@ -203,6 +204,7 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 16 Nov | Homepage gets a "Track a shipment" box; sales messaging stays off `/track` | Gives clients an easy way in from the homepage while the tracking page stays a plain, focused tool (Abdi) |
 | 16 Nov | Every website change updates this file (PROJECT.md) in the same PR | Abdi's standing rule, restated 16 Nov |
 | 18 Nov | A truck stuck at the border past the usual wait shows an earliest arrival date that moves forward each day, not a date range; the first estimate stays visible | Nobody knows the latest date while it waits; a slipping range reads as broken promises (Abdi) |
+| 19 Nov | Clients see waiting time at loading, at the border and for named delays, but never for "Delay reported" (breakdowns) | Abdi wants clients to see their delays (19 Nov), accepting that border hours can come up in demurrage talks |
 
 ---
 
