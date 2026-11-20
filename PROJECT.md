@@ -1,7 +1,7 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 19 November 2026 (tracking page: waiting time per delay)
+**Last updated:** 20 November 2026 (tracking page: border wait kept to arrival)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -101,7 +101,7 @@
 ---
 
 - [x] **Tracking page ETA at the border (18 Nov 2026):** new ETA wording from the driver-app database (its SQL step 34): "Delayed at the border. Earliest arrival <date>", "Delayed, please contact us", and a "First estimate" row once the date has moved past the first range. Old answers still show as before, so this can go live before step 34 runs.
-- [x] **Tracking page waiting time (19 Nov 2026):** a "Waiting time" block on `/track` shows time at loading, at the border (several borders add up) and for each named delay reason (documents, seals, loading), worked out in `track.js` from the milestones the Worker already sends (no database or Worker change). "Delay reported" (any other problem, incl. breakdowns) is never counted. An open wait counts up to 3 hours ago (the publishing delay) and says "so far". Whole hours, so it can differ by a few hours from the office trip view.
+- [x] **Tracking page waiting time (19 Nov 2026):** a "Waiting time" block on `/track` shows time at loading, at the border (several borders add up) and for each named delay reason (documents, seals, loading), worked out in `track.js` from the milestones the Worker already sends (no database or Worker change). "Delay reported" (any other problem, incl. breakdowns) is never counted. An open wait counts up to 3 hours ago (the publishing delay) and says "so far". Whole hours, so it can differ by a few hours from the office trip view. 20 Nov: when the driver never taps "Cleared border", the border wait now stays, counted up to "Arrived at destination" and marked "(to arrival)" (Abdi, needed for demurrage; includes the short drive after the border), instead of disappearing.
 
 ## 3. Pending / to do
 
