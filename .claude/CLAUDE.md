@@ -7,7 +7,7 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-11-19 (tracking page waiting time).
+Last updated: 2026-11-20 (border wait kept to arrival).
 
 ## The site
 
@@ -227,3 +227,4 @@ Last updated: 2026-11-19 (tracking page waiting time).
 | 16 Nov | Homepage "Track a shipment" band under the hero (`.track-band`, `#home-track-form`, handler in `main.js`): plain GET form to `/track` with `name="code"` (the parameter `track.js` reads), so it works without JS. JS tidies the code on submit only (never per keystroke), checks the same `CODE_RE` as `track.js` and shows a message under the box if wrong. Never call the Worker from the homepage; keep sales copy off `/track`. If the code format changes, update both regexes. Added a shared `.sr-only` class in style.css |
 | 18 Nov | `/track` ETA: `etaText` handles `border_delay` ("Delayed at the border. Earliest arrival X", `from` only) and `contact` ("Delayed, please contact us"); a "First estimate" row from `eta.first_from`/`first_to` (driver-app SQL step 34, Worker re-pasted to pass them). Unknown/old states fall back as before |
 | 19 Nov | `/track` "Waiting time" block (`waitRows` in track.js): at loading, at the border, and per named delay label (`Delay: waiting for documents/seals/loading`, matched on the label text the SQL sets; if those labels change, update `DELAY_WAITS`). Never counts "Delay reported". Open waits count to now minus 3 h (publishing delay) with "so far". No Worker or SQL change |
+| 20 Nov | `/track` waiting time: a border with no "Cleared border" milestone is counted up to "Arrived at destination" and shows "(to arrival)" (kept for demurrage) instead of being dropped. No Worker or SQL change |

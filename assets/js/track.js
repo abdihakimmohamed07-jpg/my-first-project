@@ -84,7 +84,7 @@
 
   // Waiting time, worked out from the milestones the Worker already sends (times are whole hours).
   // At loading: arrived for loading -> loaded. At the border: arrived -> cleared (several borders add
-  // up). A delay with one of the three named reasons runs from its first report until the next stage;
+  // up), or arrived -> arrived at destination when the driver never tapped Cleared border. A delay with one of the three named reasons runs from its first report until the next stage;
   // "Delay reported" (any other problem) is never counted. A wait still open counts up to 3 hours ago,
   // because milestones appear here only 3 hours after they happen, and says "so far".
   var DELAY_WAITS = [
@@ -98,10 +98,10 @@
       .sort(function (x, y) { return new Date(x.at) - new Date(y.at); });
     var upTo = Math.floor((Date.now() - PUBLISH_LAG_MS) / 36e5) * 36e5;
     var sums = {};
-    function add(key, from, to, open) {
+    function add(key, from, to, open, note) {
       var h = Math.max(0, Math.round((to - from) / 36e5));
-      var o = sums[key] || (sums[key] = { h: 0, open: false });
-      o.h += h; o.open = o.open || open;
+      var o = sums[key] || (sums[key] = { h: 0, open: false, note: '' });
+      o.h += h; o.open = o.open || open; o.note = o.note || note || '';
     }
     function nextStage(i, types) {
       for (var j = i + 1; j < list.length; j++) {
@@ -120,7 +120,9 @@
         borderOpen = true;
         end = nextStage(i, ['border_cleared', 'arrived', 'offloaded']);
         if (end && end.type === 'border_cleared') add('At the border', at, new Date(end.at).getTime(), false);
-        else if (!end && !delivered) add('At the border', at, upTo, true);
+        // No "Cleared border" tap: keep the wait (needed for demurrage), counted up to arrival and marked so.
+        else if (end) add('At the border', at, new Date(end.at).getTime(), false, 'to arrival');
+        else if (!delivered) add('At the border', at, upTo, true);
       } else if (m.type === 'border_cleared') {
         borderOpen = false;
       } else if (m.type === 'issue') {
@@ -138,7 +140,7 @@
     return order.filter(function (k) { return sums[k]; }).map(function (k) {
       var h = sums[k].h;
       var text = h < 24 ? h + ' h' : Math.floor(h / 24) + ' d ' + (h % 24) + ' h';
-      return [k, text + (sums[k].open ? ' so far' : '')];
+      return [k, text + (sums[k].open ? ' so far' : sums[k].note ? ' (' + sums[k].note + ')' : '')];
     });
   }
 
