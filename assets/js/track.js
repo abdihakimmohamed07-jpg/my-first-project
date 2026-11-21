@@ -65,6 +65,15 @@
     return a + ' to ' + b;
   }
 
+  // Once arrived there is no ETA to promise: show when the truck arrived (latest "Arrived" milestone).
+  function arrivedText(ms) {
+    var at = '';
+    (Array.isArray(ms) ? ms : []).forEach(function (m) {
+      if (m && m.type === 'arrived' && String(m.at) > at) at = String(m.at);
+    });
+    return fmtTime(at) || 'At destination';
+  }
+
   // The first estimate, kept once the date has moved past it ("14 Nov to 16 Nov"), or ''.
   function firstText(eta) {
     if (!eta) return '';
@@ -181,11 +190,12 @@
 
     var dl = el('dl', 'track-facts');
     if (s.status === 'delivered') row(dl, 'Delivered on', fmtDate(s.delivered_on) || 'Delivered');
+    else if (s.status === 'arrived') row(dl, 'Arrived', arrivedText(s.milestones));
     else {
       row(dl, 'Estimated arrival', etaText(s.eta));
       row(dl, 'First estimate', firstText(s.eta));
+      row(dl, 'Last known location', zoneText(s.zone));
     }
-    if (s.status !== 'delivered') row(dl, 'Last known location', zoneText(s.zone));
     card.appendChild(dl);
 
     // ePOD: the Worker's link is a signed Supabase link valid for 5 minutes, so each click
