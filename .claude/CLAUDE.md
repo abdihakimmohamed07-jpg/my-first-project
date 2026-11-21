@@ -7,7 +7,7 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-11-21 (arrival time instead of ETA).
+Last updated: 2026-11-21 (arrival time instead of ETA; delays after arrival hidden).
 
 ## The site
 
@@ -229,3 +229,4 @@ Last updated: 2026-11-21 (arrival time instead of ETA).
 | 19 Nov | `/track` "Waiting time" block (`waitRows` in track.js): at loading, at the border, and per named delay label (`Delay: waiting for documents/seals/loading`, matched on the label text the SQL sets; if those labels change, update `DELAY_WAITS`). Never counts "Delay reported". Open waits count to now minus 3 h (publishing delay) with "so far". No Worker or SQL change |
 | 20 Nov | `/track` waiting time: a border with no "Cleared border" milestone is counted up to "Arrived at destination" and shows "(to arrival)" (kept for demurrage) instead of being dropped. No Worker or SQL change |
 | 21 Nov | `/track` status `arrived`: one "Arrived" row (time of the latest `arrived` milestone, `arrivedText` in track.js) replaces Estimated arrival, First estimate and Last known location. No Worker or SQL change |
+| 21 Nov | `/track` hides `issue` milestones newer than the latest `arrived` milestone (timeline and waiting time); the Worker still sends them and dispatch still records them. Abdi: clients must not think something went wrong after offloading |

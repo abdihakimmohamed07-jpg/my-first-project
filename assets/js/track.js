@@ -227,6 +227,11 @@
     }
 
     var ms = Array.isArray(s.milestones) ? s.milestones.slice() : [];
+    // Delays reported after arrival (e.g. offloaded, waiting for POD) stay in the office records but are
+    // not shown to clients, so they don't read as a problem with the delivery.
+    var arrivedAt = '';
+    ms.forEach(function (m) { if (m && m.type === 'arrived' && String(m.at) > arrivedAt) arrivedAt = String(m.at); });
+    if (arrivedAt) ms = ms.filter(function (m) { return !(m && m.type === 'issue' && String(m.at) > arrivedAt); });
     var waits = waitRows(ms, s.status === 'delivered');
     if (waits.length) {
       card.appendChild(el('h2', 'track-sub', 'Waiting time'));
