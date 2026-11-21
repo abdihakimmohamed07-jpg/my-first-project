@@ -93,7 +93,8 @@
 
   // Waiting time, worked out from the milestones the Worker already sends (times are whole hours).
   // At loading: arrived for loading -> loaded. At the border: arrived -> cleared (several borders add
-  // up), or arrived -> arrived at destination when the driver never tapped Cleared border. A delay with one of the three named reasons runs from its first report until the next stage;
+  // up), or arrived -> arrived at destination when the driver never tapped Cleared border. At offloading: arrived
+  // at destination -> "Offloaded, POD being processed", only once that milestone is here. A delay with one of the three named reasons runs from its first report until the next stage;
   // "Delay reported" (any other problem) is never counted. A wait still open counts up to 3 hours ago,
   // because milestones appear here only 3 hours after they happen, and says "so far".
   var DELAY_WAITS = [
@@ -132,6 +133,11 @@
         // No "Cleared border" tap: keep the wait (needed for demurrage), counted up to arrival and marked so.
         else if (end) add('At the border', at, new Date(end.at).getTime(), false, 'to arrival');
         else if (!delivered) add('At the border', at, upTo, true);
+      } else if (m.type === 'arrived') {
+        // At offloading: arrived -> the driver's "Offloaded" tap. Only once that tap is on the page: never an
+        // open "so far" wait and never counted to the POD, which can come back days after offloading.
+        end = nextStage(i);
+        if (end && end.type === 'unloaded') add('At offloading', at, new Date(end.at).getTime(), false);
       } else if (m.type === 'border_cleared') {
         borderOpen = false;
       } else if (m.type === 'issue') {
@@ -145,7 +151,7 @@
         else if (!delivered) add(key, at, upTo, true);
       }
     });
-    var order = ['At loading', 'At the border', 'Waiting for documents', 'Waiting for seals', 'Waiting for loading'];
+    var order = ['At loading', 'At the border', 'Waiting for documents', 'Waiting for seals', 'Waiting for loading', 'At offloading'];
     return order.filter(function (k) { return sums[k]; }).map(function (k) {
       var h = sums[k].h;
       var text = h < 24 ? h + ' h' : Math.floor(h / 24) + ' d ' + (h % 24) + ' h';
@@ -175,8 +181,11 @@
 
     var head = el('div', 'track-head');
     head.appendChild(el('p', 'track-code', s.code || ''));
+    // Status stays "arrived" after the driver's "Offloaded" tap; the badge says so.
+    var offloaded = s.status === 'arrived' && Array.isArray(s.milestones) &&
+      s.milestones.some(function (m) { return m && m.type === 'unloaded'; });
     var badge = el('p', 'track-status track-status--' + (s.status === 'delivered' ? 'done' : 'live'),
-      STATUS[s.status] || 'In progress');
+      offloaded ? 'Offloaded, POD being processed' : STATUS[s.status] || 'In progress');
     head.appendChild(badge);
     card.appendChild(head);
 
