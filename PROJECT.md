@@ -1,7 +1,9 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
+Status: Live at octanetransport.com; tracking page shows Offloaded milestone (21 Nov 2026)
+
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 21 November 2026 (tracking page: "Offloaded, POD being processed" and the offloading wait; earlier: arrival time instead of ETA; delays after arrival hidden)
+**Last updated:** 23 November 2026 (Status line added under the title, documentation only; earlier, 21 November 2026: tracking page: "Offloaded, POD being processed" and the offloading wait; earlier: arrival time instead of ETA; delays after arrival hidden)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -104,6 +106,8 @@
 - [x] **Tracking page waiting time (19 Nov 2026):** a "Waiting time" block on `/track` shows time at loading, at the border (several borders add up) and for each named delay reason (documents, seals, loading), worked out in `track.js` from the milestones the Worker already sends (no database or Worker change). "Delay reported" (any other problem, incl. breakdowns) is never counted. An open wait counts up to 3 hours ago (the publishing delay) and says "so far". Whole hours, so it can differ by a few hours from the office trip view. 20 Nov: when the driver never taps "Cleared border", the border wait now stays, counted up to "Arrived at destination" and marked "(to arrival)" (Abdi, needed for demurrage; includes the short drive after the border), instead of disappearing.
 - [x] **Tracking page after arrival (21 Nov 2026):** once the status is "Arrived at destination", `/track` shows "Arrived" with the time of the latest "Arrived at destination" milestone (the driver's Arrived at site tap, published 3 h later) instead of "ETA not yet available", and hides "First estimate" and "Last known location" (Abdi: it should show when the truck arrived). The Worker already sends no ETA once arrived; delay taps after arrival (e.g. offloaded, waiting for POD) never change the status. No Worker or SQL change. Same day: delay taps made after the arrival (e.g. "offloaded, waiting for POD") are no longer shown to clients, so they don't read as a problem with the delivery (Abdi). Drivers still send them and the dispatch app still records and shows them; only the public page filters them, in `track.js`.
 - [x] **Offloaded before the POD (21 Nov 2026):** drivers get an "Offloaded" tap (driver app SQL step 37, published with the next driver-app batch). The Worker then sends a milestone `unloaded`, "Offloaded, POD being processed"; the status stays `arrived`. `/track` shows that text on the status badge and adds a "Waiting time → At offloading" row (arrived → Offloaded). The row appears only once the Offloaded milestone is there: never an open "so far" wait and never counted to the POD, which can come back days later (until the driver app is published, no trip has the milestone, so nothing changes). No Worker change.
+
+- [x] **Status line (23 Nov 2026):** a one-sentence `Status:` line now sits directly under the title of this file, so the owner's project panel can show where the site stands. Documentation only: no site, Worker or profile change. Update it whenever the last-updated line changes.
 
 ## 3. Pending / to do
 
