@@ -51,18 +51,18 @@
     }).format(d);
   }
 
-  function etaText(eta) {
-    if (!eta || eta.state === 'unavailable') return 'ETA not yet available';
-    if (eta.state === 'delayed') return 'Delayed - updated ETA pending';
-    if (eta.state === 'contact') return 'Delayed, please contact us';
+  // The big line under the status, plus a warning pill when the ETA has slipped.
+  function etaHero(eta) {
+    if (!eta || eta.state === 'unavailable') return { main: 'ETA not yet available', pill: '' };
+    if (eta.state === 'delayed') return { main: 'Updated ETA pending', pill: 'Delayed' };
+    if (eta.state === 'contact') return { main: 'Please contact us for an update', pill: 'Delayed' };
     if (eta.state === 'border_delay') {
       var e = fmtDate(eta.from);
-      return e ? 'Delayed at the border. Earliest arrival ' + e : 'Delayed - updated ETA pending';
+      return { main: e ? 'Earliest arrival ' + e : 'Updated ETA pending', pill: 'Delayed at the border' };
     }
     var a = fmtDate(eta.from), b = fmtDate(eta.to);
-    if (!a && !b) return 'ETA not yet available';
-    if (!a || !b || a === b) return a || b;
-    return a + ' to ' + b;
+    if (!a && !b) return { main: 'ETA not yet available', pill: '' };
+    return { main: 'Estimated arrival ' + (!a || !b || a === b ? a || b : a + ' to ' + b), pill: '' };
   }
 
   // Once arrived there is no ETA to promise: show when the truck arrived (latest "Arrived" milestone).
@@ -169,49 +169,157 @@
     out.focus();
   }
 
-  function row(dl, label, value) {
-    if (!value) return;
-    dl.appendChild(el('dt', null, label));
-    dl.appendChild(el('dd', null, value));
+  // Small line icons for the updates list, drawn as SVG elements (no HTML strings).
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var ICONS = {
+    pin: ['M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z', 'M12 12.2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z'],
+    box: ['M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z', 'M3.5 7.5 12 12l8.5-4.5', 'M12 12v9'],
+    truck: ['M2.5 6.5h11v9h-11z', 'M13.5 9.5h4l3 3.5v2.5h-7z', 'M6.5 18.5a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6z', 'M17 18.5a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6z'],
+    flag: ['M5 21V4', 'M5 4h12l-2 4 2 4H5'],
+    check: ['M5 12.5l4.5 4.5L19 7.5'],
+    alert: ['M12 3.5 21.5 20h-19z', 'M12 10v4.5', 'M12 17.2v.3']
+  };
+  var TYPE_ICON = {
+    arrived_loading: 'pin', loaded: 'box', departed: 'truck', border_arrived: 'flag', border_cleared: 'flag',
+    arrived: 'pin', unloaded: 'box', offloaded: 'check', issue: 'alert'
+  };
+  function icon(name) {
+    var svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    (ICONS[name] || ICONS.pin).forEach(function (d) {
+      var path = document.createElementNS(SVG_NS, 'path');
+      path.setAttribute('d', d);
+      svg.appendChild(path);
+    });
+    return svg;
   }
+
+  // Progress bar: Loaded, Departed, [Border], Arrived, Delivered. The Border step appears only once the
+  // trip is known to cross a border (a border milestone, a border status or a border ETA), never guessed.
+  var RANK = { booked: 0, at_loading: 0, loaded: 1, departed: 2, at_border: 3, border_cleared: 4, arrived: 5, delivered: 6 };
+  function progressSteps(s, ms) {
+    var rank = RANK[s.status] != null ? RANK[s.status] : 0;
+    var border = s.status === 'at_border' || s.status === 'border_cleared' ||
+      (s.eta && s.eta.state === 'border_delay') ||
+      ms.some(function (m) { return m && (m.type === 'border_arrived' || m.type === 'border_cleared'); });
+    var steps = [['Loaded', 1], ['Departed', 2]];
+    if (border) steps.push(['Border', 4]);
+    steps.push(['Arrived', 5], ['Delivered', 6]);
+    var current = -1;
+    return steps.map(function (st, i) {
+      var done = rank >= st[1];
+      var now = !done && current < 0;
+      if (now) current = i;
+      return { label: st[0], state: done ? 'done' : now ? 'now' : 'todo' };
+    });
+  }
+
+  // "Sun 23 Nov" in Lusaka time, for grouping updates by day.
+  function fmtDay(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return new Intl.DateTimeFormat('en-GB', { timeZone: TZ, weekday: 'short', day: 'numeric', month: 'short' }).format(d);
+  }
+  function fmtClock(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: false }).format(d);
+  }
+
+  var SHOW_FIRST = 3;
 
   function render(s) {
     out.textContent = '';
-    var card = el('article', 'track-card');
+    var ms = Array.isArray(s.milestones) ? s.milestones.filter(function (m) { return m && typeof m === 'object'; }) : [];
+    // Delays reported after arrival (e.g. offloaded, waiting for POD) stay in the office records but are
+    // not shown to clients, so they don't read as a problem with the delivery.
+    var arrivedAt = '';
+    ms.forEach(function (m) { if (m.type === 'arrived' && String(m.at) > arrivedAt) arrivedAt = String(m.at); });
+    if (arrivedAt) ms = ms.filter(function (m) { return !(m.type === 'issue' && String(m.at) > arrivedAt); });
 
-    var head = el('div', 'track-head');
-    head.appendChild(el('p', 'track-code', s.code || ''));
-    // Status stays "arrived" after the driver's "Offloaded" tap; the badge says so.
-    var offloaded = s.status === 'arrived' && Array.isArray(s.milestones) &&
-      s.milestones.some(function (m) { return m && m.type === 'unloaded'; });
-    var badge = el('p', 'track-status track-status--' + (s.status === 'delivered' ? 'done' : 'live'),
-      offloaded ? 'Offloaded, POD being processed' : STATUS[s.status] || 'In progress');
-    head.appendChild(badge);
-    card.appendChild(head);
+    var delivered = s.status === 'delivered';
+    // Status stays "arrived" after the driver's "Offloaded" tap; the header says so.
+    var offloaded = s.status === 'arrived' && ms.some(function (m) { return m.type === 'unloaded'; });
+
+    // 1. Status header: big status, the date that matters, route, progress bar.
+    var main = '', sub = '', pill = '';
+    if (delivered) main = fmtDate(s.delivered_on);
+    else if (s.status === 'arrived') {
+      main = 'Arrived ' + arrivedText(ms);
+      if (offloaded) sub = 'Proof of delivery being processed';
+    } else {
+      var h = etaHero(s.eta);
+      main = h.main; pill = h.pill; sub = firstText(s.eta) ? 'First estimate was ' + firstText(s.eta) : '';
+    }
+    var hero = el('section', 'track-hero track-hero--' + (delivered ? 'done' : pill ? 'warn' : 'live'));
+    var top = el('div', 'track-hero-top');
+    top.appendChild(el('p', 'track-code', s.code || ''));
+    if (navigator.clipboard && s.code) {
+      var copy = el('button', 'track-copy', 'Copy link');
+      copy.type = 'button';
+      copy.addEventListener('click', function () {
+        navigator.clipboard.writeText(location.origin + '/track?code=' + encodeURIComponent(s.code)).then(function () {
+          copy.textContent = 'Link copied';
+          setTimeout(function () { copy.textContent = 'Copy link'; }, 2500);
+        }, function () { copy.textContent = 'Could not copy'; });
+      });
+      top.appendChild(copy);
+    }
+    hero.appendChild(top);
+    hero.appendChild(el('h2', 'track-status', offloaded ? 'Offloaded' : STATUS[s.status] || 'In progress'));
+    if (main) hero.appendChild(el('p', 'track-when', main));
+    if (sub) hero.appendChild(el('p', 'track-when-sub', sub));
+    if (pill) hero.appendChild(el('p', 'track-pill', pill));
 
     if (s.origin || s.destination) {
-      var route = el('p', 'track-route');
-      route.appendChild(el('span', null, s.origin || '-'));
-      route.appendChild(el('span', 'track-arrow', ' → '));
-      route.appendChild(el('span', null, s.destination || '-'));
-      card.appendChild(route);
+      var route = el('div', 'track-route');
+      var from = el('p', null, 'From');
+      from.appendChild(el('strong', null, s.origin || '-'));
+      var to = el('p', null, 'To');
+      to.appendChild(el('strong', null, s.destination || '-'));
+      route.appendChild(from);
+      route.appendChild(to);
+      hero.appendChild(route);
     }
 
-    var dl = el('dl', 'track-facts');
-    if (s.status === 'delivered') row(dl, 'Delivered on', fmtDate(s.delivered_on) || 'Delivered');
-    else if (s.status === 'arrived') row(dl, 'Arrived', arrivedText(s.milestones));
-    else {
-      row(dl, 'Estimated arrival', etaText(s.eta));
-      row(dl, 'First estimate', firstText(s.eta));
-      row(dl, 'Last known location', zoneText(s.zone));
+    var steps = progressSteps(s, ms);
+    var bar = el('ol', 'track-steps');
+    bar.setAttribute('aria-label', 'Progress');
+    steps.forEach(function (st) {
+      var li = el('li', 'is-' + st.state);
+      var dot = el('span', 'track-dot');
+      if (st.state === 'done') dot.appendChild(icon('check'));
+      li.appendChild(dot);
+      li.appendChild(el('span', 'track-step-label', st.label));
+      if (st.state !== 'todo') {
+        li.appendChild(el('span', 'sr-only', st.state === 'done' ? ' (done)' : ' (current)'));
+        if (st.state === 'now') li.setAttribute('aria-current', 'step');
+      }
+      bar.appendChild(li);
+    });
+    hero.appendChild(bar);
+
+    if (!delivered && s.status !== 'arrived') {
+      var loc = zoneText(s.zone);
+      if (loc) {
+        var lp = el('p', 'track-loc', 'Last known location: ');
+        lp.appendChild(el('strong', null, loc));
+        hero.appendChild(lp);
+      }
     }
-    card.appendChild(dl);
 
     // ePOD: the Worker's link is a signed Supabase link valid for 5 minutes, so each click
     // asks the Worker again for a fresh one, then navigates in the same tab (the link sends
     // Content-Disposition: attachment). window.open() after an async fetch is blocked on phones.
     if (isHttps(s.epod_url)) {
-      var btn = el('button', 'track-btn', 'Download ePOD');
+      var box = el('div', 'track-epod');
+      var txt = el('p', null);
+      txt.appendChild(el('strong', null, 'Proof of delivery'));
+      txt.appendChild(el('span', null, 'PDF document'));
+      box.appendChild(txt);
+      var btn = el('button', 'track-btn track-btn--ok', 'Download ePOD');
       btn.type = 'button';
       var note = el('p', 'track-note track-epod-note');
       note.hidden = true;
@@ -231,44 +339,74 @@
           note.hidden = false;
         });
       });
-      card.appendChild(btn);
-      card.appendChild(note);
+      box.appendChild(btn);
+      hero.appendChild(box);
+      hero.appendChild(note);
+    }
+    out.appendChild(hero);
+
+    // 2. Waiting time as tiles.
+    var waits = waitRows(ms, delivered);
+    if (waits.length) {
+      var wcard = el('section', 'track-card');
+      wcard.appendChild(el('h2', 'track-sub', 'Waiting time'));
+      var tiles = el('dl', 'track-tiles');
+      waits.forEach(function (w) {
+        var t = el('div', 'track-tile');
+        t.appendChild(el('dt', null, w[0]));
+        t.appendChild(el('dd', null, w[1]));
+        tiles.appendChild(t);
+      });
+      wcard.appendChild(tiles);
+      out.appendChild(wcard);
     }
 
-    var ms = Array.isArray(s.milestones) ? s.milestones.slice() : [];
-    // Delays reported after arrival (e.g. offloaded, waiting for POD) stay in the office records but are
-    // not shown to clients, so they don't read as a problem with the delivery.
-    var arrivedAt = '';
-    ms.forEach(function (m) { if (m && m.type === 'arrived' && String(m.at) > arrivedAt) arrivedAt = String(m.at); });
-    if (arrivedAt) ms = ms.filter(function (m) { return !(m && m.type === 'issue' && String(m.at) > arrivedAt); });
-    var waits = waitRows(ms, s.status === 'delivered');
-    if (waits.length) {
-      card.appendChild(el('h2', 'track-sub', 'Waiting time'));
-      var wdl = el('dl', 'track-facts');
-      waits.forEach(function (w) { row(wdl, w[0], w[1]); });
-      card.appendChild(wdl);
-    }
+    // 3. Updates, newest first, grouped by day; the first few shown, the rest behind "Show all".
     ms.sort(function (x, y) { return String(y.at).localeCompare(String(x.at)); });
     if (ms.length) {
-      card.appendChild(el('h2', 'track-sub', 'Progress'));
-      var ol = el('ol', 'track-timeline');
-      ms.forEach(function (m) {
-        var li = el('li', m.type === 'issue' ? 'is-issue' : null);
-        li.appendChild(el('span', 'track-label', m.label || ''));
-        var t = fmtTime(m.at);
+      var ucard = el('section', 'track-card');
+      ucard.appendChild(el('h2', 'track-sub', 'Shipment updates'));
+      var hidden = [], day = null, ol = null;
+      ms.forEach(function (m, i) {
+        var d = fmtDay(m.at) || 'Date unknown';
+        if (d !== day) {
+          day = d;
+          var dh = el('h3', 'track-day', d);
+          ol = el('ol', 'track-timeline');
+          ucard.appendChild(dh);
+          ucard.appendChild(ol);
+          if (i >= SHOW_FIRST) { dh.hidden = true; hidden.push(dh); }
+        }
+        var li = el('li', (i === 0 ? 'is-current ' : '') + (m.type === 'issue' ? 'is-issue' : ''));
+        var ic = el('span', 'track-ic');
+        ic.appendChild(icon(m.type === 'unloaded' ? 'box' : TYPE_ICON[m.type]));
+        li.appendChild(ic);
+        var body = el('div', null);
+        body.appendChild(el('span', 'track-label', m.label || ''));
+        var t = fmtClock(m.at);
         if (t) {
           var time = el('time', null, t);
           time.dateTime = m.at;
-          li.appendChild(time);
+          body.appendChild(time);
         }
+        li.appendChild(body);
         ol.appendChild(li);
+        if (i >= SHOW_FIRST) { li.hidden = true; hidden.push(li); }
       });
-      card.appendChild(ol);
-      card.appendChild(el('p', 'track-note',
+      if (hidden.length) {
+        var more = el('button', 'track-more', 'Show all ' + ms.length + ' updates');
+        more.type = 'button';
+        more.addEventListener('click', function () {
+          hidden.forEach(function (n) { n.hidden = false; });
+          more.remove();
+        });
+        ucard.appendChild(more);
+      }
+      ucard.appendChild(el('p', 'track-note',
         'Times are Zambia time (CAT). Updates can take a few hours to appear.'));
+      out.appendChild(ucard);
     }
 
-    out.appendChild(card);
     out.hidden = false;
     out.focus();
   }
