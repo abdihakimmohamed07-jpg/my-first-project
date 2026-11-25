@@ -72,7 +72,8 @@ h1{font-family:var(--font-head);font-size:1.9rem;line-height:1.15;margin:0 0 18p
 .track-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:0;}
 .track-tile{background:var(--gray-100);border-radius:6px;padding:9px 12px;}
 .track-tile dt{font-size:.8rem;color:var(--gray-600);}
-.track-tile dd{margin:0;font-weight:700;font-size:1.05rem;}
+.track-tile dd{margin:0;font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums;}
+.track-still{display:block;width:max-content;margin-top:4px;padding:1px 8px;border-radius:999px;background:#fff4d6;color:#7a4d00;font-size:.72rem;font-weight:600;}
 .track-day{font-family:var(--font-body);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-600);margin:14px 0 8px;}
 .track-sub + .track-day{margin-top:0;}
 .track-timeline{list-style:none;margin:0;padding:0;}

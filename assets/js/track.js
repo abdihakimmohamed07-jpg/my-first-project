@@ -91,12 +91,14 @@
     return place + ', ' + t;
   }
 
-  // Waiting time, worked out from the milestones the Worker already sends (times are whole hours).
+  // Waiting time in days, hours and minutes, worked out from the milestones the Worker already sends (times are to
+  // the minute since driver-app SQL step 43; before that they were whole hours and minutes would have been made up).
   // At loading: arrived for loading -> loaded. At the border: arrived -> cleared (several borders add
   // up), or arrived -> arrived at destination when the driver never tapped Cleared border. At offloading: arrived
   // at destination -> "Offloaded, POD being processed", only once that milestone is here. A delay with one of the three named reasons runs from its first report until the next stage;
-  // "Delay reported" (any other problem) is never counted. A wait still open counts up to 3 hours ago,
-  // because milestones appear here only 3 hours after they happen, and says "so far".
+  // "Delay reported" (any other problem) is never counted. A wait still open counts up to 3 hours ago, never to the
+  // clock: milestones appear here only 3 hours after they happen, so a truck that left 2 hours ago still looks
+  // parked. It is tagged "Still waiting" and keeps counting while the page is open (see startWaitClock).
   var DELAY_WAITS = [
     ['Delay: waiting for documents', 'Waiting for documents'],
     ['Delay: waiting for seals', 'Waiting for seals'],
@@ -106,12 +108,12 @@
   function waitRows(ms, delivered) {
     var list = ms.filter(function (m) { return !isNaN(new Date(m.at)); })
       .sort(function (x, y) { return new Date(x.at) - new Date(y.at); });
-    var upTo = Math.floor((Date.now() - PUBLISH_LAG_MS) / 36e5) * 36e5;
+    var upTo = Math.floor((Date.now() - PUBLISH_LAG_MS) / 6e4) * 6e4;
     var sums = {};
     function add(key, from, to, open, note) {
-      var h = Math.max(0, Math.round((to - from) / 36e5));
-      var o = sums[key] || (sums[key] = { h: 0, open: false, note: '' });
-      o.h += h; o.open = o.open || open; o.note = o.note || note || '';
+      var min = Math.max(0, Math.floor((to - from) / 6e4));
+      var o = sums[key] || (sums[key] = { min: 0, open: false, note: '' });
+      o.min += min; o.open = o.open || open; o.note = o.note || note || '';
     }
     function nextStage(i, types) {
       for (var j = i + 1; j < list.length; j++) {
@@ -153,10 +155,25 @@
     });
     var order = ['At loading', 'At the border', 'Waiting for documents', 'Waiting for seals', 'Waiting for loading', 'At offloading'];
     return order.filter(function (k) { return sums[k]; }).map(function (k) {
-      var h = sums[k].h;
-      var text = h < 24 ? h + ' h' : Math.floor(h / 24) + ' d ' + (h % 24) + ' h';
-      return [k, text + (sums[k].open ? ' so far' : sums[k].note ? ' (' + sums[k].note + ')' : '')];
+      return [k, durText(sums[k].min) + (sums[k].note ? ' (' + sums[k].note + ')' : ''), sums[k].open];
     });
+  }
+  // 3125 minutes -> "2d 4h 5m"; under a day "4h 5m"; under an hour "5m".
+  function durText(min) {
+    var d = Math.floor(min / 1440), h = Math.floor(min % 1440 / 60), m = min % 60;
+    return d ? d + 'd ' + h + 'h ' + m + 'm' : h ? h + 'h ' + m + 'm' : m + 'm';
+  }
+  // While a wait is open, recount it every minute so it runs like a clock (still up to 3 hours ago).
+  var waitTimer = null;
+  function startWaitClock(ms, delivered, dds) {
+    clearInterval(waitTimer);
+    waitTimer = setInterval(function () {
+      if (!document.body.contains(dds[0].node)) return clearInterval(waitTimer);
+      var now = waitRows(ms, delivered);
+      dds.forEach(function (x) {
+        now.forEach(function (w) { if (w[0] === x.key && w[2]) x.node.firstChild.nodeValue = w[1]; });
+      });
+    }, 6e4);
   }
 
   function message(title, body, kind) {
@@ -346,17 +363,25 @@
     out.appendChild(hero);
 
     // 2. Waiting time as tiles.
+    clearInterval(waitTimer);
     var waits = waitRows(ms, delivered);
     if (waits.length) {
+      var openDds = [];
       var wcard = el('section', 'track-card');
       wcard.appendChild(el('h2', 'track-sub', 'Waiting time'));
       var tiles = el('dl', 'track-tiles');
       waits.forEach(function (w) {
         var t = el('div', 'track-tile');
         t.appendChild(el('dt', null, w[0]));
-        t.appendChild(el('dd', null, w[1]));
+        var dd = el('dd', null, w[1]);
+        if (w[2]) {
+          dd.appendChild(el('span', 'track-still', 'Still waiting'));
+          openDds.push({ key: w[0], node: dd });
+        }
+        t.appendChild(dd);
         tiles.appendChild(t);
       });
+      if (openDds.length) startWaitClock(ms.slice(), delivered, openDds);
       wcard.appendChild(tiles);
       out.appendChild(wcard);
     }

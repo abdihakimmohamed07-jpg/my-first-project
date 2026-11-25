@@ -1,9 +1,9 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
-Status: Live at octanetransport.com; tracking page redesign (status header, progress bar) in PR (23 Nov 2026)
+Status: Live at octanetransport.com; tracking page waiting times in days, hours and minutes in PR, waiting on driver-app SQL step 43 (25 Nov 2026)
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 23 November 2026 (tracking page redesign: status header, progress bar, updates by day, ePOD block; earlier the same day: Status line added under the title; earlier, 21 November 2026: tracking page: "Offloaded, POD being processed" and the offloading wait; earlier: arrival time instead of ETA; delays after arrival hidden)
+**Last updated:** 25 November 2026 (tracking page waiting times in days, hours and minutes, running while still waiting; earlier, 23 November 2026: tracking page redesign: status header, progress bar, updates by day, ePOD block; earlier the same day: Status line added under the title; earlier, 21 November 2026: tracking page: "Offloaded, POD being processed" and the offloading wait; earlier: arrival time instead of ETA; delays after arrival hidden)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -108,6 +108,8 @@ Status: Live at octanetransport.com; tracking page redesign (status header, prog
 - [x] **Offloaded before the POD (21 Nov 2026):** drivers get an "Offloaded" tap (driver app SQL step 37, published with the next driver-app batch). The Worker then sends a milestone `unloaded`, "Offloaded, POD being processed"; the status stays `arrived`. `/track` shows that text on the status badge and adds a "Waiting time → At offloading" row (arrived → Offloaded). The row appears only once the Offloaded milestone is there: never an open "so far" wait and never counted to the POD, which can come back days later (until the driver app is published, no trip has the milestone, so nothing changes). No Worker change.
 - [x] **Tracking page redesign (23 Nov 2026):** `/track` now looks like the big carriers' pages (DHL, FedEx, Maersk), using only data the Worker already sends: a status header (large status, the ETA / arrival / delivery date, a pill when delayed, From/To, last known location) with a progress bar Loaded, Departed, Border, Arrived, Delivered (the Border step appears only once a border milestone, border status or border ETA is there, never guessed); waiting times as tiles; "Shipment updates" grouped by day in Zambia time with an icon per milestone, newest 3 shown and the rest behind "Show all N updates"; a green "Proof of delivery" block with the Download ePOD button when delivered; a "Copy link" button. No map: it would need truck positions, against the 3-hour anti-theft rule. No Worker or SQL change; all earlier rules kept (delays after arrival hidden, Offloaded state, waiting-time maths, ePOD refetch).
 
+- [x] **Waiting times to the minute (25 Nov 2026):** the "Waiting time" tiles on `/track` show days, hours and minutes (`2d 5h 14m`, `durText` in track.js) instead of whole hours. A wait still open has a yellow "Still waiting" tag (replaces "so far") and counts up every minute while the page is open (`startWaitClock`), always to 3 hours ago, never to the clock, so it can never read longer than the real wait (a truck that left 2 hours ago still looks parked). It stops when the next milestone is published. Needs driver-app SQL step 43 first (milestone times to the minute instead of the hour); before that, minutes would be invented. No Worker change.
+
 - [x] **Status line (23 Nov 2026):** a one-sentence `Status:` line now sits directly under the title of this file, so the owner's project panel can show where the site stands. Documentation only: no site, Worker or profile change. Update it whenever the last-updated line changes.
 
 ## 3. Pending / to do
@@ -211,6 +213,7 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 16 Nov | Homepage gets a "Track a shipment" box; sales messaging stays off `/track` | Gives clients an easy way in from the homepage while the tracking page stays a plain, focused tool (Abdi) |
 | 16 Nov | Every website change updates this file (PROJECT.md) in the same PR | Abdi's standing rule, restated 16 Nov |
 | 18 Nov | A truck stuck at the border past the usual wait shows an earliest arrival date that moves forward each day, not a date range; the first estimate stays visible | Nobody knows the latest date while it waits; a slipping range reads as broken promises (Abdi) |
+| 25 Nov | Waiting times in days, hours and minutes; an open wait runs like a clock but only up to 3 hours ago | Abdi wanted a running clock that stops when the truck moves; counting to the real clock would overstate waits by 3 h or more once the truck has left, and the numbers may be used for demurrage |
 | 19 Nov | Clients see waiting time at loading, at the border and for named delays, but never for "Delay reported" (breakdowns) | Abdi wants clients to see their delays (19 Nov), accepting that border hours can come up in demurrage talks |
 
 ---
