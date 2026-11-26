@@ -7,7 +7,7 @@ step), so these are not served on the website (all still readable on GitHub,
 since the repo is public). Everything else in the repo IS public (e.g. `/README.md`).
 Keep secrets out of the repo.
 
-Last updated: 2026-11-25 (/track waiting times in days, hours, minutes).
+Last updated: 2026-11-26 (/track route points box).
 
 ## The site
 
@@ -233,3 +233,4 @@ Last updated: 2026-11-25 (/track waiting times in days, hours, minutes).
 | 21 Nov | `/track` milestone `unloaded` ("Offloaded, POD being processed", driver-app SQL step 37): badge shows it while status is `arrived`; waitRows adds "At offloading" (arrived → next stage if it is `unloaded`), closed only, never to the POD. No Worker change |
 | 23 Nov | `/track` redesign (DHL-style), track.js `render` + track.css only: `.track-hero` status header (status, `etaHero` date line, delay pill, From/To, `.track-steps` progress bar from `progressSteps`: Border step only when a border milestone/status/`border_delay` ETA exists), waiting-time tiles, updates grouped by Lusaka day with inline-SVG icons (`TYPE_ICON`), first 3 shown then "Show all", green ePOD block, Copy link (clipboard API only). No map (positions = anti-theft). No Worker or SQL change |
 | 25 Nov | `/track` waiting times as `Xd Yh Zm` (`durText`); an open wait gets a "Still waiting" tag and recounts every minute (`startWaitClock`), always to now minus 3 h, never the clock. Relies on driver-app SQL step 43 (milestones to the minute); never show minutes from hour-rounded times. No Worker change |
+| 26 Nov | `/track` "Route points passed X of Y" box under the progress bar (`routePoints` + `.track-points`): from the Worker's `route_points` {passed, total, last_name, last_at} (driver-app SQL step 44, Worker re-paste). Only the latest point by name, never a list; truck parks/villages are left out by the SQL; never mention the 3-hour delay on the page (Abdi). Hidden on arrival/delivery and when counts don't make sense. Bar width set via `el.style.width` (CSSOM, allowed by the `style-src 'self'` CSP; never a `style` attribute) |
