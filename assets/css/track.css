@@ -60,6 +60,12 @@ h1{font-family:var(--font-head);font-size:1.9rem;line-height:1.15;margin:0 0 18p
 .track-step-label{display:block;overflow-wrap:anywhere;}
 .track-loc{margin:14px 0 0;background:var(--gray-100);border-radius:6px;padding:9px 12px;font-size:.9rem;}
 .track-loc strong{font-weight:600;}
+.track-points{margin:14px 0 0;background:var(--gray-100);border-radius:6px;padding:10px 12px;font-size:.9rem;}
+.track-points p{margin:0;}
+.track-points-head{display:flex;justify-content:space-between;gap:12px;}
+.track-points-head strong,.track-points-last strong{font-weight:600;}
+.track-points-bar{height:6px;border-radius:3px;background:#cfd3d8;margin:8px 0;overflow:hidden;}
+.track-points-bar span{display:block;height:100%;background:var(--ok);border-radius:3px;}
 /* ePOD */
 .track-epod{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:16px;background:#e3f3e8;border-radius:6px;padding:12px 14px;}
 .track-epod p{margin:0;flex:1;min-width:140px;font-size:.9rem;}

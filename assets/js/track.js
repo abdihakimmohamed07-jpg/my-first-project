@@ -91,6 +91,16 @@
     return place + ', ' + t;
   }
 
+  // Route points from the Worker, or null: whole counts, 1 <= passed <= total; the name only with its time.
+  function routePoints(r) {
+    if (!r || typeof r !== 'object') return null;
+    var p = r.passed, t = r.total;
+    if (typeof p !== 'number' || typeof t !== 'number' || p % 1 || t % 1 || p < 1 || p > t) return null;
+    var when = fmtTime(r.last_at);
+    var name = typeof r.last_name === 'string' ? r.last_name.trim() : '';
+    return { passed: p, total: t, last: name && when ? name + ', ' + when : '' };
+  }
+
   // Waiting time in days, hours and minutes, worked out from the milestones the Worker already sends (times are to
   // the minute since driver-app SQL step 43; before that they were whole hours and minutes would have been made up).
   // At loading: arrived for loading -> loaded. At the border: arrived -> cleared (several borders add
@@ -317,6 +327,32 @@
       bar.appendChild(li);
     });
     hero.appendChild(bar);
+
+    // Route points (driver-app SQL step 44): "6 of 10" and the latest point by name only, never a list. The
+    // database already leaves out truck parks and villages and applies the publishing delay; the page never mentions it.
+    var rp = !delivered && s.status !== 'arrived' ? routePoints(s.route_points) : null;
+    if (rp) {
+      var rbox = el('div', 'track-points');
+      var rhead = el('p', 'track-points-head', 'Route points passed');
+      rhead.appendChild(el('strong', null, rp.passed + ' of ' + rp.total));
+      rbox.appendChild(rhead);
+      var rbar = el('div', 'track-points-bar');
+      rbar.setAttribute('role', 'progressbar');
+      rbar.setAttribute('aria-label', 'Route points passed');
+      rbar.setAttribute('aria-valuemin', '0');
+      rbar.setAttribute('aria-valuemax', String(rp.total));
+      rbar.setAttribute('aria-valuenow', String(rp.passed));
+      var fill = el('span', null);
+      fill.style.width = Math.round(100 * rp.passed / rp.total) + '%';
+      rbar.appendChild(fill);
+      rbox.appendChild(rbar);
+      if (rp.last) {
+        var rlast = el('p', 'track-points-last', 'Last passed: ');
+        rlast.appendChild(el('strong', null, rp.last));
+        rbox.appendChild(rlast);
+      }
+      hero.appendChild(rbox);
+    }
 
     if (!delivered && s.status !== 'arrived') {
       var loc = zoneText(s.zone);
