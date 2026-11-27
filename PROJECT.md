@@ -1,9 +1,9 @@
 # Octane Transport — Website, Company Profile & Digital Channels
 
-Status: Live at octanetransport.com; tracking page "Route points passed" box in PR, waiting on driver-app SQL step 44 and a Worker re-paste (26 Nov 2026)
+Status: Live at octanetransport.com; tracking page brand band in PR (27 Nov 2026)
 
 **Owner:** Abdi Hakim Mohamed, Managing Director, Octane Transport Zambia Limited
-**Last updated:** 26 November 2026 (tracking page: "Route points passed X of Y" box with only the latest point named; earlier, 25 November 2026: tracking page waiting times in days, hours and minutes, running while still waiting; earlier, 23 November 2026: tracking page redesign: status header, progress bar, updates by day, ePOD block; earlier the same day: Status line added under the title; earlier, 21 November 2026: tracking page: "Offloaded, POD being processed" and the offloading wait; earlier: arrival time instead of ETA; delays after arrival hidden)
+**Last updated:** 27 November 2026 (tracking page: dark Octane brand band with faint red route lines behind the title and search box; earlier, 26 November 2026: tracking page: "Route points passed X of Y" box with only the latest point named; earlier, 25 November 2026: tracking page waiting times in days, hours and minutes, running while still waiting; earlier, 23 November 2026: tracking page redesign: status header, progress bar, updates by day, ePOD block; earlier the same day: Status line added under the title; earlier, 21 November 2026: tracking page: "Offloaded, POD being processed" and the offloading wait; earlier: arrival time instead of ETA; delays after arrival hidden)
 **Scope:** website (octanetransport.com), Company Profile (PDF/MD), enquiry handling, WhatsApp Business, fleet imagery, and the website chatbot.
 **Out of scope:** accounts, truck statements, FQM registration, holding company, and other Octane workstreams (these stay in their own projects).
 
@@ -113,6 +113,7 @@ Status: Live at octanetransport.com; tracking page "Route points passed" box in 
 - [x] **Status line (23 Nov 2026):** a one-sentence `Status:` line now sits directly under the title of this file, so the owner's project panel can show where the site stands. Documentation only: no site, Worker or profile change. Update it whenever the last-updated line changes.
 
 - [x] **Route points passed (26 Nov 2026, design agreed with Abdi 25 Nov):** on corridor trips `/track` shows a box under the progress bar: "Route points passed 6 of 10", a green bar, and "Last passed: <point>, <time>" (`routePoints` in track.js, `.track-points` in track.css). Only the latest point, never a list; the driver-app database leaves out truck parks and villages, applies the usual 3-hour publishing delay and does the counting (driver-app SQL step 44). The page never mentions the delay (Abdi). Hidden when the Worker sends no `route_points`, on arrival and after delivery; a count that doesn't make sense (0, or more passed than total) is ignored. Needs driver-app SQL step 44 and the Worker re-pasted first; before that the box just doesn't show.
+- [x] **Brand band (27 Nov 2026, Abdi chose option 1 of 3 samples, without the watermark):** on `/track` the title and search box sit on a full-width charcoal band (`.t-band`) with faint red dashed route lines and a red bottom edge; the first result card overlaps the band, and all tracking content stays on white cards on light grey. The pattern is `assets/img/track-routes.svg` (under 1 KB, a file because the page CSP allows only `img-src 'self'`, no `data:` images). The logo bar stays white because `logo-300.webp` has dark lettering. Samples: driver-app project files `tracking-redesign/backgrounds/`.
 
 ## 3. Pending / to do
 
@@ -217,6 +218,7 @@ Nothing below is on the website. Supply any of these and they can be added.
 | 18 Nov | A truck stuck at the border past the usual wait shows an earliest arrival date that moves forward each day, not a date range; the first estimate stays visible | Nobody knows the latest date while it waits; a slipping range reads as broken promises (Abdi) |
 | 25 Nov | Waiting times in days, hours and minutes; an open wait runs like a clock but only up to 3 hours ago | Abdi wanted a running clock that stops when the truck moves; counting to the real clock would overstate waits by 3 h or more once the truck has left, and the numbers may be used for demurrage |
 | 26 Nov | Route points: a count and the latest point by name, never the list of points; truck parks and villages never named; no mention of the delay | Abdi wanted clients to see progress along the corridor without the page becoming a trail of where trucks stop overnight (anti-theft); full checkpoint history stays in the office app |
+| 27 Nov | Tracking page: brand colour only in a band behind the title and search box, results on white cards; no logo watermark, no dark full page | Follows how the big carriers style tracking pages and stays readable outdoors on phones; the watermark was hidden on phones and duplicated the logo already in the header (Abdi agreed) |
 | 19 Nov | Clients see waiting time at loading, at the border and for named delays, but never for "Delay reported" (breakdowns) | Abdi wants clients to see their delays (19 Nov), accepting that border hours can come up in demurrage talks |
 
 ---

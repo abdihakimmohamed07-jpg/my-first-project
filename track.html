@@ -22,16 +22,22 @@
   <a href="/" class="t-brand"><img src="/assets/img/logo-300.webp" alt="Octane Transport Zambia Limited" width="300" height="82"></a>
 </header>
 <main class="t-main">
-  <h1>Track a shipment</h1>
-  <form id="track-form" class="t-form" novalidate>
-    <label for="track-code">Tracking code</label>
-    <div class="t-row">
-      <input id="track-code" name="code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="OTZ-ABCDE-23456" maxlength="20">
-      <button type="submit">Track</button>
+  <div class="t-band">
+    <div class="t-wrap">
+      <h1>Track a shipment</h1>
+      <form id="track-form" class="t-form" novalidate>
+        <label for="track-code">Tracking code</label>
+        <div class="t-row">
+          <input id="track-code" name="code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="OTZ-ABCDE-23456" maxlength="20">
+          <button type="submit">Track</button>
+        </div>
+      </form>
     </div>
-  </form>
-  <section id="track-result" class="t-result" tabindex="-1" aria-live="polite" hidden></section>
-  <noscript><p class="track-msg">This page needs JavaScript. Call +260 973 821 013 for an update on your shipment.</p></noscript>
+  </div>
+  <div class="t-wrap t-content">
+    <section id="track-result" class="t-result" tabindex="-1" aria-live="polite" hidden></section>
+    <noscript><p class="track-msg">This page needs JavaScript. Call +260 973 821 013 for an update on your shipment.</p></noscript>
+  </div>
 </main>
 <footer class="t-footer">
   <p>Questions about your shipment? Call <a href="tel:+260973821013">+260 973 821 013</a> or email <a href="mailto:info@octanetransport.com">info@octanetransport.com</a>.</p>
